@@ -1,4 +1,4 @@
-<img src="https://slackmojis.com/emojis/9458-jmr_midnightwhisps/" />
+<img src="https://miro.medium.com/max/1400/0*goaFvkjpQM-0p0h6." />
 
 # Hey there 👋 Myself **Ranjan**!
 
