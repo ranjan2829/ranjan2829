@@ -1,4 +1,4 @@
-<img src="https://miro.medium.com/max/1400/0*goaFvkjpQM-0p0h6." />
+<img src="https://repository-images.githubusercontent.com/289382429/e9c6ec80-8902-11eb-9f55-5de819da8bf5" />
 
 # Hey there 👋 Myself **Ranjan**!
 
