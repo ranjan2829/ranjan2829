@@ -6,7 +6,7 @@
 I'm a 19 y/o engineering student working around **Design & Code** with interest ranging from building products to Ai, psychology, gaming and photography.
 
 
-## 🧑🏻‍💻 **Skill set :**
+## 🧑🏻‍💻 **Skill set ! :**
 
 
 ![c](https://img.shields.io/badge/C-00599C?style=flat&logo=c&logoColor=white)
