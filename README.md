@@ -7,7 +7,7 @@ I'm a 19 y/o engineering student working around **Design & Code** with interest 
 
 
 ## 🧑🏻‍💻 **Skill set ! :**
-
+[![Visitors](https://api.visitorbadge.io/api/visitors?path=ranjan2829&labelColor=%2337d67a&countColor=%23f47373)](https://visitorbadge.io/status?path=ranjan2829)
 
 ![c](https://img.shields.io/badge/C-00599C?style=flat&logo=c&logoColor=white)
 ![cpp](https://img.shields.io/badge/C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white)
