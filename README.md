@@ -3,7 +3,7 @@
 # Hey there 👋 Myself **Ranjan**!
 
 
-I'm a 19 y/o engineering student working around **Design & Code** with interest ranging from building products to AI,Coding,Trading,Devops,DSA.
+I'm a 19 y/o engineering student  working around **Design & Code** with interest ranging from building products to AI,Coding,Trading,Devops,DSA.
 
 
 ## 🧑🏻‍💻 **Skill set ! :**
