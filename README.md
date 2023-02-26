@@ -1,6 +1,6 @@
 <img src="https://repository-images.githubusercontent.com/289382429/e9c6ec80-8902-11eb-9f55-5de819da8bf5" />
 
-# Hey there 👋 Myself **Ranjan **!
+# Hey there 👋 Myself **Ranjan**!
 
 
 I'm a 19 y/o engineering student  working around **Design & Code** with interest ranging from building products to AI,Coding,Trading,Devops,DSA.
