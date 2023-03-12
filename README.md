@@ -14,8 +14,11 @@
 ![cpp](https://img.shields.io/badge/C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white)
 ![Java](https://img.shields.io/badge/-Java-05122A?style=flat&logo=Java&logoColor=FFA518)
 ![Python](https://img.shields.io/badge/-Python-05122A?style=flat&logo=python)
+![Docker](https://img.shields.io/badge/-docker-0db7ed?style=for-the-badge&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/-kubernetes-3970e4?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Git](https://img.shields.io/badge/-git-F1502F?style=for-the-badge&logo=git&logoColor=white)
 
-![Git](https://img.shields.io/badge/-Git-05122A?style=flat&logo=git)
+
 ![Github](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)
 
 
