@@ -1,4 +1,4 @@
-<img src="https://repository-images.githubusercontent.com/289382429/e9c6ec80-8902-11eb-9f55-5de819da8bf5" />
+
 
 # Hey there 👋 Myself  **Ranjan**!
 
@@ -37,6 +37,7 @@
     <img width = 48% src = "https://github-readme-stats.vercel.app/api?username=ranjan2829"/>
     <img width = 48% src = "https://github-readme-streak-stats.herokuapp.com/?user=ranjan2829"/>
 </p>
+<img src="https://repository-images.githubusercontent.com/289382429/e9c6ec80-8902-11eb-9f55-5de819da8bf5" />
 
 
 
