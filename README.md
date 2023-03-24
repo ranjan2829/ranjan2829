@@ -1,6 +1,6 @@
 
 
-# Hey there 👋 Myself  **Ranjan **!
+# Hey there 👋 Myself  **Ranjan**!
 
 
 [![Visitors](https://api.visitorbadge.io/api/visitors?path=ranjan2829&labelColor=%2337d67a&countColor=%23f47373)](https://visitorbadge.io/status?path=ranjan2829)
