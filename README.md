@@ -6,7 +6,7 @@
 [![Visitors](https://api.visitorbadge.io/api/visitors?path=ranjan2829&labelColor=%2337d67a&countColor=%23f47373)](https://visitorbadge.io/status?path=ranjan2829)
 
 
- # I'm a 19 y/o engineering student working around **Code** with interest ranging from building products to AI,Coding,Trading,Devops,Docker,Java, kubernetes,DSA.
+ # I'm a 19 y/o engineering student working around **Code** with interest ranging from building products to AI,Coding,Trading,Devops,Docker,Java, kubernetes,DSA,Quant.
 [![Ranjan's github activity graph](https://github-readme-activity-graph.cyclic.app/graph?username=ranjan2829&theme=dracula)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
 
