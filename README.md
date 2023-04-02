@@ -10,7 +10,7 @@
 [![Ranjan's github activity graph](https://github-readme-activity-graph.cyclic.app/graph?username=ranjan2829&theme=dracula)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
 
-## 🧑🏻‍💻 **Skill set ! :**
+## 🧑🏻‍💻 **Skill set !:**
 
 
 ![c](https://img.shields.io/badge/C-00599C?style=flat&logo=c&logoColor=white)
