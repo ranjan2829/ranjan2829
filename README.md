@@ -24,12 +24,6 @@
 </p>
 
 
-## 📊 **Github Stats  :** 
-
-<p align = "center" >
-    <img width = 48% src = "https://github-readme-stats.vercel.app/api?username=ranjan2829"/>
-    <img width = 48% src = "https://github-readme-streak-stats.herokuapp.com/?user=ranjan2829"/>
-</p>
 
 
 
