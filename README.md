@@ -13,7 +13,7 @@
 
 
 
- # I'm a 19 y/o engineering student working  around **Code** with interest ranging from building products to AI,Coding,Trading,Devops,Docker,Java, kubernetes,DSA !
+ # I'm a 20 y/o engineering student working  around **Code** with interest ranging from building products to AI,Coding,Trading,Devops,Docker,Java, kubernetes,DSA !
 [![Ranjan's github activity graph](https://github-readme-activity-graph.cyclic.app/graph?username=ranjan2829&theme=dracula)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
 ## 🚀 **Socials  :**
