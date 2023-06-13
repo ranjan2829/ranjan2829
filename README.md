@@ -14,7 +14,7 @@
 
 
  # I'm a engineering student working  around **Code** with interest ranging from AI,Coding,Trading,Devops,Docker,Java, kubernetes,DSA !
-[![Ranjan's github activity graph](https://github-readme-activity-graph.cyclic.app/graph?username=ranjan2829&theme=dracula)]
+
 
 ## 🚀 **Socials  :**
 <p align = "center">
