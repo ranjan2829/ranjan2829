@@ -4,6 +4,9 @@
 
 ## 🚀 **Tech Enthusiast:**
 - 🌐 AI, Coding, Trading, DevOps, Docker, Java, Kubernetes, DSA lover!
+- 📈 Quant Development & Trading Enthusiast 📉
+- ⚡️ Low Latency Advocate ⚡️
+- 👾 Rustacean exploring the world of Rust!
 
 ## 📱 **Connect with me:**
 <p align="center">
@@ -23,6 +26,7 @@
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Git](https://img.shields.io/badge/-git-F1502F?style=for-the-badge&logo=git&logoColor=white)
 ![Github](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)
+![Rust](https://img.shields.io/badge/Rust-black?style=for-the-badge&logo=rust&logoColor=#dea584)
 
 # 📊 **GitHub Stats:**
 ![](https://github-readme-streak-stats.herokuapp.com/?user=ranjan2829&theme=dark&hide_border=false)
