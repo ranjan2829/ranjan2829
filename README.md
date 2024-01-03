@@ -22,6 +22,7 @@
 <p align = "center">
     <a href= "https://twitter.com/Ranjancosmos"><img src= "https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white"/></a>
     <a href = "https://www.linkedin.com/in/ranjan-shitole-8b8484123"><img src= "https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
+    <a href = "https://leetcode.com/ranjanshitole/"><img src= "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.m.wikipedia.org%2Fwiki%2FFile%3ALeetCode_Logo_black_with_text.svg&psig=AOvVaw3rwvAAtlH_KzgzE4ALe2r7&ust=1704370338924000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCMilzbiYwYMDFQAAAAAdAAAAABAD"/></a>
 
 </p>
 
