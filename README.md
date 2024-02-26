@@ -79,6 +79,6 @@ GYM                 17 mins         ▓░░░░░░░░░░░░░�
       <details open><summary>Worldmap</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.worldmap.svg" alt=""></img></details>
     </td>
     <td align="center">
-      <details open><summary>GitHub Skyline</summary><a href="https://skyline.github.com/charmve/2023"><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg" alt=""></img></a></details>
+      <details open><summary>GitHub Skyline</summary><a href="https://skyline.github.com/ranjan2829/2023"><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg" alt=""></img></a></details>
 
 
