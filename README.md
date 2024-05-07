@@ -53,16 +53,7 @@
 [![Binder](https://img.shields.io/badge/Binder-black?style=flat-square&logo=binder)](https://mybinder.org/)
 [![Docker](https://img.shields.io/badge/Docker-black?style=flat-square&logo=docker)](https://www.docker.com/)
 
-📊 **This Week I Spent My Time On:**
-<!--START_SECTION:waka-->
-```text
-C/C++               5 hrs 2 mins    ██████████████░░░░░░░░░░░   0 % 
-Quant               8 hr 11 mins    ███▒░░░░░░░░░░░░░░░░░░░░░   0 % 
-Low Latency/HFT     1 hr 7 mins     ███░░░░░░░░░░░░░░░░░░░░░░   0 % 
-Trading             34 mins         █▓░░░░░░░░░░░░░░░░░░░░░░░   0 % 
-GYM                 17 mins         ▓░░░░░░░░░░░░░░░░░░░░░░░░   0 % 
-```
-<!--END_SECTION:waka-->
+
 
 
 </td>
