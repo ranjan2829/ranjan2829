@@ -3,10 +3,7 @@
 [![Visitors](https://api.visitorbadge.io/api/visitors?path=ranjan2829&labelColor=%2337d67a&countColor=%23f47373)](https://visitorbadge.io/status?path=ranjan2829)
 
 ## 🚀 **Tech Enthusiast:**
-- 🌐 AI, Coding, Trading, DevOps, Docker, Java, Kubernetes, DSA lover!
-- 📈 Quant Development & Trading Enthusiast 📉
-- ⚡️ Low Latency Advocate ⚡️
-- 👾 Rustacean exploring the world of Rust!
+-Building in private >>>>>>>>>>!!!1
 
 ## 📱 **Connect with me:**
 <p align="center">
