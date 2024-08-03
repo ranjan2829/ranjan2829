@@ -9,12 +9,38 @@ document.addEventListener('DOMContentLoaded', () => {
         contact: 'Email: ranjan@example.com'
     };
 
+    function simulateTyping(text, callback) {
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i < text.length) {
+                output.innerHTML += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(interval);
+                callback();
+            }
+        }, 50);
+    }
+
+    function processCommand(command) {
+        if (commands[command]) {
+            output.innerHTML += '<br><span class="typing">' + commands[command] + '</span>';
+        } else {
+            output.innerHTML += '<br><span class="typing">Command not found: ' + command + '. Type "help" for a list of commands.</span>';
+        }
+    }
+
     input.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             const command = input.value.trim();
-            const response = commands[command] || `'${command}' is not a recognized command. Type 'help' for available commands.`;
-            output.innerHTML += `<div>${command}</div><div>${response}</div>`;
+            output.innerHTML += '<br><span class="prompt">ranjan@portfolio:~$</span> ' + command;
             input.value = '';
+            processCommand(command);
         }
+    });
+
+    // Initial welcome message
+    simulateTyping('Welcome to Ranjan\'s Portfolio. Type "help" for a list of commands.', () => {
+        output.innerHTML += '<br><span class="prompt">ranjan@portfolio:~$</span> ';
     });
 });

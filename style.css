@@ -7,63 +7,22 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    overflow: hidden;
 }
 
 .terminal {
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Subtle white shadow */
     width: 80%;
-    max-width: 600px;
-    border: 1px solid #444; /* Border color to enhance terminal feel */
-}
-
-.terminal-header {
-    background-color: #333; /* Darker header */
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.buttons {
-    display: flex;
-    gap: 5px;
-}
-
-.buttons span {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.red {
-    background-color: #ff605c;
-}
-
-.yellow {
-    background-color: #ffbd44;
-}
-
-.green {
-    background-color: #00ca4e;
-}
-
-.title {
-    color: #ffffff;
-    font-size: 14px;
-}
-
-.terminal-body {
-    background-color: #000000; /* Black body */
+    max-width: 800px;
+    border: 1px solid #333; /* Slight border */
+    border-radius: 5px;
     padding: 20px;
-    min-height: 300px;
-    overflow-y: auto;
-    border-top: 1px solid #444; /* Border between header and body */
+    background-color: #000; /* Terminal Black */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
-.prompt {
-    color: #00FF00; /* Green color for prompt */
+.terminal-output {
+    white-space: pre-wrap;
+    margin-bottom: 10px;
 }
 
 .terminal-input {
@@ -71,15 +30,50 @@ body {
     align-items: center;
 }
 
+.prompt {
+    color: #00FF00; /* Green prompt */
+}
+
 #input {
     background: none;
     border: none;
-    color: #FFFFFF; /* White text for input */
+    color: #FFFFFF; /* White text */
     font-family: 'Courier New', Courier, monospace;
     outline: none;
-    width: 100%;
+    flex-grow: 1;
 }
 
-#output div {
-    margin-bottom: 10px;
+#input::placeholder {
+    color: #888;
+}
+
+.cursor {
+    display: inline-block;
+    background: #fff;
+    width: 8px;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    from, to { background: transparent; }
+    50% { background: #fff; }
+}
+
+.typing {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid;
+    animation: typing 2s steps(30, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: white; }
 }
