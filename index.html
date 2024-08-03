@@ -3,17 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranjan's Terminal Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Your Name - Terminal Portfolio</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+        }
+        #terminal {
+            background-color: #000000;
+            border-radius: 10px;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+        }
+        #input {
+            background-color: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            width: 100%;
+            outline: none;
+        }
+        .prompt:before {
+            content: "$ ";
+        }
+    </style>
 </head>
 <body>
-    <div class="terminal">
-        <div id="output" class="terminal-output"></div>
-        <div class="terminal-input">
-            <span class="prompt">ranjan@portfolio:~$</span>
-            <input type="text" id="input" autofocus autocomplete="off">
+    <div id="terminal">
+        <div id="output"></div>
+        <div class="prompt">
+            <input type="text" id="input" autofocus>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        const input = document.getElementById('input');
+        const output = document.getElementById('output');
+
+        input.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                const command = input.value.toLowerCase();
+                processCommand(command);
+                input.value = '';
+            }
+        });
+
+        function processCommand(command) {
+            appendOutput(`$ ${command}`);
+            
+            switch(command) {
+                case 'help':
+                    appendOutput('Available commands: resume, summary, social, clear');
+                    break;
+                case 'resume':
+                    appendOutput('Your resume content goes here...');
+                    break;
+                case 'summary':
+                    appendOutput('Brief summary of your skills and experience...');
+                    break;
+                case 'social':
+                    appendOutput('LinkedIn: [Your LinkedIn URL]');
+                    appendOutput('GitHub: [Your GitHub URL]');
+                    appendOutput('Twitter: [Your Twitter handle]');
+                    break;
+                case 'clear':
+                    output.innerHTML = '';
+                    break;
+                default:
+                    appendOutput('Command not recognized. Type "help" for available commands.');
+            }
+        }
+
+        function appendOutput(text) {
+            output.innerHTML += `<div>${text}</div>`;
+            output.scrollTop = output.scrollHeight;
+        }
+
+        appendOutput('Welcome to Your Name\'s Terminal Portfolio. Type "help" for available commands.');
+    </script>
 </body>
 </html>
