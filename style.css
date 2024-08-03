@@ -1,6 +1,6 @@
 body {
     background-color: #000000; /* Black background */
-    color: #FFFFFF; /* White text */
+    color: #000000; /* White text */
     font-family: 'Courier New', Courier, monospace; /* Monospace font */
     margin: 0;
     display: flex;
@@ -13,7 +13,7 @@ body {
 .terminal {
     width: 80%;
     max-width: 800px;
-    border: 1px solid #333; /* Slight border */
+    border: 1px solid #000000; /* Slight border */
     border-radius: 5px;
     padding: 20px;
     background-color: #000; /* Terminal Black */
@@ -37,7 +37,7 @@ body {
 #input {
     background: none;
     border: none;
-    color: #FFFFFF; /* White text */
+    color: #f2ecec; /* White text */
     font-family: 'Courier New', Courier, monospace;
     outline: none;
     flex-grow: 1;
@@ -49,7 +49,7 @@ body {
 
 .cursor {
     display: inline-block;
-    background: #fff;
+    background: #ea0606;
     width: 8px;
     animation: blink 1s step-end infinite;
     margin-left: 2px;
@@ -57,7 +57,7 @@ body {
 
 @keyframes blink {
     from, to { background: transparent; }
-    50% { background: #fff; }
+    50% { background: #000000; }
 }
 
 .typing {
