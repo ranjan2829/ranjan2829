@@ -134,7 +134,9 @@ let connections = [];
 function setup() {
     const canvas = createCanvas(windowWidth * 0.3, windowHeight);
     canvas.parent('neural-network');
-    for (let i = 0; i < 30; i++) {
+    neurons = [];  // Reset neurons array
+    connections = [];  // Reset connections array
+    for (let i = 0; i < 10; i++) {
         neurons.push(createVector(random(width), random(height)));
     }
     for (let i = 0; i < neurons.length; i++) {
@@ -176,11 +178,32 @@ chatInput.addEventListener('keyup', function(event) {
     if (event.key === 'Enter') {
         const message = chatInput.value;
         appendChatMessage('User: ' + message);
-        // Here you would typically send the message to your AI backend and get a response
-        // For this example, we'll just echo the message
-        setTimeout(() => {
-            appendChatMessage('AI: I received your message: "' + message + '"');
-        }, 1000);
+        
+        // Replace with your OpenAI API key and endpoint
+        const apiKey = 'YOUR_OPENAI_API_KEY_HERE';
+        const apiUrl = 'https://api.openai.com/v1/engines/davinci-codex/completions';
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                prompt: message,
+                max_tokens: 150
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const aiMessage = data.choices[0].text.trim();
+            appendChatMessage('AI: ' + aiMessage);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            appendChatMessage('AI: There was an error processing your request.');
+        });
+        
         chatInput.value = '';
     }
 });
