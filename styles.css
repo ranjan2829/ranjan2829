@@ -1,0 +1,134 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #1e1e1e;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+}
+
+#terminal {
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 70%;
+    width: 70%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#output {
+    margin-bottom: 20px;
+}
+
+#input-line {
+    display: flex;
+    align-items: center;
+}
+
+#prompt {
+    margin-right: 10px;
+}
+
+#input, #chat-input {
+    background-color: transparent;
+    border: none;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    flex-grow: 1;
+    outline: none;
+}
+
+.ascii-art {
+    white-space: pre;
+    line-height: 1.2;
+    font-size: 12px;
+}
+
+.command-output {
+    margin-top: 10px;
+    padding: 10px;
+    border-left: 2px solid #00ff00;
+}
+
+#neural-network {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+}
+
+#side-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 70%;
+    height: 30%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+#side-panel button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+#side-panel button:hover {
+    background-color: #45a049;
+}
+
+#ai-chat-window {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30%;
+    height: 50%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+}
+
+#chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+#chat-input {
+    padding: 10px;
+    border-top: 1px solid #00ff00;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Light theme */
+body.light-theme {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+body.light-theme #terminal {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+body.light-theme #input, body.light-theme #chat-input {
+    color: #333;
+}

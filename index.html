@@ -3,86 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Terminal Portfolio</title>
-    <style>
-        body {
-            background-color: #1e1e1e;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            padding: 20px;
-        }
-        #terminal {
-            background-color: #000000;
-            border-radius: 10px;
-            padding: 20px;
-            height: 400px;
-            overflow-y: auto;
-        }
-        #input {
-            background-color: transparent;
-            border: none;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            font-size: 16px;
-            width: 100%;
-            outline: none;
-        }
-        .prompt:before {
-            content: "$ ";
-        }
-    </style>
+    <title>Ranjan - AI Engineer Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="terminal">
         <div id="output"></div>
-        <div class="prompt">
+        <div id="input-line">
+            <span id="prompt">$</span>
             <input type="text" id="input" autofocus>
         </div>
     </div>
-    <script>
-        const input = document.getElementById('input');
-        const output = document.getElementById('output');
-
-        input.addEventListener('keyup', function(event) {
-            if (event.key === 'Enter') {
-                const command = input.value.toLowerCase();
-                processCommand(command);
-                input.value = '';
-            }
-        });
-
-        function processCommand(command) {
-            appendOutput(`$ ${command}`);
-            
-            switch(command) {
-                case 'help':
-                    appendOutput('Available commands: resume, summary, social, clear');
-                    break;
-                case 'resume':
-                    appendOutput('Your resume content goes here...');
-                    break;
-                case 'summary':
-                    appendOutput('Brief summary of your skills and experience...');
-                    break;
-                case 'social':
-                    appendOutput('LinkedIn: [Your LinkedIn URL]');
-                    appendOutput('GitHub: [Your GitHub URL]');
-                    appendOutput('Twitter: [Your Twitter handle]');
-                    break;
-                case 'clear':
-                    output.innerHTML = '';
-                    break;
-                default:
-                    appendOutput('Command not recognized. Type "help" for available commands.');
-            }
-        }
-
-        function appendOutput(text) {
-            output.innerHTML += `<div>${text}</div>`;
-            output.scrollTop = output.scrollHeight;
-        }
-
-        appendOutput('Welcome to Your Name\'s Terminal Portfolio. Type "help" for available commands.');
-    </script>
+    <div id="neural-network"></div>
+    <div id="side-panel">
+        <button id="theme-toggle">Toggle Theme</button>
+        <button id="ai-chat">AI Chat</button>
+        <button id="projects">Projects</button>
+        <button id="publications">Publications</button>
+    </div>
+    <div id="ai-chat-window" class="hidden">
+        <div id="chat-messages"></div>
+        <input type="text" id="chat-input" placeholder="Ask me anything...">
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
