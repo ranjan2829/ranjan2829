@@ -1,7 +1,7 @@
 body {
-    background-color: #000;
-    color: #00ff00;
-    font-family: monospace;
+    background-color: #000000; /* Black background */
+    color: #FFFFFF; /* White text */
+    font-family: 'Courier New', Courier, monospace; /* Monospace font */
     margin: 0;
     display: flex;
     align-items: center;
@@ -11,13 +11,14 @@ body {
 
 .terminal {
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Subtle white shadow */
     width: 80%;
     max-width: 600px;
+    border: 1px solid #444; /* Border color to enhance terminal feel */
 }
 
 .terminal-header {
-    background-color: #333;
+    background-color: #333; /* Darker header */
     padding: 10px;
     display: flex;
     align-items: center;
@@ -49,19 +50,20 @@ body {
 }
 
 .title {
-    color: #fff;
+    color: #ffffff;
     font-size: 14px;
 }
 
 .terminal-body {
-    background-color: #1e1e1e;
+    background-color: #000000; /* Black body */
     padding: 20px;
     min-height: 300px;
     overflow-y: auto;
+    border-top: 1px solid #444; /* Border between header and body */
 }
 
 .prompt {
-    color: #00ff00;
+    color: #00FF00; /* Green color for prompt */
 }
 
 .terminal-input {
@@ -72,8 +74,12 @@ body {
 #input {
     background: none;
     border: none;
-    color: #00ff00;
-    font-family: monospace;
+    color: #FFFFFF; /* White text for input */
+    font-family: 'Courier New', Courier, monospace;
     outline: none;
     width: 100%;
+}
+
+#output div {
+    margin-bottom: 10px;
 }
