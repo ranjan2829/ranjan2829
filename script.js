@@ -128,20 +128,19 @@ function showPublications() {
 }
 
 // Neural Network Animation
+// Neural Network Animation
 let neurons = [];
 let connections = [];
 
 function setup() {
     const canvas = createCanvas(windowWidth * 0.3, windowHeight);
     canvas.parent('neural-network');
-    neurons = [];  // Reset neurons array
-    connections = [];  // Reset connections array
     for (let i = 0; i < 10; i++) {
         neurons.push(createVector(random(width), random(height)));
     }
     for (let i = 0; i < neurons.length; i++) {
         for (let j = i + 1; j < neurons.length; j++) {
-            if (random() < 0.2) {
+            if (random() < 0.4) { // Increase probability of connections
                 connections.push([i, j]);
             }
         }
@@ -163,6 +162,7 @@ function draw() {
         ellipse(neuron.x, neuron.y, 10, 10);
     }
 }
+
 
 // Theme toggle
 document.getElementById('theme-toggle').addEventListener('click', function() {
