@@ -4,6 +4,7 @@ import { useEffect } from "react"
 import Image from 'next/image';
 
 import {animate,motion ,useMotionValue, useMotionTemplate } from 'framer-motion';
+import { FiArrowRight } from "react-icons/fi";
 
 
 const COLORS_TOP=["#13FFAA","#1E67C6","#CE84CF","DD335C"]
@@ -46,9 +47,25 @@ export const Hero=()=>{
                 <div className="flex bg-white/15 shadow-xl p-3 rounded-2xl justify-center items-center space-x-2 mb-10">
                 <p className="font-bold text-2xl"> Full Stack + ML Developer </p>
                 </div>
-                <div className="flex bg-white/20 shadow-xl p-3 rounded-2xl justify-center items-center space-x-2 mb-10">
-                <p className="font-bold text-2xl"> Open to Work !</p>
+                <div className="flex bg-white/20 shadow-xl p-2 rounded-2xl justify-center items-center space-x-2 mb-10">
+                <p className="font-bold text-1xl"> Open to Work !</p>
                 </div>
+                <motion.button
+                 style={{
+                    border,
+                    boxShadow
+
+                 }}
+                 whileHover={{
+                    scale:1.015
+                 }}
+                 whileTap={{
+                    scale:0.985
+                 }}
+                 className="flex w-fit items-center gap-2 rounded-full px-4 py-2"
+                 >
+                    View Resume <FiArrowRight className=""/>
+                </motion.button>
 
 
             </div>
