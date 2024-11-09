@@ -7,7 +7,7 @@ const navLinks = [
     { title: "About", path: "#about" },
     { title: "Portfolio", path: "#portfolio" },
     { title: "LinkedIn", path: "https://www.linkedin.com/in/ranjan-shitole-8b8484123/" },
-    { title: "Contact", path: "#contact" },
+    
     { title: "GitHub", path: "https://github.com/ranjan2829" }
 ];
 
