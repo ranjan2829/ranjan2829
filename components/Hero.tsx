@@ -1,5 +1,4 @@
 "use client"
-
 import { useEffect } from "react";
 import Image from 'next/image';
 import { animate, motion, useMotionValue, useMotionTemplate } from 'framer-motion';
@@ -31,10 +30,12 @@ export const Hero = () => {
       className="relative grid min-h-screen place-content-center overflow-hidden px-4 py-24 text-gray-200"
     >
       <div className="z-10 flex flex-col items-center">
-        <h1 className="text-white/40 text-7xl font-black">
+        {/* Made text responsive with different sizes for mobile/desktop */}
+        <h1 className="text-white/40 text-4xl md:text-7xl font-black mb-2 md:mb-4">
           Hi, I am 
         </h1>
-        <h1 className="max-w-3xl bg-gradient-to-br from-white to-gray-400 bg-400 bg-clip-text font-black leading-tight text-transparent md:text-7xl">
+        {/* Increased mobile text size and adjusted spacing */}
+        <h1 className="max-w-3xl bg-gradient-to-br from-white to-gray-400 bg-clip-text font-black leading-tight text-transparent text-5xl md:text-7xl mb-6 md:mb-8">
           Ranjan Shitole
         </h1>
         <Image 
@@ -42,12 +43,15 @@ export const Hero = () => {
           alt="profile"
           width={250}
           height={250}
+          className="mb-6 md:mb-8"
         />
-        <div className="flex bg-white/15 shadow-xl p-3 rounded-2xl justify-center items-center space-x-2 mb-10">
-          <p className="font-bold text-2xl">Full Stack + ML Developer</p>
+        {/* Made job title responsive */}
+        <div className="flex bg-white/15 shadow-xl p-3 rounded-2xl justify-center items-center space-x-2 mb-6 md:mb-10">
+          <p className="font-bold text-xl md:text-2xl">Full Stack + ML Developer</p>
         </div>
-        <div className="flex bg-white/20 shadow-xl p-2 rounded-2xl justify-center items-center space-x-2 mb-10">
-          <p className="font-bold text-1xl">Open to Work!</p>
+        {/* Adjusted "Open to Work" text size */}
+        <div className="flex bg-white/20 shadow-xl p-2 rounded-2xl justify-center items-center space-x-2 mb-6 md:mb-10">
+          <p className="font-bold text-base md:text-lg">Open to Work!</p>
         </div>
         
         <a
@@ -66,7 +70,7 @@ export const Hero = () => {
             whileTap={{
               scale: 0.985
             }}
-            className="flex w-fit items-center gap-2 rounded-full px-4 py-2"
+            className="flex w-fit items-center gap-2 rounded-full px-4 py-2 text-base md:text-lg"
           >
             View Resume <FiArrowRight className=""/>
           </motion.button>
