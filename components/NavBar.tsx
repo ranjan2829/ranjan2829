@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 
 const navLinks = [
-    { title: "About", path: "#about" },
-    { title: "Portfolio", path: "#portfolio" },
+    
+    { title: "Finance Blogs", path: "#portfolio" },
     { title: "LinkedIn", path: "https://www.linkedin.com/in/ranjan-shitole-8b8484123/" },
     
     { title: "GitHub", path: "https://github.com/ranjan2829" }

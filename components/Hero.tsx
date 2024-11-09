@@ -51,7 +51,7 @@ export const Hero = () => {
         </div>
         
         <a
-          href="https://drive.google.com/file/d/1Ojm-wKDmHvyOBvuOfF6BdxscaGuGdxkd/view?usp=sharing"
+          href="https://drive.google.com/file/d/15rEK0LVT6lsGLjRsuZ2-gxl3w1ger2Jj/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
         >
