@@ -6,7 +6,7 @@ import { animate, motion, useMotionValue, useMotionTemplate } from 'framer-motio
 import { FiArrowRight, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 
 const COLORS_TOP = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
-const ROLES = ["Full Stack Developer", "ML Engineer", "Cloud Architect", "Problem Solver"];
+const ROLES = ["Full Stack Developer", "ML Engineer"];
 
 export const Hero = () => {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -31,9 +31,9 @@ export const Hero = () => {
   }, []);
 
   const socialLinks = [
-    { icon: FiGithub, href: "https://github.com/yourusername" },
-    { icon: FiLinkedin, href: "https://linkedin.com/in/yourusername" },
-    { icon: FiMail, href: "mailto:your.email@example.com" }
+    { icon: FiGithub, href: "https://github.com/ranjan2829" },
+    { icon: FiLinkedin, href: "https://www.linkedin.com/in/ranjan-shitole-8b8484123/" },
+    { icon: FiMail, href: "mailto:ranjan.shitole3129@gmail.com" }
   ];
 
   return (
