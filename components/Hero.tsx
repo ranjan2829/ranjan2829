@@ -1,119 +1,183 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
-import Image from 'next/image';
-import { animate, motion, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { FiArrowRight, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import Image from "next/image";
+import { animate, motion, useMotionValue, useMotionTemplate, MotionValue } from "framer-motion";
+import { FiArrowRight, FiGithub, FiLinkedin, FiMail, FiCode } from "react-icons/fi";
 
-const COLORS_TOP = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
-const ROLES = ["Full Stack Developer", "ML Engineer"];
+// Enhanced color palette for better lighting
+const COLORS_TOP: string[] = ["#00E7FF", "#FF5E5E", "#4EFFB8", "#7B61FF"];
+const ROLES: string[] = ["AI Engineer", "Machine Learning Specialist", "Software Developer"];
 
-export const Hero = () => {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const color = useMotionValue(COLORS_TOP[0]);
-  const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #000 50%, ${color})`;
-  const border = useMotionTemplate`1px solid ${color}`;
-  const boxShadow = useMotionTemplate`0px 4px 24px ${color}`;
+interface SocialLink {
+  icon: React.ElementType;
+  href: string;
+}
+
+export const Hero = (): JSX.Element => {
+  const [roleIndex, setRoleIndex] = useState<number>(0);
+  const color: MotionValue<string> = useMotionValue(COLORS_TOP[0]);
+  const glow: MotionValue<number> = useMotionValue(0.4);
+
+  // Enhanced background with dynamic lighting and tech overlay
+  const backgroundImage = useMotionTemplate`
+    radial-gradient(
+      circle 800px at 50% 10%,
+      rgba(0, 231, 255, ${glow}),
+      rgba(0, 0, 0, 0.95) 60%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(${color}, 0.15),
+      rgba(0, 0, 0, 0.9) 50%,
+      rgba(${color}, 0.1)
+    )
+  `;
+  const border = useMotionTemplate`2px solid ${color}`;
+  const boxShadow = useMotionTemplate`0 8px 32px rgba(${color}, 0.3)`;
 
   useEffect(() => {
-    animate(color, COLORS_TOP, {
+    const colorAnimation = animate(color, COLORS_TOP, {
       ease: "easeInOut",
-      duration: 10,
+      duration: 6,
       repeat: Infinity,
-      repeatType: "mirror"
+      repeatType: "mirror" as const,
+    });
+
+    const glowAnimation = animate(glow, [0.4, 0.8, 0.4], {
+      ease: "easeInOut",
+      duration: 4,
+      repeat: Infinity,
+      repeatType: "mirror" as const,
     });
 
     const roleInterval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % ROLES.length);
-    }, 3000);
+    }, 2500);
 
-    return () => clearInterval(roleInterval);
-  }, []);
+    return () => {
+      colorAnimation.stop();
+      glowAnimation.stop();
+      clearInterval(roleInterval);
+    };
+  }, [color, glow]);
 
-  const socialLinks = [
+  const socialLinks: SocialLink[] = [
     { icon: FiGithub, href: "https://github.com/ranjan2829" },
     { icon: FiLinkedin, href: "https://www.linkedin.com/in/ranjan-shitole-8b8484123/" },
-    { icon: FiMail, href: "mailto:ranjan.shitole3129@gmail.com" }
+    { icon: FiMail, href: "mailto:ranjan.shitole3129@gmail.com" },
+    { icon: FiCode, href: "https://your-portfolio.com" },
   ];
 
   return (
     <motion.section
       style={{ backgroundImage }}
-      className="relative grid min-h-screen place-content-center overflow-hidden px-4 py-24 text-gray-200"
+      className="relative grid min-h-screen place-content-center overflow-hidden px-4 py-24 text-gray-200 bg-black"
     >
+      {/* Enhanced tech overlay with subtle grid */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PHBhdGggZD0iTTYwIDBIMHY2MGg2MFYwem0tMiAxSDB2NTdoNTdWMXoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwRTdGRiIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9zdmc+')] opacity-10" />
+
+      {/* Dynamic light particles */}
+      {[...Array(15)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-2 h-2 bg-cyan-400 rounded-full blur-sm"
+          initial={{ x: Math.random() * 100 + "%", y: Math.random() * 100 + "%" }}
+          animate={{
+            y: [0, -Math.random() * 1000],
+            opacity: [0, 0.6, 0],
+            scale: [1, 1.5, 0.5],
+          }}
+          transition={{
+            duration: Math.random() * 8 + 8,
+            repeat: Infinity,
+            delay: Math.random() * 3,
+            ease: "easeOut",
+          }}
+        />
+      ))}
+
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="z-10 flex flex-col items-center"
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="z-10 flex flex-col items-center relative"
       >
-        <h1 className="text-white/40 text-4xl md:text-7xl font-black mb-2 md:mb-4 bg-clip-text">
-          Hi, I am
-        </h1>
-        
+        {/* Glowing header */}
         <motion.h1
-          initial={{ scale: 0.95 }}
+          className="text-3xl md:text-5xl font-mono mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500"
+          animate={{ textShadow: [`0 0 10px ${color}`, `0 0 20px ${color}`, `0 0 10px ${color}`] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          [AI Systems Architect]
+        </motion.h1>
+
+        {/* Name with subtle glow */}
+        <motion.h1
+          className="max-w-4xl text-5xl md:text-8xl font-extrabold mb-8 text-white relative"
+          initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-3xl bg-gradient-to-br from-white to-gray-400 bg-clip-text font-black leading-tight text-transparent text-5xl md:text-7xl mb-6 md:mb-8"
+          transition={{ duration: 0.7 }}
+          style={{ textShadow: `0 0 15px rgba(${color}, 0.3)` }}
         >
           Ranjan Shitole
         </motion.h1>
 
+        {/* Profile image with enhanced lighting */}
         <motion.div
           whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          className="relative w-64 h-64 md:w-72 md:h-72 mb-6 md:mb-8"
+          className="relative w-64 h-64 md:w-80 md:h-80 mb-10"
         >
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{ boxShadow }}
+            animate={{ opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          />
           <Image
             src="/profilepic.png"
-            alt="profile"
+            alt="Ranjan Shitole - AI Engineer"
             fill
             className="rounded-full object-cover shadow-2xl"
             priority
           />
         </motion.div>
 
+        {/* Role display with tech glow */}
         <motion.div
-          animate={{ y: [0, -5, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="flex bg-white/15 backdrop-blur-sm shadow-xl p-4 rounded-2xl justify-center items-center space-x-2 mb-6 md:mb-10"
+          className="bg-black/40 backdrop-blur-lg px-6 py-3 rounded-xl mb-8 border"
+          style={{ border, boxShadow }}
         >
           <motion.p
             key={roleIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="font-bold text-xl md:text-2xl"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            className="font-mono text-xl md:text-2xl text-white"
           >
-            {ROLES[roleIndex]}
+            {"> " + ROLES[roleIndex]}
           </motion.p>
         </motion.div>
 
-        <motion.div
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="flex bg-white/20 backdrop-blur-sm shadow-xl p-3 rounded-2xl justify-center items-center space-x-2 mb-8 md:mb-12"
-        >
-          <p className="font-bold text-base md:text-lg text-emerald-400">Open to Work!</p>
-        </motion.div>
-
-        <div className="flex gap-4 mb-8">
+        {/* Social links with hover glow */}
+        <div className="flex gap-6 mb-10">
           {socialLinks.map(({ icon: Icon, href }) => (
             <motion.a
               key={href}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1, boxShadow: `0 0 15px ${color}` }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
+              className="bg-black/30 p-3 rounded-full transition-colors border border-transparent"
+              style={{ border }}
             >
-              <Icon className="w-6 h-6" />
+              <Icon className="w-6 h-6 text-white" />
             </motion.a>
           ))}
         </div>
 
+        {/* Resume button with enhanced glow */}
         <motion.a
           href="https://drive.google.com/file/d/1oktoQp8cD0MLua3V-abN0Pi_3LjzjD1k/view?usp=sharing"
           target="_blank"
@@ -121,11 +185,12 @@ export const Hero = () => {
         >
           <motion.button
             style={{ border, boxShadow }}
-            whileHover={{ scale: 1.05, y: -2 }}
+            whileHover={{ scale: 1.05, boxShadow: `0 12px 48px rgba(${color}, 0.5)` }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 rounded-full px-6 py-3 text-base md:text-lg backdrop-blur-sm transition-colors hover:bg-white/10"
+            className="flex items-center gap-3 px-8 py-4 bg-black/40 rounded-full font-mono text-lg text-white backdrop-blur-lg transition-colors"
           >
-            View Resume <FiArrowRight className="ml-1" />
+            <span>Access Resume</span>
+            <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
           </motion.button>
         </motion.a>
       </motion.div>
