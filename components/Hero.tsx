@@ -109,7 +109,7 @@ export const Hero = (): JSX.Element => {
           animate={{ textShadow: [`0 0 10px ${color}`, `0 0 20px ${color}`, `0 0 10px ${color}`] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          [AI Systems Architect]
+          [AI Engineer]
         </motion.h1>
 
         {/* Name with subtle glow */}
