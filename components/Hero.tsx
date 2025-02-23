@@ -1,200 +1,161 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { animate, motion, useMotionValue, useMotionTemplate, MotionValue } from "framer-motion";
-import { FiArrowRight, FiGithub, FiLinkedin, FiMail, FiCode } from "react-icons/fi";
+import React, { useEffect, useState } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { Terminal, Github, Linkedin, Mail, Code, Cpu, ChevronDown, Boxes, History } from "lucide-react";
+import Typewriter from "typewriter-effect";
+import Link from "next/link";
 
-// Enhanced color palette for better lighting
-const COLORS_TOP: string[] = ["#00E7FF", "#FF5E5E", "#4EFFB8", "#7B61FF"];
-const ROLES: string[] = ["AI Engineer", "Machine Learning Specialist", "Software Developer"];
+const ROLES = ["ML Architect", "AI Engineer", "Software Developer"];
 
-interface SocialLink {
-  icon: React.ElementType;
-  href: string;
-}
-
-export const Hero = (): JSX.Element => {
-  const [roleIndex, setRoleIndex] = useState<number>(0);
-  const color: MotionValue<string> = useMotionValue(COLORS_TOP[0]);
-  const glow: MotionValue<number> = useMotionValue(0.4);
-
-  // Enhanced background with dynamic lighting and tech overlay
-  const backgroundImage = useMotionTemplate`
-    radial-gradient(
-      circle 800px at 50% 10%,
-      rgba(0, 231, 255, ${glow}),
-      rgba(0, 0, 0, 0.95) 60%
-    ),
-    linear-gradient(
-      135deg,
-      rgba(${color}, 0.15),
-      rgba(0, 0, 0, 0.9) 50%,
-      rgba(${color}, 0.1)
-    )
-  `;
-  const border = useMotionTemplate`2px solid ${color}`;
-  const boxShadow = useMotionTemplate`0 8px 32px rgba(${color}, 0.3)`;
+// Matrix rain effect component
+const MatrixRain = () => {
+  const characters = "01";
+  const [raindrops, setRaindrops] = useState<{ id: number; left: number; delay: number }[]>([]);
 
   useEffect(() => {
-    const colorAnimation = animate(color, COLORS_TOP, {
-      ease: "easeInOut",
-      duration: 6,
-      repeat: Infinity,
-      repeatType: "mirror" as const,
-    });
-
-    const glowAnimation = animate(glow, [0.4, 0.8, 0.4], {
-      ease: "easeInOut",
-      duration: 4,
-      repeat: Infinity,
-      repeatType: "mirror" as const,
-    });
-
-    const roleInterval = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % ROLES.length);
-    }, 2500);
-
-    return () => {
-      colorAnimation.stop();
-      glowAnimation.stop();
-      clearInterval(roleInterval);
-    };
-  }, [color, glow]);
-
-  const socialLinks: SocialLink[] = [
-    { icon: FiGithub, href: "https://github.com/ranjan2829" },
-    { icon: FiLinkedin, href: "https://www.linkedin.com/in/ranjan-shitole-8b8484123/" },
-    { icon: FiMail, href: "mailto:ranjan.shitole3129@gmail.com" },
-    { icon: FiCode, href: "https://your-portfolio.com" },
-  ];
+    const drops = Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      delay: Math.random() * 5,
+    }));
+    setRaindrops(drops);
+  }, []);
 
   return (
-    <motion.section
-      style={{ backgroundImage }}
-      className="relative grid min-h-screen place-content-center overflow-hidden px-4 py-24 text-gray-200 bg-black"
-    >
-      {/* Enhanced tech overlay with subtle grid */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PHBhdGggZD0iTTYwIDBIMHY2MGg2MFYwem0tMiAxSDB2NTdoNTdWMXoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwRTdGRiIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9zdmc+')] opacity-10" />
-
-      {/* Dynamic light particles */}
-      {[...Array(15)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2 bg-cyan-400 rounded-full blur-sm"
-          initial={{ x: Math.random() * 100 + "%", y: Math.random() * 100 + "%" }}
-          animate={{
-            y: [0, -Math.random() * 1000],
-            opacity: [0, 0.6, 0],
-            scale: [1, 1.5, 0.5],
+    <div className="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
+      {raindrops.map((drop) => (
+        <div
+          key={drop.id}
+          className="matrix-rain"
+          style={{
+            left: `${drop.left}%`,
+            animationDelay: `${drop.delay}s`,
           }}
-          transition={{
-            duration: Math.random() * 8 + 8,
-            repeat: Infinity,
-            delay: Math.random() * 3,
-            ease: "easeOut",
-          }}
-        />
-      ))}
-
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="z-10 flex flex-col items-center relative"
-      >
-        {/* Glowing header */}
-        <motion.h1
-          className="text-3xl md:text-5xl font-mono mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500"
-          animate={{ textShadow: [`0 0 10px ${color}`, `0 0 20px ${color}`, `0 0 10px ${color}`] }}
-          transition={{ duration: 2, repeat: Infinity }}
         >
-          [AI Engineer]
-        </motion.h1>
-
-        {/* Name with subtle glow */}
-        <motion.h1
-          className="max-w-4xl text-5xl md:text-8xl font-extrabold mb-8 text-white relative"
-          initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.7 }}
-          style={{ textShadow: `0 0 15px rgba(${color}, 0.3)` }}
-        >
-          Ranjan Shitole
-        </motion.h1>
-
-        {/* Profile image with enhanced lighting */}
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="relative w-64 h-64 md:w-80 md:h-80 mb-10"
-        >
-          <motion.div
-            className="absolute inset-0 rounded-full"
-            style={{ boxShadow }}
-            animate={{ opacity: [0.2, 0.4, 0.2] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          />
-          <Image
-            src="/profilepic.png"
-            alt="Ranjan Shitole - AI Engineer"
-            fill
-            className="rounded-full object-cover shadow-2xl"
-            priority
-          />
-        </motion.div>
-
-        {/* Role display with tech glow */}
-        <motion.div
-          className="bg-black/40 backdrop-blur-lg px-6 py-3 rounded-xl mb-8 border"
-          style={{ border, boxShadow }}
-        >
-          <motion.p
-            key={roleIndex}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            className="font-mono text-xl md:text-2xl text-white"
-          >
-            {"> " + ROLES[roleIndex]}
-          </motion.p>
-        </motion.div>
-
-        {/* Social links with hover glow */}
-        <div className="flex gap-6 mb-10">
-          {socialLinks.map(({ icon: Icon, href }) => (
-            <motion.a
-              key={href}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1, boxShadow: `0 0 15px ${color}` }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-black/30 p-3 rounded-full transition-colors border border-transparent"
-              style={{ border }}
-            >
-              <Icon className="w-6 h-6 text-white" />
-            </motion.a>
-          ))}
+          {characters[Math.floor(Math.random() * characters.length)]}
         </div>
+      ))}
+    </div>
+  );
+};
 
-        {/* Resume button with enhanced glow */}
-        <motion.a
-          href="https://drive.google.com/file/d/1oktoQp8cD0MLua3V-abN0Pi_3LjzjD1k/view?usp=sharing"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <motion.button
-            style={{ border, boxShadow }}
-            whileHover={{ scale: 1.05, boxShadow: `0 12px 48px rgba(${color}, 0.5)` }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-3 px-8 py-4 bg-black/40 rounded-full font-mono text-lg text-white backdrop-blur-lg transition-colors"
-          >
-            <span>Access Resume</span>
-            <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-          </motion.button>
-        </motion.a>
-      </motion.div>
-    </motion.section>
+const Hero = () => {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    controls.start({
+      opacity: [0.3, 1, 0.3],
+      transition: { duration: 2, repeat: Infinity },
+    });
+  }, [controls]);
+
+  const scrollToSection = (id: string) => {
+    if (typeof window !== "undefined") {
+      const element = document.getElementById(id);
+      element?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <section className="min-h-screen bg-[#011627] text-[#4FF2F8] relative overflow-hidden px-4">
+      {/* Matrix rain effect */}
+      <MatrixRain />
+
+      {/* Enhanced grid background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1d2634_1px,transparent_1px),linear-gradient(to_bottom,#1d2634_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1d263420_1px,transparent_1px),linear_gradient(to_bottom,#1d263420_1px,transparent_1px)] bg-[size:1rem_1rem]" />
+      </div>
+
+      {/* Glowing orb effect */}
+      <motion.div
+        animate={controls}
+        className="absolute top-1/4 -right-32 w-96 h-96 bg-[#4FF2F8] rounded-full blur-[128px] opacity-20"
+      />
+
+      <div className="container mx-auto pt-20 relative z-10">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
+          {/* Terminal Header */}
+          <div className="bg-[#1d2634] rounded-t-lg p-3 flex items-center gap-2 border border-[#2d3644]">
+            <div className="flex gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-500" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500" />
+              <div className="w-3 h-3 rounded-full bg-green-500" />
+            </div>
+            <div className="flex-1 text-center text-sm text-[#4FF2F8]/70 font-mono">~/portfolio</div>
+            <Cpu className="w-4 h-4 text-[#4FF2F8]/50" />
+          </div>
+
+          {/* Terminal Content */}
+          <div className="bg-[#011627]/90 border border-[#1d2634] rounded-b-lg p-8 backdrop-blur-sm">
+            <div className="mb-8">
+              <div className="text-[#4FF2F8] font-mono mb-2 flex items-center gap-2">
+                <span className="text-[#4FF2F8]/50">$</span> ./init.sh
+              </div>
+              <motion.h1
+                className="text-5xl md:text-7xl font-bold text-white mb-4 glow-text"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                Ranjan Shitole
+              </motion.h1>
+              <div className="text-xl md:text-2xl font-mono text-[#4FF2F8] flex items-center gap-2">
+                <span className="text-[#4FF2F8]/50">{">"}</span>
+                <Typewriter options={{ strings: ROLES, autoStart: true, loop: true, deleteSpeed: 50, delay: 75 }} />
+              </div>
+              {/* New Portfolio Description Text */}
+              <motion.div
+                className="mt-9 text-[#4FF2F8]/90 font-mono text-lg"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <span className="text-[#4FF2F8]/90">{">> "}</span> 
+                
+               AI Engineer with High profile Trading Skills
+              </motion.div>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex flex-wrap gap-4 mb-8">
+              {[
+                { Icon: Github, href: "https://github.com/ranjan2829", label: "GitHub" },
+                { Icon: Linkedin, href: "https://www.linkedin.com/in/ranjan-shitole-8b8484123/", label: "LinkedIn" },
+                { Icon: Mail, href: "mailto:ranjan.shitole3129@gmail.com", label: "Email" },
+                { Icon: Code, href: "#projects", label: "Projects" },
+              ].map(({ Icon, href, label }, index) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 bg-[#1d2634]/50 rounded-lg text-[#4FF2F8] hover:bg-[#2d3644] transition-colors border border-[#2d3644]/50 backdrop-blur-sm"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 + index * 0.1 }}
+                >
+                  <Icon size={20} />
+                  <span className="font-mono">{label}</span>
+                </motion.a>
+              ))}
+            </div>
+
+            {/* Resume Button */}
+            <Link
+              href="/Resume.pdf"
+              className="inline-flex items-center gap-2 px-9 py-3 bg-[#4FF2F8] text-[#011627] rounded-lg font-mono hover:bg-[#3CE1E7] transition-colors"
+            >
+              <Terminal size={20} />
+              <span>Touch Resume.pdf</span>
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 };
 
