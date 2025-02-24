@@ -5,18 +5,19 @@ import { ExternalLink, Github, Brain, LineChart, Code, Terminal } from 'lucide-r
 
 const projects = [
   {
-    title: "AI Trading Bot",
-    description: "Automated trading system using deep learning for market prediction and risk management",
+    title: "Perception-AI ",
+    description: "Perception AI is an interactive web application that uses AI to process handwritten mathematical expressions. ✍️ Users can draw on a canvas, and the backend analyzes the image, solves the expression, and displays the result in real-time.",
     image: "https://images.unsplash.com/photo-1642790551116-18e150f248e3?auto=format&fit=crop&q=80&w=2940",
-    github: "https://github.com/ranjan2829/ai-trading-bot",
-    demo: "https://ai-trading-demo.com",
-    tech: ["Python", "TensorFlow", "Pandas", "FastAPI"],
+    github: "https://github.com/ranjan2829/Perception-AI-App",
+    demo: "https://ai-illustration-sigma.vercel.app/",
+    tech: ["Python","FastAPI","React", "TypeScript", "Vite"," Gemini AI", "gemini-1.5-flash", "Google AI Studio 🧠","Git", "GitHub"
+      ],
     icon: Brain,
     color: "#00E7FF"
   },
   {
-    title: "Quant Analytics Platform",
-    description: "Real-time financial analytics dashboard with ML-powered insights",
+    title: "AI Search Engine",
+    description: "Frontend built with Next.js (TypeScript) featuring server-side rendering and responsive UI components. Integrates with a FastAPI backend via REST APIs for AI-powered search results ranking and Google Trends data visualization, ensuring a seamless and interactive user experience.",
     image: "https://images.unsplash.com/photo-1642790595397-6850723e0642?auto=format&fit=crop&q=80&w=2940",
     github: "https://github.com/ranjan2829/quant-analytics",
     demo: "https://quant-analytics-demo.com",
