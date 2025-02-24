@@ -1,115 +1,154 @@
+"use client";
 import React from 'react';
 import { motion } from 'framer-motion';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-import { Briefcase, GraduationCap, Terminal, Code2, Binary } from 'lucide-react';
+import { Brain, LineChart, Award, GraduationCap, Terminal } from 'lucide-react';
 
 const timelineData = [
   {
-    title: "Software Engineer",
-    company: "Tech Corp",
-    date: "2023 - Present",
-    description: "Led development of microservices architecture, improving system performance by 40%",
-    type: "work",
-    tech: ["Python", "TensorFlow", "Docker"],
-    icon: Code2
+    title: "Machine Learning Intern",
+    company: "Photo Blitz Capital",
+    date: "August - September 2024",
+    description: "AI/ML initiatives in algorithmic trading. Built Financial Trading Machine learning based Models",
+    icon: Brain,
+    skills: ["TensorFlow", "PyTorch", "Quantitative Analysis","Finance","Mathematics"],
+    color: "#00E7FF"
   },
   {
-    title: "ML Engineer Intern",
-    company: "AI Solutions",
+    title: " Backend Engineer Intern",
+    company: "Ventory Company",
+    date: "June 2024- August 2024",
+    description: "Developed backend features and enhanced API functionality using Python for Ventory's platform.",
+    icon: LineChart,
+    skills: ["Python","AI","Node.js","Next.js","AWS"],
+    color: "#FF5E5E"
+  },
+  {
+    title: "Technical Head ",
+    company: "Computer Society of India",
     date: "2022 - 2023",
-    description: "Developed and deployed machine learning models for real-time data analysis",
-    type: "work",
-    tech: ["PyTorch", "AWS", "Kubernetes"],
-    icon: Binary
+    description: "Led and managed various technical initiatives, workshops, and events within the Computer Society.",
+    icon: Award,
+    skills: ["Pulic Speaking","Team management","Technical Skills"],
+    color: "#4EFFB8"
   },
   {
-    title: "Bachelor's in Computer Science",
-    company: "University of Technology",
-    date: "2018 - 2022",
-    description: "Graduated with honors, specialized in AI and Machine Learning",
-    type: "education",
-    tech: ["Machine Learning", "Data Structures", "Algorithms"],
-    icon: Terminal
+    title: "ML Research Fellow",
+    company: "AI Fellowship.ai",
+    date: "November 2024 - December 2024",
+    description: "Contributing to research projects in Artificial Intelligence and Open Source.",
+    icon: Award,
+    skills: ["Deep Learning", "Research", "Open Source", "AI Ethics"],
+    color: "#4EFFB8"
+  },
+  {
+    title: "Google Cloud Facilitator",
+    company: "Google Developer Student Club",
+    date: "October - November 2023",
+    description: "Facilitated workshops and training sessions on Google Cloud technologies for university students",
+    icon: GraduationCap,
+    skills: ["Pulic Speaking","Team management","Technical Skills","Google Cloud", "Workshop Facilitation", "Cloud Computing"],
+    color: "#7B61FF"
+  },
+  
+  {
+    title: "Engineering in Artificial Intelligence",
+    company: "Pune University",
+    date: "2021 - 2025",
+    description: "Specialized in AI and financial computing. Current CGPA 8.5.",
+    icon: GraduationCap,
+    skills: ["Machine Learning", "Financial Computing", "Data Engineering","Full Stack Development"],
+    color: "#7B61FF"
   }
 ];
 
 export const Timeline = () => {
   return (
-    <section className="py-20 px-4 bg-[#011627] relative overflow-hidden">
-      {/* Enhanced grid background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1d2634_1px,transparent_1px),linear-gradient(to_bottom,#1d2634_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1d263420_1px,transparent_1px),linear-gradient(to_bottom,#1d263420_1px,transparent_1px)] bg-[size:1rem_1rem]" />
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="container mx-auto relative z-10"
-      >
-        <div className="mb-16">
-          <div className="text-[#4FF2F8] font-mono mb-2 flex items-center gap-2">
-            <span className="text-[#4FF2F8]/50">$</span> ./view-timeline.sh
+    <section className="py-20 bg-black relative">
+      {/* Terminal Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      
+      <div className="relative z-10 max-w-6xl mx-auto px-4">
+        {/* Terminal Header */}
+        <motion.div 
+          className="bg-gray-900 rounded-t-lg p-4 border border-gray-700 mb-8"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-red-500" />
+            <div className="w-3 h-3 rounded-full bg-yellow-500" />
+            <div className="w-3 h-3 rounded-full bg-green-500" />
+            <span className="ml-4 text-gray-400 font-mono">ranjan@portfolio:~/experience $</span>
           </div>
-          <h2 className="text-4xl font-bold text-white glow-text">My Journey</h2>
-        </div>
-        
-        <VerticalTimeline lineColor="#1d2634">
-          {timelineData.map((item, index) => (
-            <VerticalTimelineElement
-              key={index}
-              className="vertical-timeline-element--work"
-              contentStyle={{
-                background: '#1d2634',
-                color: '#fff',
-                boxShadow: 'none',
-                border: '1px solid #2d3644',
-                borderRadius: '0.5rem',
-                padding: '2rem',
-                backdropFilter: 'blur(10px)'
-              }}
-              contentArrowStyle={{ borderRight: '7px solid #1d2634' }}
-              date={item.date}
-              iconStyle={{
-                background: '#011627',
-                color: '#4FF2F8',
-                boxShadow: '0 0 0 4px #2d3644, inset 0 2px 0 rgba(0,0,0,.08), 0 3px 0 4px rgba(0,0,0,.05)',
-              }}
-              icon={<item.icon className="w-5 h-5" />}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <div className="text-center mb-16">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="inline-block bg-black/50 backdrop-blur-sm border border-cyan-500/20 rounded-lg p-4 mb-6"
             >
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+              <span className="text-cyan-400 font-mono">cat experience.log</span>
+            </motion.div>
+          </div>
+
+          <VerticalTimeline lineColor="rgba(0, 231, 255, 0.2)">
+            {timelineData.map((item, index) => (
+              <VerticalTimelineElement
+                key={index}
+                className="vertical-timeline-element--work"
+                contentStyle={{
+                  background: 'rgba(0, 0, 0, 0.7)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(0, 231, 255, 0.1)',
+                  boxShadow: '0 4px 20px rgba(0, 231, 255, 0.1)',
+                  fontFamily: 'monospace',
+                }}
+                contentArrowStyle={{
+                  borderRight: '7px solid rgba(0, 231, 255, 0.1)',
+                }}
+                date={item.date}
+                iconStyle={{
+                  background: 'rgb(0, 0, 0)',
+                  border: `2px solid ${item.color}`,
+                  boxShadow: `0 0 20px ${item.color}40`,
+                }}
+                icon={<item.icon className="w-5 h-5" style={{ color: item.color }} />}
               >
-                <div className="font-mono text-[#4FF2F8] mb-1 flex items-center gap-2">
-                  <span className="text-[#4FF2F8]/50">{'>'}</span>
-                  {item.type === 'work' ? 'work.exe' : 'education.exe'}
+                <div className="font-mono">
+                  <h3 className="text-xl font-bold" style={{ color: item.color }}>
+                    {`> ${item.title}`}
+                  </h3>
+                  <h4 className="text-gray-300 mt-2">
+                    {`@ ${item.company}`}
+                  </h4>
+                  <p className="text-gray-400 mt-4 text-sm">
+                    {item.description}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {item.skills.map((skill, skillIndex) => (
+                      <span
+                        key={skillIndex}
+                        className="px-3 py-1 text-sm bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 rounded-md"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <h3 className="vertical-timeline-element-title text-xl font-bold mb-1 text-white">
-                  {item.title}
-                </h3>
-                <h4 className="vertical-timeline-element-subtitle text-[#4FF2F8]">
-                  {item.company}
-                </h4>
-                <p className="text-gray-300 mt-4">{item.description}</p>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {item.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-1 bg-[#011627] rounded text-sm font-mono text-[#4FF2F8] border border-[#2d3644]/50"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            </VerticalTimelineElement>
-          ))}
-        </VerticalTimeline>
-      </motion.div>
+              </VerticalTimelineElement>
+            ))}
+          </VerticalTimeline>
+        </motion.div>
+      </div>
     </section>
   );
 };

@@ -28,7 +28,7 @@ export const Navbar = () => {
     return (
         <div className="z-20 fixed flex justify-center w-full text-white font-bold">
             
-            <div className="border border-white/20 mt-2 backdrop-blur-3xl rounded-3xl hidden md:flex items-center justify-center p-2 max-w-[500px] mx-auto">
+            <div className="border border-white/50 mt-1 backdrop-blur-2xl rounded-3xl hidden md:flex items-center justify-center p-2 max-w-[500px] mx-auto">
                 <ul className="flex flex-row p-3 space-x-10">
                     {navLinks.map((link, index) => (
                         <li key={index}>
