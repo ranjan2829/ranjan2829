@@ -7,7 +7,7 @@ const projects = [
   {
     title: "Perception-AI ",
     description: "Perception AI is an interactive web application that uses AI to process handwritten mathematical expressions. ✍️ Users can draw on a canvas, and the backend analyzes the image, solves the expression, and displays the result in real-time.",
-    image: "https://images.unsplash.com/photo-1642790551116-18e150f248e3?auto=format&fit=crop&q=80&w=2940",
+    image: "https://www.elegantthemes.com/blog/wp-content/uploads/2023/07/history-of-AI-art.jpg",
     github: "https://github.com/ranjan2829/Perception-AI-App",
     demo: "https://ai-illustration-sigma.vercel.app/",
     tech: ["Python","FastAPI","React", "TypeScript", "Vite"," Gemini AI", "gemini-1.5-flash", "Google AI Studio 🧠","Git", "GitHub"
@@ -18,7 +18,7 @@ const projects = [
   {
     title: "AI Search Engine",
     description: "Frontend built with Next.js (TypeScript) featuring server-side rendering and responsive UI components. Integrates with a FastAPI backend via REST APIs for AI-powered search results ranking and Google Trends data visualization, ensuring a seamless and interactive user experience.",
-    image: "https://images.unsplash.com/photo-1642790595397-6850723e0642?auto=format&fit=crop&q=80&w=2940",
+    image: "https://cdn.builtin.com/cdn-cgi/image/f=auto,fit=cover,w=1200,h=635,q=80/https://builtin.com/sites/www.builtin.com/files/2024-06/AI%20search%20engine.jpg",
     github: "https://github.com/ranjan2829/quant-analytics",
     demo: "https://quant-analytics-demo.com",
     tech: ["React", "D3.js", "Python", "PostgreSQL"],
@@ -26,12 +26,14 @@ const projects = [
     color: "#FF5E5E"
   },
   {
-    title: "ML Model Deployment Pipeline",
-    description: "Automated pipeline for training and deploying machine learning models",
-    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=2940",
-    github: "https://github.com/ranjan2829/ml-pipeline",
-    demo: "https://ml-pipeline-demo.com",
-    tech: ["Docker", "Kubernetes", "MLflow", "Python"],
+    title: "Kubernetes AI Automation Agent",
+    description: "Kubernetes AI Agent is an intelligent system designed to analyze Kubernetes logs for anomalies, failures, and performance issues. It uses AI-driven insights to help DevOps teams monitor and optimize Kubernetes-based deployments.",
+    image: "https://dt-cdn.net/wp-content/uploads/2020/07/Kubernetes-observability.jpg",
+    github: "https://github.com/ranjan2829/Kubernetes-AI-Agent",
+    demo: "https://github.com/ranjan2829/Kubernetes-AI-Agent",
+    tech: ["Docker", "Kubernetes", "MLflow", "Python","FastAPI","Groq DeepSeek-R1-Distill-Qwen-32B","Horizontal Pod Autoscaler","Git", "GitHub",
+       "Monitoring & Logging: Fluentd","rage: Local file system for logs",
+      ],
     icon: Code,
     color: "#4EFFB8"
   }
