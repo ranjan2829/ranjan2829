@@ -3,7 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-import { Brain, LineChart, Award, GraduationCap, Terminal } from 'lucide-react';
+import { Brain, LineChart, Award, GraduationCap } from 'lucide-react';
 
 const timelineData = [
   {
@@ -65,14 +65,14 @@ const timelineData = [
 
 export const Timeline = () => {
   return (
-    <section className="py-20 bg-black relative">
+    <section className="py-10 bg-black relative">
       {/* Terminal Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       
-      <div className="relative z-10 max-w-6xl mx-auto px-4">
+      <div className="relative z-10 max-w-7xl mx-auto px-4">
         {/* Terminal Header */}
         <motion.div 
-          className="bg-gray-900 rounded-t-lg p-4 border border-gray-700 mb-8"
+          className="bg-gray-900 rounded-t-lg p-5 border border-gray-700 mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >

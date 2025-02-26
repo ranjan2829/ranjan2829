@@ -1,12 +1,13 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { Github, Linkedin, Mail, Code, Brain, LineChart, Terminal, ArrowRight, Twitter, ChevronDown, Briefcase, Cloud, Database, Bot } from 'lucide-react';
+import { motion, useMotionValue} from 'framer-motion';
+import { Github, Linkedin, Mail, Code, Brain,  ArrowRight, Twitter, Briefcase, Cloud, Database, Bot } from 'lucide-react';
 import GitHubCalendar from 'react-github-calendar';
 
 const COLORS = ["#00E7FF", "#FF5E5E", "#4EFFB8", "#7B61FF"];
 const ROLES = ["Artificial Intelligence Engineer", "Full Stack Developer", "Machine Learning Researcher"];
 const TYPING_SPEED = 150;
+import Image from 'next/image'; 
 
 const TypewriterText = ({ text }: { text: string }) => {
   const [displayText, setDisplayText] = useState("");
@@ -15,7 +16,7 @@ const TypewriterText = ({ text }: { text: string }) => {
     let i = 0;
     setDisplayText("");
     const timer = setInterval(() => {
-      setDisplayText((prev) => text.slice(0, i + 1));
+      setDisplayText(() => text.slice(0, i + 1));
       i++;
       if (i >= text.length) clearInterval(timer);
     }, TYPING_SPEED);
@@ -27,7 +28,7 @@ const TypewriterText = ({ text }: { text: string }) => {
     <span className="font-mono">
       {displayText}
       <motion.span
-        className="inline-block w-2 h-5 bg-cyan-400 ml-1"
+        className="inline-block w-4 h-5 bg-cyan-400 ml-1"
         animate={{ opacity: [1, 0] }}
         transition={{ duration: 0.8, repeat: Infinity }}
       />
@@ -58,13 +59,22 @@ export const Hero = () => {
     { icon: Linkedin, href: "https://www.linkedin.com/in/ranjan-shitole-8b8484123/", label: "LinkedIn" },
     { icon: Mail, href: "mailto:ranjan.shitole3129@gmail.com", label: "Email" },
     { 
-      icon: () => <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png" alt="LeetCode" className="w-6 h-6" />, 
+      icon: () => (
+        <Image 
+          src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png" 
+          alt="LeetCode" 
+          width={24} // Specify width (adjust as needed)
+          height={24} // Specify height (adjust as needed)
+          className="w-6 h-6" // Tailwind classes for responsive sizing
+          priority={false} // Optional: Set to true if this image is critical for LCP
+        />
+      ), 
       href: "https://leetcode.com/u/ranjanshitole/", 
       label: "LeetCode" 
     },
     { icon: Twitter, href: "https://x.com/Ranjancosmos", label: "X" }
   ];
-
+  
   const skills = [
     { icon: Brain, label: "Machine Learning" },
     { icon: Code, label: "Web Dev" },
@@ -85,10 +95,10 @@ export const Hero = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-green-400 p-20 font-mono relative">
+    <div className="min-h-screen bg-black text-green-400 p-8 font-mono relative">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-25 max-w-6xl mx-auto">
         {/* Terminal Header */}
         <motion.div 
           className="bg-gray-900 rounded-t-lg p-3 border border-gray-700"
@@ -104,14 +114,14 @@ export const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Terminal Content */}
+        {/* Terminal Content - Scrollable */}
         <motion.div 
-          className="bg-black/80 backdrop-blur-sm p-6 border-x border-b border-gray-700 rounded-b-lg"
+          className="bg-black/80 backdrop-blur-sm p-5 border-x border-b border-gray-700 rounded-b-lg overflow-y-auto max-h-[80vh]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
         >
-          <div className="space-y-4">
+          <div className="space-y-2">
             <div className="space-y-1">
               <p className="text-cyan-400">
                 <TypewriterText text="Initializing Ranjan's Portfolio..." />
@@ -127,7 +137,7 @@ export const Hero = () => {
                 <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-600">
                   Ranjan Shitole
                 </h1>
-                <p className="text-xl text-cyan-400 mt-1">
+                <p className="text-lg text-cyan-400 mt-1">
                   <span className="text-gray-400">{'>>'}</span> {ROLES[roleIndex]}
                 </p>
               </motion.div>
@@ -138,7 +148,7 @@ export const Hero = () => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="space-y-2"
+                className="space-y-1"
               >
                 <p className="text-gray-400">
                   <span className="text-yellow-400">$</span> cat bio.txt
@@ -156,11 +166,11 @@ export const Hero = () => {
             )}
 
             {/* Skills Section */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <p className="text-gray-400">
                 <span className="text-yellow-400">$</span> skills --list
               </p>
-              <div className="flex gap-4 flex-wrap">
+              <div className="flex gap-3 flex-wrap">
                 {skills.map(({ icon: Icon, label }) => (
                   <motion.div
                     key={label}
@@ -168,28 +178,28 @@ export const Hero = () => {
                     whileHover={{ scale: 1.05, borderColor: "#00E7FF" }}
                   >
                     <Icon className="w-5 h-5 text-cyan-400" />
-                    <span className="text-cyan-300">{label}</span>
+                    <span className="text-cyan-300 text-sm">{label}</span>
                   </motion.div>
                 ))}
               </div>
             </div>
 
             {/* Currently Learning */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <p className="text-gray-400">
                 <span className="text-yellow-400">$</span> learning --now
               </p>
               <p className="text-cyan-300 pl-4">
-                <TypewriterText text="Exploring Quantum Computing & Advanced NLP" />
+                <TypewriterText text="Exploring AI Agents and LLMs" />
               </p>
             </div>
 
             {/* GitHub Contributions */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <p className="text-gray-400">
                 <span className="text-yellow-400">$</span> github-stats
               </p>
-              <div className="bg-gray-900/50 p-4 rounded-lg overflow-x-auto">
+              <div className="bg-gray-900/50 p-3 rounded-lg overflow-x-auto">
                 <GitHubCalendar 
                   username="ranjan2829"
                   theme={githubTheme}
@@ -203,93 +213,61 @@ export const Hero = () => {
             </div>
 
             {/* Social Links */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <p className="text-gray-400">
                 <span className="text-yellow-400">$</span> ls social-links/
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 {socialLinks.map(({ icon: Icon, href, label }) => (
                   <motion.a
                     key={label}
                     href={href}
-                    className="p-3 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-cyan-500 hover:text-cyan-400 transition-colors"
+                    className="p-2 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-cyan-500 hover:text-cyan-400 transition-colors"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Icon className="w-6 h-6" />
+                    <Icon className="w-5 h-5" />
                   </motion.a>
                 ))}
               </div>
             </div>
 
             {/* Navigation Buttons */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <p className="text-gray-400">
                 <span className="text-yellow-400">$</span> dir navigation/
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-2">
                 <motion.button
-                  className="group flex items-center gap-2 px-6 py-3 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-cyan-500 hover:text-cyan-400 transition-all"
+                  className="group flex items-center gap-2 px-5 py-2 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-cyan-500 hover:text-cyan-400 transition-all text-sm"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => scrollToSection('projects')}
                 >
-                  <Code className="w-5 h-5" />
+                  <Code className="w-4 h-4" />
                   <span>Projects</span>
-                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
                 </motion.button>
 
                 <motion.button
-                  className="group flex items-center gap-2 px-6 py-3 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-cyan-500 hover:text-cyan-400 transition-all"
+                  className="group flex items-center gap-2 px-5 py-2 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-cyan-500 hover:text-cyan-400 transition-all text-sm"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection('experience')}
+                  onClick={() => scrollToSection('projects')}
                 >
-                  <Briefcase className="w-5 h-5" />
+                  <Briefcase className="w-4 h-4" />
                   <span>Experience</span>
-                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
                 </motion.button>
 
-                <motion.button
-                  className="group flex items-center gap-2 px-6 py-3 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-cyan-500 hover:text-cyan-400 transition-all shadow-[0_0_10px_rgba(0,231,255,0.3)] hover:shadow-[0_0_20px_rgba(0,231,255,0.6)]"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection('contact')}
-                >
-                  <Mail className="w-5 h-5" />
-                  <span>Contact Me</span>
-                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
-                </motion.button>
+
               </div>
             </div>
+
+
           </div>
         </motion.div>
 
-        {/* Navigate Prompt */}
-        <motion.div 
-          className="mt-1 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2 }}
-        >
-          <p className="text-gray-400">
-            <span className="text-yellow-400">$</span> navigate --section
-          </p>
-          <div className="flex justify-center mt-5">
-            <motion.div 
-              className="flex flex-col items-center gap-2"
-              animate={{ y: [0, 10, 0] }}
-              transition={{ 
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <ChevronDown className="w-10 h-6 text-cyan-400" />
-              <ChevronDown className="w-10 h-6 text-cyan-400 -mt-4" />
-            </motion.div>
-          </div>
-        </motion.div>
       </div>
     </div>
   );
