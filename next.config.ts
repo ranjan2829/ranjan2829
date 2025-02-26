@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ['upload.wikimedia.org'], // Add the required hostname
+  },
 };
 
 export default nextConfig;

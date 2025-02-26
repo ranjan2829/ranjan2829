@@ -11,11 +11,14 @@ const Timeline = dynamic(() => import('../components/Timeline'), { ssr: false })
 export default function Home() {
   return (
     <>
+    <Navbar />
       
       <Hero />
-      <Navbar />
+      
+
       <Timeline />      
       <Projects />
+      
     </>
   );
 }

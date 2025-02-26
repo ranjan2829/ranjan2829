@@ -95,7 +95,7 @@ export const Hero = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-green-400 p-8 font-mono relative">
+    <div className="min-h-screen bg-black text-green-400 p-20 font-mono relative">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       
       <div className="relative z-25 max-w-6xl mx-auto">
