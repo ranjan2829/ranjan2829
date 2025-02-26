@@ -1,33 +1,27 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { Github, Linkedin, Mail, Code, Brain, LineChart, Terminal, ArrowRight, Twitter } from 'lucide-react';
+import { Github, Linkedin, Mail, Code, Brain, LineChart, Terminal, ArrowRight, Twitter, ChevronDown, Briefcase, Cloud, Database, Bot } from 'lucide-react';
 import GitHubCalendar from 'react-github-calendar';
-import { Briefcase } from "lucide-react";
-import { ChevronDown } from "lucide-react";
-
-
 
 const COLORS = ["#00E7FF", "#FF5E5E", "#4EFFB8", "#7B61FF"];
-const ROLES = ["Aritifical Intelligence Engineer", "Full Stack Developer ", "Machine Learning Researcher"];
+const ROLES = ["Artificial Intelligence Engineer", "Full Stack Developer", "Machine Learning Researcher"];
 const TYPING_SPEED = 150;
-
-
 
 const TypewriterText = ({ text }: { text: string }) => {
   const [displayText, setDisplayText] = useState("");
 
   useEffect(() => {
     let i = 0;
-    setDisplayText(""); // Reset text before typing starts
+    setDisplayText("");
     const timer = setInterval(() => {
-      setDisplayText((prev) => text.slice(0, i + 1)); // Slice ensures correct character order
+      setDisplayText((prev) => text.slice(0, i + 1));
       i++;
       if (i >= text.length) clearInterval(timer);
     }, TYPING_SPEED);
 
     return () => clearInterval(timer);
-  }, [text]); // Ensure it resets on text change
+  }, [text]);
 
   return (
     <span className="font-mono">
@@ -59,7 +53,6 @@ export const Hero = () => {
     return () => clearInterval(interval);
   }, [color]);
 
-
   const socialLinks = [
     { icon: Github, href: "https://github.com/ranjan2829", label: "GitHub" },
     { icon: Linkedin, href: "https://www.linkedin.com/in/ranjan-shitole-8b8484123/", label: "LinkedIn" },
@@ -71,13 +64,19 @@ export const Hero = () => {
     },
     { icon: Twitter, href: "https://x.com/Ranjancosmos", label: "X" }
   ];
-  
-  
+
+  const skills = [
+    { icon: Brain, label: "Machine Learning" },
+    { icon: Code, label: "Web Dev" },
+    { icon: Cloud, label: "Cloud Computing" },
+    { icon: Database, label: "Databases" },
+    { icon: Bot, label: "AI Agents" },
+  ];
+
   const githubTheme = {
     dark: ['#1a1a1a', '#0e4429', '#006d32', '#26a641', '#39d353']
   };
 
-  // Scroll function
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -87,15 +86,15 @@ export const Hero = () => {
 
   return (
     <div className="min-h-screen bg-black text-green-400 p-20 font-mono relative">
-      {/* Terminal Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Terminal Header */}
         <motion.div 
-          className="bg-gray-900 rounded-t-lg p-4 border border-gray-700"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          className="bg-gray-900 rounded-t-lg p-3 border border-gray-700"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -107,16 +106,15 @@ export const Hero = () => {
 
         {/* Terminal Content */}
         <motion.div 
-          className="bg-black/80 backdrop-blur-sm p-8 border-x border-b border-gray-700 rounded-b-lg"
+          className="bg-black/80 backdrop-blur-sm p-6 border-x border-b border-gray-700 rounded-b-lg"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
         >
-          <div className="space-y-1">
-            
-            <div className="space-y-2">
+          <div className="space-y-4">
+            <div className="space-y-1">
               <p className="text-cyan-400">
-                <TypewriterText text="Welcome to Ranjan's Portfolio" />
+                <TypewriterText text="Initializing Ranjan's Portfolio..." />
               </p>
               <p className="text-gray-400">
                 <span className="text-yellow-400">$</span> whoami
@@ -129,7 +127,7 @@ export const Hero = () => {
                 <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-600">
                   Ranjan Shitole
                 </h1>
-                <p className="text-xl text-cyan-400 mt-2">
+                <p className="text-xl text-cyan-400 mt-1">
                   <span className="text-gray-400">{'>>'}</span> {ROLES[roleIndex]}
                 </p>
               </motion.div>
@@ -140,27 +138,54 @@ export const Hero = () => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="space-y-4"
+                className="space-y-2"
               >
                 <p className="text-gray-400">
                   <span className="text-yellow-400">$</span> cat bio.txt
                 </p>
                 <div className="pl-4 text-cyan-300">
-                  <p>Aritifical Intelligence Engineer and Full Stack Developer with knowledge in Cloud Computing Services</p>
-                  <ul className="list-disc pl-6 mt-2 space-y-1">
-                  <li>Building AI Agents</li>
+                  <p>Artificial Intelligence Engineer and Full Stack Developer with expertise in Cloud Computing</p>
+                  <ul className="list-disc pl-6 mt-1 space-y-1">
+                    <li>Building AI Agents</li>
                     <li>Machine Learning & Deep Learning</li>
-                    
                     <li>Full Stack Development</li>
-                    <li>Quant</li>
-                    
+                    <li>Quantitative Analysis</li>
                   </ul>
                 </div>
               </motion.div>
             )}
 
+            {/* Skills Section */}
+            <div className="space-y-2">
+              <p className="text-gray-400">
+                <span className="text-yellow-400">$</span> skills --list
+              </p>
+              <div className="flex gap-4 flex-wrap">
+                {skills.map(({ icon: Icon, label }) => (
+                  <motion.div
+                    key={label}
+                    className="flex items-center gap-2 p-2 bg-gray-900/50 rounded-lg border border-gray-700"
+                    whileHover={{ scale: 1.05, borderColor: "#00E7FF" }}
+                  >
+                    <Icon className="w-5 h-5 text-cyan-400" />
+                    <span className="text-cyan-300">{label}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Currently Learning */}
+            <div className="space-y-2">
+              <p className="text-gray-400">
+                <span className="text-yellow-400">$</span> learning --now
+              </p>
+              <p className="text-cyan-300 pl-4">
+                <TypewriterText text="Exploring Quantum Computing & Advanced NLP" />
+              </p>
+            </div>
+
             {/* GitHub Contributions */}
-            <div className="space-y-4">
+            <div className="space-y-2">
               <p className="text-gray-400">
                 <span className="text-yellow-400">$</span> github-stats
               </p>
@@ -178,7 +203,7 @@ export const Hero = () => {
             </div>
 
             {/* Social Links */}
-            <div className="space-y-4">
+            <div className="space-y-2">
               <p className="text-gray-400">
                 <span className="text-yellow-400">$</span> ls social-links/
               </p>
@@ -197,8 +222,8 @@ export const Hero = () => {
               </div>
             </div>
 
-            {/* Navigation Buttons Inside Terminal */}
-            <div className="space-y-4">
+            {/* Navigation Buttons */}
+            <div className="space-y-2">
               <p className="text-gray-400">
                 <span className="text-yellow-400">$</span> dir navigation/
               </p>
@@ -224,12 +249,23 @@ export const Hero = () => {
                   <span>Experience</span>
                   <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
                 </motion.button>
+
+                <motion.button
+                  className="group flex items-center gap-2 px-6 py-3 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-cyan-500 hover:text-cyan-400 transition-all shadow-[0_0_10px_rgba(0,231,255,0.3)] hover:shadow-[0_0_20px_rgba(0,231,255,0.6)]"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => scrollToSection('contact')}
+                >
+                  <Mail className="w-5 h-5" />
+                  <span>Contact Me</span>
+                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
+                </motion.button>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Navigate Prompt Below Terminal */}
+        {/* Navigate Prompt */}
         <motion.div 
           className="mt-1 text-center"
           initial={{ opacity: 0, y: 20 }}
