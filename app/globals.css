@@ -89,6 +89,12 @@ body {
   .btn-neon {
     padding: 8px 12px;
   }
+
+  /* Upper panel adjustments for mobile view */
+  .upper-panel {
+    padding: 10px;
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -111,5 +117,11 @@ body {
 
   .btn-neon {
     padding: 6px 10px;
+  }
+
+  /* Upper panel adjustments for mobile view */
+  .upper-panel {
+    padding: 5px;
+    font-size: 12px;
   }
 }
