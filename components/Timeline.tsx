@@ -7,6 +7,15 @@ import { Brain, LineChart, Award, GraduationCap } from 'lucide-react';
 
 const timelineData = [
   {
+    title: "Backend & AI Engineer Intern",
+    company: "Matic Algos",
+    date: "March 2025 - Present",
+    description: "Backend Engineering & AI/ML initiatives in algorithmic trading.Built India's Automated AlgoTrading Platform , Working with High speed Financial Datasets from the stock exchange, Built Financial Trading Machine learning based Models",
+    icon: Brain,
+    skills: ["Python", "AlgoTrading", "Quantitative Analysis","Finance","Mathematics"],
+    color: "#FF5E5E"
+  },
+  {
     title: "Machine Learning Intern",
     company: "Photo Blitz Capital",
     date: "August - September 2024",
