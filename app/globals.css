@@ -66,3 +66,50 @@ body {
 .btn-neon:hover::after {
   left: 100%;
 }
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .glow-text {
+    font-size: 1.2rem;
+  }
+
+  .matrix-rain {
+    font-size: 12px;
+  }
+
+  .card-hover {
+    padding: 10px;
+  }
+
+  .btn-neon {
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  .glow-text {
+    font-size: 1rem;
+  }
+
+  .matrix-rain {
+    font-size: 10px;
+  }
+
+  .card-hover {
+    padding: 5px;
+  }
+
+  .btn-neon {
+    padding: 6px 10px;
+  }
+}
