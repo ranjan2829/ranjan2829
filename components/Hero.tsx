@@ -5,7 +5,7 @@ import { Github, Linkedin, Mail, Code, Brain,  ArrowRight, Twitter, Briefcase, C
 import GitHubCalendar from 'react-github-calendar';
 
 const COLORS = ["#00E7FF", "#FF5E5E", "#4EFFB8", "#7B61FF"];
-const ROLES = ["Artificial Intelligence Engineer", "Full Stack Developer", "Machine Learning Researcher"];
+const ROLES = ["Artificial Intelligence Engineer", "Full Stack Developer", "Quantitative Researcher"];
 const TYPING_SPEED = 150;
 import Image from 'next/image'; 
 
@@ -56,7 +56,7 @@ export const Hero = () => {
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/ranjan2829", label: "GitHub" },
-    { icon: Linkedin, href: "https://www.linkedin.com/in/ranjan-shitole-8b8484123/", label: "LinkedIn" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/ranjan-8b8484123/", label: "LinkedIn" },
     { icon: Mail, href: "mailto:ranjan.shitole3129@gmail.com", label: "Email" },
     { 
       icon: () => (
