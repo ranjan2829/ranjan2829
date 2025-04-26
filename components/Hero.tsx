@@ -116,7 +116,7 @@ export const Hero = () => {
 
         {/* Terminal Content - Scrollable */}
         <motion.div 
-          className="bg-black/80 backdrop-blur-sm p-5 border-x border-b border-gray-700 rounded-b-lg overflow-y-auto max-h-[80vh]"
+          className="bg-black/80 backdrop-blur-sm p-10 border-x border-b border-gray-700 rounded-b-lg overflow-y-auto max-h-[80vh]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
