@@ -56,7 +56,7 @@ export const Hero = () => {
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/ranjan2829", label: "GitHub" },
-    { icon: Linkedin, href: "https://www.linkedin.com/in/ranjan-8b8484123/", label: "LinkedIn" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/ranjan2829/", label: "LinkedIn" },
     { icon: Mail, href: "mailto:ranjan.shitole3129@gmail.com", label: "Email" },
     { 
       icon: () => (
