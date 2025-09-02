@@ -7,9 +7,18 @@ import { Brain, LineChart, Award, GraduationCap } from 'lucide-react';
 
 const timelineData = [
   {
+    title: "Software Engineer - 1",
+    company: "Brain Labs",
+    date: "September 2025 - Present",
+    description: "Backend Engineering in Finance Quant trading platform",
+    icon: Brain,
+    skills: ["Python","Finance","Mathematics","AI"],
+    color: "#7B61FF"
+  },
+  {
     title: "Associate SDE 1 AI/ML",
     company: "OneLab Ventures",
-    date: "June 2025 - Present",
+    date: "June 2025 - August 2-25",
     description: "Backend Engineering & AI/ML initiatives , Wokring on Deep Learning Models",
     icon: Brain,
     skills: ["Python","Finance","Mathematics","AI","Deep Learning"],
