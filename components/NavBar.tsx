@@ -13,9 +13,9 @@ interface NavLink {
 const navLinks: NavLink[] = [
   { title: "Home", path: "#home", isExternal: false },
   { title: "Experience", path: "#experience", isExternal: false },
-  { title: "Stats", path: "#stats", isExternal: false },
   { title: "Projects", path: "#projects", isExternal: false },
-  { title: "Blogs", path: "https://ranjan3129.notion.site/Trade-World-f497684f8eb24fa9882e22768e177376", isExternal: true },
+  { title: "Resume", path: "#resume", isExternal: false },
+  { title: "GitHub", path: "https://github.com/ranjan2829", isExternal: true },
   { title: "LinkedIn", path: "https://www.linkedin.com/in/ranjan-shitole-8b8484123/", isExternal: true }
 ];
 
@@ -26,7 +26,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "experience", "stats", "projects"];
+      const sections = ["home", "experience", "projects", "resume"];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -84,12 +84,12 @@ export const Navbar = () => {
 
   return (
     <div className={`z-50 fixed top-0 w-full flex justify-center font-mono ${
-      isDarkMode ? 'text-green-400' : 'text-gray-900'
+      isDarkMode ? 'text-white' : 'text-black'
     }`}>
       {/* Desktop Navigation */}
       <div className={`mt-2 backdrop-blur-md rounded-2xl hidden md:flex items-center justify-center p-2 max-w-[750px] mx-auto shadow-lg ${
         isDarkMode 
-          ? 'border border-green-400/30 bg-black/80' 
+          ? 'border border-gray-700 bg-black/80' 
           : 'border border-gray-300 bg-white/90'
       }`}>
         <ul className="flex flex-row p-2 space-x-4 items-center">
@@ -102,8 +102,8 @@ export const Navbar = () => {
                   rel="noopener noreferrer"
                   className={`text-sm transition-colors duration-300 ease-in-out ${
                     isDarkMode 
-                      ? 'text-cyan-400 hover:text-cyan-200' 
-                      : 'text-blue-600 hover:text-blue-800'
+                      ? 'text-white hover:text-gray-300' 
+                      : 'text-black hover:text-gray-700'
                   }`}
                 >
                   {link.title}
@@ -118,11 +118,11 @@ export const Navbar = () => {
                   className={`text-sm transition-colors duration-300 ease-in-out ${
                     activeSection === link.path.replace('#', '')
                       ? isDarkMode
-                        ? 'text-cyan-200 font-bold border-b-2 border-cyan-400'
-                        : 'text-blue-700 font-bold border-b-2 border-blue-600'
+                        ? 'text-white font-bold border-b-2 border-white'
+                        : 'text-black font-bold border-b-2 border-black'
                       : isDarkMode
-                        ? 'text-cyan-400 hover:text-cyan-200'
-                        : 'text-blue-600 hover:text-blue-800'
+                        ? 'text-white hover:text-gray-300'
+                        : 'text-black hover:text-gray-700'
                   }`}
                 >
                   {link.title}
@@ -155,8 +155,8 @@ export const Navbar = () => {
       {/* Mobile Menu Toggle */}
       <div onClick={toggleNav} className={`md:hidden absolute top-4 right-4 border rounded-full z-50 p-2 ${
         isDarkMode
-          ? 'text-green-400/70 border-green-400/30 bg-black/80'
-          : 'text-gray-700 border-gray-300 bg-white/90'
+          ? 'text-white border-gray-700 bg-black/80'
+          : 'text-black border-gray-300 bg-white/90'
       }`}>
         {nav ? <AiOutlineClose size={24} /> : <AiOutlineMenu size={24} />}
       </div>
@@ -195,8 +195,8 @@ export const Navbar = () => {
                     rel="noopener noreferrer"
                     className={`text-lg transition-colors duration-300 ${
                       isDarkMode
-                        ? 'text-cyan-400 hover:text-cyan-200'
-                        : 'text-blue-600 hover:text-blue-800'
+                        ? 'text-white hover:text-gray-300'
+                        : 'text-black hover:text-gray-700'
                     }`}
                     onClick={closeNav}
                   >
@@ -212,11 +212,11 @@ export const Navbar = () => {
                     className={`text-lg transition-colors duration-300 ${
                       activeSection === link.path.replace('#', '')
                         ? isDarkMode
-                          ? 'text-cyan-200 font-bold'
-                          : 'text-blue-700 font-bold'
+                          ? 'text-white font-bold'
+                          : 'text-black font-bold'
                         : isDarkMode
-                          ? 'text-cyan-400 hover:text-cyan-200'
-                          : 'text-blue-600 hover:text-blue-800'
+                          ? 'text-white hover:text-gray-300'
+                          : 'text-black hover:text-gray-700'
                     }`}
                   >
                     {link.title}

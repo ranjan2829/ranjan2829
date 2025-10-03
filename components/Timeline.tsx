@@ -145,7 +145,7 @@ export const Timeline = () => {
   return (
     <section 
       id="experience" 
-      className="w-full relative"
+      className="w-full h-full relative flex flex-col"
     >
       {/* Fixed Terminal Header */}
       <motion.div 
@@ -155,9 +155,26 @@ export const Timeline = () => {
       >
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500" />
-              <div className="w-3 h-3 rounded-full bg-green-500" />
+              <motion.div 
+                className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:brightness-125"
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.8, rotate: 360 }}
+              />
+              <motion.div 
+                className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer hover:brightness-125"
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.8 }}
+                onClick={() => setIsAutoScrolling(!isAutoScrolling)}
+              />
+              <motion.div 
+                className="w-3 h-3 rounded-full bg-green-500 cursor-pointer hover:brightness-125"
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.8 }}
+                onClick={() => {
+                  const expSection = document.getElementById('experience');
+                  if (expSection) expSection.scrollIntoView({ behavior: 'smooth' });
+                }}
+              />
               <span className="ml-4 text-gray-400 font-mono text-sm">ranjan@portfolio:~/experience $</span>
             </div>
             
@@ -193,9 +210,9 @@ export const Timeline = () => {
           </div>
         </motion.div>
 
-      {/* Scrollable Container with Auto-scroll */}
+      {/* Scrollable Container with Auto-scroll and CRT Effect */}
       <div 
-        className={`relative z-10 w-full max-h-[75vh] overflow-y-auto transition-all duration-300 border-x border-b border-gray-700 rounded-b-lg bg-black/50 ${
+        className={`terminal-crt relative z-10 w-full flex-1 overflow-y-auto transition-all duration-300 border-x border-b border-gray-700 rounded-b-lg bg-black/90 ${
           isHovering && isAutoScrolling ? 'ring-2 ring-cyan-500/30' : ''
         }`}
         ref={scrollRef}
@@ -285,31 +302,18 @@ export const Timeline = () => {
       {/* Scroll Progress Indicator - Outside scrollable area */}
       {isAutoScrolling && (
         <motion.div 
-          className="mt-4 bg-gray-900/50 rounded-full h-1.5 overflow-hidden backdrop-blur-sm"
+          className="mt-2 bg-gray-900/50 rounded-full h-1.5 overflow-hidden backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
           <motion.div 
-            className="h-full bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500 rounded-full shadow-lg shadow-cyan-500/50"
+            className="h-full bg-white rounded-full"
             style={{ width: `${scrollProgress}%` }}
             transition={{ duration: 0.1 }}
           />
         </motion.div>
       )}
 
-      {/* Hover Pause Hint */}
-      {isAutoScrolling && !isHovering && (
-        <motion.div
-          className="mt-2 text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <p className="text-xs text-gray-500 font-mono">
-            💡 Hover to pause • Click button to toggle
-          </p>
-        </motion.div>
-      )}
     </section>
   );
 };

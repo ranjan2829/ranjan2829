@@ -2,84 +2,57 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    // Return your latest tweets (scraped/curated)
+    // Fetch tweets directly from RSS.app JSON feed
+    const rssAppUrl = 'https://rss.app/feeds/v1.1/kBE8o4ORFvWwi2Sa.json';
+    
+    console.log('Fetching tweets from RSS.app...');
+    
+    const response = await fetch(rssAppUrl, {
+      next: { revalidate: 300 }, // Cache for 5 minutes
+    });
+
+    if (!response.ok) {
+      throw new Error(`RSS.app returned ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    // Parse RSS.app JSON feed format
+    const tweets = data.items.map((item: any) => ({
+      id: item.id,
+      text: item.title || item.content_text.split('—')[0].trim(),
+      created_at: item.date_published,
+      url: item.url,
+      image: item.image || null,
+      public_metrics: {
+        like_count: 0,
+        retweet_count: 0,
+        reply_count: 0,
+      },
+    }));
+
+    console.log(`✅ Fetched ${tweets.length} real tweets from RSS.app`);
+
     return NextResponse.json({
       success: true,
       data: {
-        tweets: [
-          {
-            id: '1974002253318000853',
-            text: 'bro whattt ?🧐',
-            created_at: '2025-10-03T06:43:07.000Z',
-            public_metrics: {
-              like_count: 2,
-              retweet_count: 0,
-              reply_count: 0,
-            },
-          },
-          {
-            id: '1973307252997255233',
-            text: 'RBI monetary policy day!',
-            created_at: '2025-10-01T08:41:26.000Z',
-            public_metrics: {
-              like_count: 2,
-              retweet_count: 0,
-              reply_count: 0,
-            },
-          },
-          {
-            id: '1973307163901931864',
-            text: 'So October started with a banger profit in nifty options !',
-            created_at: '2025-10-01T08:41:04.000Z',
-            public_metrics: {
-              like_count: 3,
-              retweet_count: 0,
-              reply_count: 0,
-            },
-          },
-          {
-            id: '1973377411661308124',
-            text: '@Micky__21_ Maybe we should start a hedge fund together, arbitrage trading',
-            created_at: '2025-10-01T13:20:13.000Z',
-            public_metrics: {
-              like_count: 0,
-              retweet_count: 0,
-              reply_count: 0,
-            },
-          },
-        ],
+        tweets,
         user: {
           name: 'Ranjan',
           username: 'manofsteel3129',
         },
       },
     });
-  } catch (error) {
-    console.error('Twitter fetch error:', error);
+
+  } catch (error: any) {
+    console.error('RSS.app fetch error:', error.message);
+    
     return NextResponse.json(
       { 
-        success: true, 
-        data: {
-          tweets: [
-            {
-              id: '1',
-              text: 'Working on AI projects and quantitative finance! Follow for updates on tech, finance, and coding. 🚀',
-              created_at: new Date().toISOString(),
-              public_metrics: {
-                like_count: 0,
-                retweet_count: 0,
-                reply_count: 0,
-              },
-            },
-          ],
-          user: {
-            name: 'Ranjan',
-            username: 'manofsteel3129',
-          },
-        },
+        success: false, 
+        error: 'Failed to fetch tweets from RSS.app'
       },
+      { status: 500 }
     );
   }
 }
-
-

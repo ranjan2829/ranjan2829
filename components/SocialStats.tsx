@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Twitter, Heart, MessageCircle, Repeat2 } from 'lucide-react';
+import { Code2, Twitter } from 'lucide-react';
 
 interface LeetCodeStats {
   totalSolved: number;
@@ -11,12 +11,28 @@ interface LeetCodeStats {
   hardSolved: number;
   ranking: number;
   acceptanceRate: number;
+  contestRating?: number;
+  contestGlobalRanking?: number;
+  contestTopPercentage?: number;
+  contestsAttended?: number;
+  recentSubmissions?: Array<{
+    title: string;
+    titleSlug: string;
+    timestamp: string;
+  }>;
+  patterns?: {
+    advanced: Array<{ tagName: string; problemsSolved: number }>;
+    intermediate: Array<{ tagName: string; problemsSolved: number }>;
+    fundamental: Array<{ tagName: string; problemsSolved: number }>;
+  };
 }
 
 interface Tweet {
   id: string;
   text: string;
   created_at: string;
+  url?: string;
+  image?: string;
   public_metrics: {
     like_count: number;
     retweet_count: number;
@@ -30,6 +46,7 @@ export const SocialStats = () => {
   const [loading, setLoading] = useState(true);
   const [tweets, setTweets] = useState<Tweet[]>([]);
   const [tweetsLoading, setTweetsLoading] = useState(true);
+  const [isMinimized, setIsMinimized] = useState(false);
 
   useEffect(() => {
     const checkTheme = () => {
@@ -106,16 +123,38 @@ export const SocialStats = () => {
           animate={{ opacity: 1, y: 0 }}
         >
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500" />
-            <div className="w-3 h-3 rounded-full bg-green-500" />
+            <motion.div 
+              className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:brightness-125"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8, rotate: 360 }}
+            />
+            <motion.div 
+              className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer hover:brightness-125"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8 }}
+              onClick={() => setIsMinimized(!isMinimized)}
+            />
+            <motion.div 
+              className="w-3 h-3 rounded-full bg-green-500 cursor-pointer hover:brightness-125"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8 }}
+              onClick={() => {
+                const statsSection = document.getElementById('stats');
+                if (statsSection) statsSection.scrollIntoView({ behavior: 'smooth' });
+              }}
+            />
             <span className={`ml-4 font-mono text-xs transition-colors duration-300 ${
               isDarkMode ? 'text-gray-400' : 'text-gray-700'
             }`}>ranjan@portfolio:~/social-stats $</span>
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-2 gap-4"
+          animate={{ height: isMinimized ? 0 : 'auto', opacity: isMinimized ? 0 : 1 }}
+          transition={{ duration: 0.3 }}
+          style={{ overflow: isMinimized ? 'hidden' : 'visible' }}
+        >
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -148,7 +187,7 @@ export const SocialStats = () => {
                 <div className={`p-2 rounded-lg ${isDarkMode ? 'bg-black/50' : 'bg-gray-50'}`}>
                   <div className="flex items-center justify-between mb-1">
                     <span className={`text-xs font-mono ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Solved</span>
-                    <span className={`text-base font-bold ${isDarkMode ? 'text-cyan-400' : 'text-blue-600'}`}>
+                    <span className={`text-base font-bold ${isDarkMode ? 'text-white' : 'text-black'}`}>
                       {leetcodeStats.totalSolved}/{leetcodeStats.totalQuestions}
                     </span>
                   </div>
@@ -175,7 +214,7 @@ export const SocialStats = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-around pt-1.5 border-t border-gray-700/30">
+                <div className="grid grid-cols-3 gap-2 pt-1.5 border-t border-gray-700/30">
                   <div className="text-center">
                     <div className={`text-xs font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>Rank</div>
                     <div className={`text-sm font-bold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
@@ -183,12 +222,99 @@ export const SocialStats = () => {
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className={`text-xs font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>Rate</div>
-                    <div className={`text-sm font-bold ${isDarkMode ? 'text-cyan-400' : 'text-blue-600'}`}>
-                      {leetcodeStats.acceptanceRate}%
+                    <div className={`text-xs font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>Rating</div>
+                    <div className={`text-sm font-bold ${isDarkMode ? 'text-yellow-400' : 'text-yellow-600'}`}>
+                      {leetcodeStats.contestRating || 'N/A'}
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className={`text-xs font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>Top</div>
+                    <div className={`text-sm font-bold ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                      {leetcodeStats.contestTopPercentage ? `${leetcodeStats.contestTopPercentage.toFixed(2)}%` : 'N/A'}
                     </div>
                   </div>
                 </div>
+
+                {/* Skills Section */}
+                {leetcodeStats.patterns && (
+                  <div className={`mt-2 pt-2 border-t ${isDarkMode ? 'border-gray-700/30' : 'border-gray-300'}`}>
+                    <div className={`text-xs font-mono font-bold mb-1 ${isDarkMode ? 'text-white' : 'text-black'}`}>Skills (≥10)</div>
+                    
+                    {/* Advanced Skills - Inline badges */}
+                    {(() => {
+                      const filteredAdvanced = leetcodeStats.patterns.advanced.filter(p => p.problemsSolved >= 10);
+                      return filteredAdvanced.length > 0 && (
+                        <div className="mb-1">
+                          <div className={`text-xs font-mono mb-0.5 ${isDarkMode ? 'text-red-400' : 'text-red-600'}`}>Advanced</div>
+                          <div className="flex flex-wrap gap-1">
+                            {filteredAdvanced.map((pattern, idx) => (
+                              <span
+                                key={idx}
+                                className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-mono ${
+                                  isDarkMode ? 'bg-red-500/10 text-gray-300' : 'bg-red-50 text-gray-700'
+                                }`}
+                              >
+                                {pattern.tagName} <span className={isDarkMode ? 'text-red-400' : 'text-red-600'}>×{pattern.problemsSolved}</span>
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Intermediate Skills - Inline badges */}
+                    {(() => {
+                      const filteredIntermediate = leetcodeStats.patterns.intermediate.filter(p => p.problemsSolved >= 10);
+                      return filteredIntermediate.length > 0 && (
+                        <div>
+                          <div className={`text-xs font-mono mb-0.5 ${isDarkMode ? 'text-yellow-400' : 'text-yellow-600'}`}>Intermediate</div>
+                          <div className="flex flex-wrap gap-1">
+                            {filteredIntermediate.map((pattern, idx) => (
+                              <span
+                                key={idx}
+                                className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-mono ${
+                                  isDarkMode ? 'bg-yellow-500/10 text-gray-300' : 'bg-yellow-50 text-gray-700'
+                                }`}
+                              >
+                                {pattern.tagName} <span className={isDarkMode ? 'text-yellow-400' : 'text-yellow-600'}>×{pattern.problemsSolved}</span>
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                )}
+
+                {/* Recent Submissions */}
+                {leetcodeStats.recentSubmissions && leetcodeStats.recentSubmissions.length > 0 && (
+                  <div className={`mt-2 pt-2 border-t ${isDarkMode ? 'border-gray-700/30' : 'border-gray-300'}`}>
+                    <div className={`text-xs font-mono mb-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Recent AC</div>
+                    <div className="space-y-1">
+                      {(() => {
+                        // Remove duplicates by title
+                        const uniqueSubmissions = leetcodeStats.recentSubmissions.filter(
+                          (sub, index, self) => 
+                            index === self.findIndex((s) => s.title === sub.title)
+                        ).slice(0, 3);
+                        
+                        return uniqueSubmissions.map((sub, idx) => (
+                          <a
+                            key={idx}
+                            href={`https://leetcode.com/problems/${sub.titleSlug}/`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`block text-xs font-mono truncate transition-colors ${
+                              isDarkMode ? 'text-gray-400 hover:text-cyan-400' : 'text-gray-600 hover:text-blue-600'
+                            }`}
+                          >
+                            → {sub.title}
+                          </a>
+                        ));
+                      })()}
+                    </div>
+                  </div>
+                )}
               </div>
             ) : null}
           </motion.div>
@@ -221,34 +347,34 @@ export const SocialStats = () => {
                 <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
               </div>
             ) : tweets.length > 0 ? (
-              <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2">
-                {tweets.slice(0, 3).map((tweet) => (
+              <div className="space-y-2 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                {tweets.slice(0, 6).map((tweet) => (
                   <a
                     key={tweet.id}
-                    href={`https://x.com/manofsteel3129/status/${tweet.id}`}
+                    href={tweet.url || `https://x.com/manofsteel3129/status/${tweet.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`block p-2 rounded-lg border transition-all duration-300 ${
                       isDarkMode ? 'bg-black/50 border-gray-700 hover:border-blue-500/50' : 'bg-gray-50 border-gray-200 hover:border-blue-500/50'
                     }`}
                   >
-                    <p className={`text-xs font-mono mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    <p className={`text-xs font-mono line-clamp-2 mb-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                       {tweet.text}
                     </p>
-                    <div className="flex items-center gap-4 text-xs">
-                      <div className={`flex items-center gap-1 ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-                        <Heart className="w-3 h-3" />
-                        <span>{tweet.public_metrics.like_count}</span>
+                    
+                    {tweet.image && (
+                      <div className="my-2 rounded overflow-hidden">
+                        <img 
+                          src={tweet.image} 
+                          alt="Tweet image" 
+                          className="w-full h-auto max-h-32 object-cover"
+                        />
                       </div>
-                      <div className={`flex items-center gap-1 ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-                        <Repeat2 className="w-3 h-3" />
-                        <span>{tweet.public_metrics.retweet_count}</span>
-                      </div>
-                      <div className={`flex items-center gap-1 ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-                        <MessageCircle className="w-3 h-3" />
-                        <span>{tweet.public_metrics.reply_count}</span>
-                      </div>
-                    </div>
+                    )}
+                    
+                    <span className={`text-xs font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                      {new Date(tweet.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    </span>
                   </a>
                 ))}
               </div>
@@ -272,7 +398,7 @@ export const SocialStats = () => {
               View All Tweets
             </a>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

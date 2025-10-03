@@ -72,6 +72,11 @@ body {
   box-shadow: 0 0 20px rgba(79, 242, 248, 0.2);
 }
 
+/* Terminal CRT Effect - Disabled */
+.terminal-crt {
+  position: relative;
+}
+
 /* Button hover effect */
 .btn-neon {
   position: relative;
