@@ -364,6 +364,7 @@ export const SocialStats = () => {
                     
                     {tweet.image && (
                       <div className="my-2 rounded overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img 
                           src={tweet.image} 
                           alt="Tweet image" 

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue} from 'framer-motion';
-import { Github, Linkedin, Mail, Brain, Code, Twitter, Cloud, Database, Bot, Download, MapPin, Phone, ArrowDown } from 'lucide-react';
+import { Github, Linkedin, Mail, Twitter, MapPin, Phone, ArrowDown } from 'lucide-react';
 import GitHubCalendar from 'react-github-calendar';
 
 const COLORS = ["#00E7FF", "#FF5E5E", "#4EFFB8", "#7B61FF"];
@@ -76,14 +76,6 @@ export const Hero = () => {
     { icon: Twitter, href: "https://x.com/Ranjancosmos", label: "X" }
   ];
   
-  const skills = [
-    { icon: Brain, label: "Machine Learning" },
-    { icon: Code, label: "Full Stack Dev" },
-    { icon: Cloud, label: "Cloud & DevOps" },
-    { icon: Database, label: "Databases" },
-    { icon: Bot, label: "AI Agents" },
-  ];
-
   const techStack = {
     languages: ["Python", "TypeScript", "JavaScript", "C++", "Go"],
     backend: ["FastAPI", "Node.js", "Next.js"],
