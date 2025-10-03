@@ -96,14 +96,13 @@ export const Timeline = () => {
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [flowPosition, setFlowPosition] = useState(0);
   const [activeNodeIndex, setActiveNodeIndex] = useState(-1);
 
   useEffect(() => {
     if (!scrollRef.current || !isAutoScrolling || isHovering) return;
 
     const scrollContainer = scrollRef.current;
-    let scrollInterval: NodeJS.Timeout;
+    let scrollInterval: ReturnType<typeof setInterval>;
 
     // Auto-scroll function
     const autoScroll = () => {
@@ -115,9 +114,6 @@ export const Timeline = () => {
           // Update scroll progress
           const progress = (currentScroll / maxScroll) * 100;
           setScrollProgress(progress);
-          
-          // Update flow position for neon effect
-          setFlowPosition(progress);
           
           // Calculate which timeline node is active based on scroll
           const nodeCount = timelineData.length;
@@ -132,7 +128,6 @@ export const Timeline = () => {
             setTimeout(() => {
               scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
               setScrollProgress(0);
-              setFlowPosition(0);
               setActiveNodeIndex(-1);
             }, 2000); // Pause at bottom for 2 seconds
           }

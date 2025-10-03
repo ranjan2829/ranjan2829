@@ -52,12 +52,12 @@ export const SocialStats = () => {
         
         if (result.success) {
           const acceptanceRate = result.data.totalQuestions > 0 
-            ? ((result.data.totalSolved / result.data.totalQuestions) * 100).toFixed(1)
+            ? parseFloat(((result.data.totalSolved / result.data.totalQuestions) * 100).toFixed(1))
             : 0;
             
           setLeetcodeStats({
             ...result.data,
-            acceptanceRate: parseFloat(acceptanceRate),
+            acceptanceRate,
           });
         }
       } catch (error) {

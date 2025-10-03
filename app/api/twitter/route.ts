@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const username = 'manofsteel3129';
-    
     // Return your latest tweets (scraped/curated)
     return NextResponse.json({
       success: true,
