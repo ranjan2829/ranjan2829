@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue} from 'framer-motion';
-import { Github, Linkedin, Mail, Code, Brain,  ArrowRight, Twitter, Briefcase, Cloud, Database, Bot } from 'lucide-react';
+import { Github, Linkedin, Mail, Brain, Code, Twitter, Cloud, Database, Bot } from 'lucide-react';
 import GitHubCalendar from 'react-github-calendar';
 
 const COLORS = ["#00E7FF", "#FF5E5E", "#4EFFB8", "#7B61FF"];
@@ -87,18 +87,9 @@ export const Hero = () => {
     dark: ['#1a1a1a', '#0e4429', '#006d32', '#26a641', '#39d353']
   };
 
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-black text-green-400 p-20 font-mono relative">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-      
-      <div className="relative z-25 max-w-6xl mx-auto">
+    <div className="w-full text-green-400 font-mono relative">
+      <div className="relative z-25 w-full">
         {/* Terminal Header */}
         <motion.div 
           className="bg-gray-900 rounded-t-lg p-3 border border-gray-700"
@@ -114,14 +105,14 @@ export const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Terminal Content - Scrollable */}
+        {/* Terminal Content */}
         <motion.div 
-          className="bg-black/80 backdrop-blur-sm p-10 border-x border-b border-gray-700 rounded-b-lg overflow-y-auto max-h-[80vh]"
+          className="bg-black/80 backdrop-blur-sm p-4 sm:p-6 md:p-8 border-x border-b border-gray-700 rounded-b-lg shadow-2xl shadow-cyan-500/10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
         >
-          <div className="space-y-2">
+          <div className="space-y-3">
             <div className="space-y-1">
               <p className="text-cyan-400">
                 <TypewriterText text="Initializing Ranjan's Portfolio..." />
@@ -184,31 +175,23 @@ export const Hero = () => {
               </div>
             </div>
 
-            {/* Currently Learning */}
+            {/* GitHub Contributions - Compact */}
             <div className="space-y-1">
-              <p className="text-gray-400">
-                <span className="text-yellow-400">$</span> learning --now
-              </p>
-              <p className="text-cyan-300 pl-4">
-                <TypewriterText text="Exploring AI Agents and LLMs" />
-              </p>
-            </div>
-
-            {/* GitHub Contributions */}
-            <div className="space-y-1">
-              <p className="text-gray-400">
+              <p className="text-gray-400 text-sm">
                 <span className="text-yellow-400">$</span> github-stats
               </p>
-              <div className="bg-gray-900/50 p-3 rounded-lg overflow-x-auto">
-                <GitHubCalendar 
-                  username="ranjan2829"
-                  theme={githubTheme}
-                  hideColorLegend
-                  hideMonthLabels={false}
-                  labels={{
-                    totalCount: '{{count}} contributions in the last year'
-                  }}
-                />
+              <div className="bg-gray-900/50 p-2 rounded-lg overflow-x-auto max-w-full">
+                <div className="scale-90 origin-left">
+                  <GitHubCalendar 
+                    username="ranjan2829"
+                    theme={githubTheme}
+                    hideColorLegend
+                    hideMonthLabels={false}
+                    labels={{
+                      totalCount: '{{count}} contributions in the last year'
+                    }}
+                  />
+                </div>
               </div>
             </div>
 
@@ -231,39 +214,6 @@ export const Hero = () => {
                 ))}
               </div>
             </div>
-
-            {/* Navigation Buttons */}
-            <div className="space-y-1">
-              <p className="text-gray-400">
-                <span className="text-yellow-400">$</span> dir navigation/
-              </p>
-              <div className="flex gap-2">
-                <motion.button
-                  className="group flex items-center gap-2 px-5 py-2 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-cyan-500 hover:text-cyan-400 transition-all text-sm"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection('projects')}
-                >
-                  <Code className="w-4 h-4" />
-                  <span>Projects</span>
-                  <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
-                </motion.button>
-
-                <motion.button
-                  className="group flex items-center gap-2 px-5 py-2 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-cyan-500 hover:text-cyan-400 transition-all text-sm"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection('projects')}
-                >
-                  <Briefcase className="w-4 h-4" />
-                  <span>Experience</span>
-                  <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" />
-                </motion.button>
-
-
-              </div>
-            </div>
-
 
           </div>
         </motion.div>

@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {Github, Brain, LineChart, Code, Terminal } from 'lucide-react';
 
@@ -10,7 +10,7 @@ const projects = [
     image: "https://www.elegantthemes.com/blog/wp-content/uploads/2023/07/history-of-AI-art.jpg",
     github: "https://github.com/ranjan2829/Perception-AI-App",
     demo: "https://ai-illustration-sigma.vercel.app/",
-    tech: ["Python","FastAPI","React", "TypeScript", "Vite"," Gemini AI", "gemini-1.5-flash", "Google AI Studio 🧠","Git", "GitHub"
+    tech: ["Python","FastAPI","React", "TypeScript", "Vite","Gemini AI", "gemini-1.5-flash", "Google AI Studio","Git", "GitHub"
       ],
     icon: Brain,
     color: "#00E7FF"
@@ -31,8 +31,7 @@ const projects = [
     image: "https://dt-cdn.net/wp-content/uploads/2020/07/Kubernetes-observability.jpg",
     github: "https://github.com/ranjan2829/Kubernetes-AI-Agent",
     demo: "https://github.com/ranjan2829/Kubernetes-AI-Agent",
-    tech: ["Docker", "Kubernetes", "MLflow", "Python","FastAPI","Groq DeepSeek-R1-Distill-Qwen-32B","Horizontal Pod Autoscaler","Git", "GitHub",
-       "Monitoring & Logging: Fluentd","rage: Local file system for logs",
+    tech: ["Docker", "Kubernetes", "MLflow", "Python","FastAPI","Groq DeepSeek-R1","HPA","Git", "GitHub","Fluentd","Logging"
       ],
     icon: Code,
     color: "#4EFFB8"
@@ -40,15 +39,40 @@ const projects = [
 ];
 
 export const Projects = () => {
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    const checkTheme = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setIsDarkMode(isDark);
+    };
+    
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="projects" className="py-20 bg-black relative">
+    <section id="projects" className={`py-12 sm:py-16 md:py-20 relative transition-colors duration-300 ${
+      isDarkMode ? 'bg-black' : 'bg-gray-50'
+    }`}>
       {/* Terminal Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      <div className={`absolute inset-0 transition-opacity duration-300 ${
+        isDarkMode 
+          ? 'bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem]'
+          : 'bg-[linear-gradient(to_right,#e0e0e0_1px,transparent_1px),linear-gradient(to_bottom,#e0e0e0_1px,transparent_1px)] bg-[size:4rem_4rem]'
+      }`} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4">
         {/* Terminal Header */}
         <motion.div 
-          className="bg-gray-900 rounded-t-lg p-4 border border-gray-700 mb-8"
+          className={`rounded-t-lg p-4 border mb-8 transition-colors duration-300 ${
+            isDarkMode 
+              ? 'bg-gray-900 border-gray-700' 
+              : 'bg-white border-gray-300'
+          }`}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >
@@ -56,7 +80,9 @@ export const Projects = () => {
             <div className="w-3 h-3 rounded-full bg-red-500" />
             <div className="w-3 h-3 rounded-full bg-yellow-500" />
             <div className="w-3 h-3 rounded-full bg-green-500" />
-            <span className="ml-4 text-gray-400 font-mono">ranjan@portfolio:~/projects $</span>
+            <span className={`ml-4 font-mono transition-colors duration-300 ${
+              isDarkMode ? 'text-gray-400' : 'text-gray-700'
+            }`}>ranjan@portfolio:~/projects $</span>
           </div>
         </motion.div>
 
@@ -70,9 +96,15 @@ export const Projects = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
-              className="inline-block bg-black/50 backdrop-blur-sm border border-cyan-500/20 rounded-lg p-4 mb-6"
+              className={`inline-block backdrop-blur-sm border rounded-lg p-4 mb-6 transition-colors duration-300 ${
+                isDarkMode 
+                  ? 'bg-black/50 border-cyan-500/20' 
+                  : 'bg-white/50 border-blue-500/20'
+              }`}
             >
-              <span className="text-cyan-400 font-mono">ls -la ./projects</span>
+              <span className={`font-mono transition-colors duration-300 ${
+                isDarkMode ? 'text-cyan-400' : 'text-blue-600'
+              }`}>ls -la ./projects</span>
             </motion.div>
           </div>
 

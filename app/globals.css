@@ -10,10 +10,37 @@
   --accent-neon: #00ffcc;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--bg-primary);
   color: var(--text-secondary);
   font-family: 'Fira Code', monospace;
+}
+
+/* GitHub-style Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(26, 26, 26, 0.5);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.5);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 140, 140, 0.7);
+  background-clip: padding-box;
 }
 
 /* Terminal-like glow effect */
