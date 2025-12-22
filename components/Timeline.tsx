@@ -1,320 +1,102 @@
 "use client";
-import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
-import 'react-vertical-timeline-component/style.min.css';
-import { Brain, LineChart, Award, GraduationCap, Pause, Play } from 'lucide-react';
+import React from 'react';
 
 const timelineData = [
   {
-    title: "Software Engineer - 1",
+    title: "Software Development Engineer",
     company: "Brain Labs",
+    location: "Kharadi",
     date: "September 2025 - Present",
-    description: "Backend Engineering in Finance Quant trading platform",
-    icon: Brain,
-    skills: ["Python","Finance","Mathematics","AI"],
-    color: "#7B61FF"
+    description: "Working on Finance Quant trading platform. Building scalable systems for high-frequency trading.",
+    isActive: true,
   },
   {
-    title: "Associate SDE 1 AI/ML",
-    company: "OneLab Ventures",
+    title: "Associate Software Developer Intern",
+    company: "OneLab-Ventures",
+    location: "Hinjewadi",
     date: "June 2025 - August 2025",
-    description: "Backend Engineering & AI/ML initiatives, Working on Deep Learning Models",
-    icon: Brain,
-    skills: ["Python","Finance","Mathematics","AI","Deep Learning"],
-    color: "#7B61FF"
+    description: "Building and Deploying AI Models on AWS and Using DevOps tools to manage the Apps. Built and deployed an AI-based calling agent (Twilio + FastAPI + AWS) processing 320+ interviews with 98%+ transcription accuracy. Architected async backend (15+ REST APIs, WebSockets) handling 70 concurrent calls with horizontal scaling (−65% latency). Implemented Transformer-based text generator (<1s inference, 4-layer model) using PyTorch and Kafka pipeline.",
   },
   {
     title: "Quantitative Engineer Intern",
-    company: "Matic Algos",
-    date: "March 2025 - Present",
-    description: "Backend Engineering & AI/ML initiatives in algorithmic trading.Built India's Automated AlgoTrading Platform , Working with High speed Financial Datasets from the stock exchange, Built Financial Trading Machine learning based Models",
-    icon: Brain,
-    skills: ["Python", "AlgoTrading", "Quantitative Analysis","Finance","Mathematics"],
-    color: "#FF5E5E"
-  },
-  {
-    title: "Machine Learning Intern",
-    company: "Photo Blitz Capital",
-    date: "August - September 2024",
-    description: "AI/ML initiatives in algorithmic trading. Built Financial Trading Machine learning based Models",
-    icon: Brain,
-    skills: ["TensorFlow", "PyTorch", "Quantitative Analysis","Finance","Mathematics"],
-    color: "#00E7FF"
+    company: "MaticAlgos",
+    location: "Pune",
+    date: "March 2025 - May 2025",
+    description: "Working with Tick by Tick Live Data from the Exchange & Building Quantitative Models and AI algorithms for & Building Robust Backend System for high speed calculations for the Algo-trading platform. Optimized real-time data pipelines (3.2× faster, −69% latency) and built a Redis-backed concurrent task system. Developed 45+ technical indicators (>95% accuracy) and a Black-Scholes options engine with full Greeks. Integrated 4 broker APIs (5Paisa, Kotak, Upstox, DHAN) using REST/WebSocket + OAuth2/JWT authentication. Loki–Prometheus–Grafana observability stack for live monitoring.",
   },
   {
     title: "Backend Engineer Intern",
     company: "Ventory Company",
+    location: "Pune",
     date: "June 2024 - August 2024",
     description: "Developed backend features and enhanced API functionality using Python for Ventory's platform.",
-    icon: LineChart,
-    skills: ["Python","AI","Node.js","Next.js","AWS"],
-    color: "#FF5E5E"
   },
   {
-    title: "Technical Head",
-    company: "Computer Society of India",
-    date: "2022 - 2023",
-    description: "Led and managed various technical initiatives, workshops, and events within the Computer Society.",
-    icon: Award,
-    skills: ["Public Speaking","Team Management","Technical Skills"],
-    color: "#4EFFB8"
-  },
-  {
-    title: "ML Research Fellow",
-    company: "AI Fellowship.ai",
-    date: "November 2024 - December 2024",
-    description: "Contributing to research projects in Artificial Intelligence and Open Source.",
-    icon: Award,
-    skills: ["Deep Learning", "Research", "Open Source", "AI Ethics"],
-    color: "#4EFFB8"
-  },
-  {
-    title: "Google Cloud Facilitator",
-    company: "Google Developer Student Club",
-    date: "October - November 2023",
-    description: "Facilitated workshops and training sessions on Google Cloud technologies for university students",
-    icon: GraduationCap,
-    skills: ["Public Speaking","Team Management","Technical Skills","Google Cloud", "Workshop Facilitation", "Cloud Computing"],
-    color: "#7B61FF"
-  },
-  
-  {
-    title: "Engineering in Artificial Intelligence",
+    title: "Bachelors in Artificial Intelligence Engineering",
     company: "Pune University",
+    location: "Pune, India",
     date: "2021 - 2025",
-    description: "Specialized in AI and financial computing. Current CGPA 8.5.",
-    icon: GraduationCap,
-    skills: ["Machine Learning", "Financial Computing", "Data Engineering","Full Stack Development"],
-    color: "#7B61FF"
-  }
+    description: "CGPA: 8.9",
+  },
+  {
+    title: "10th Computer Science",
+    company: "Podar International School (ICSE)",
+    location: "",
+    date: "2019",
+    description: "GPA: 8.1",
+  },
 ];
 
 export const Timeline = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
-  const [isHovering, setIsHovering] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeNodeIndex, setActiveNodeIndex] = useState(-1);
-
-  useEffect(() => {
-    if (!scrollRef.current || !isAutoScrolling || isHovering) return;
-
-    const scrollContainer = scrollRef.current;
-    let scrollInterval: ReturnType<typeof setInterval>;
-
-    // Auto-scroll function
-    const autoScroll = () => {
-      scrollInterval = setInterval(() => {
-        if (scrollContainer) {
-          const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
-          const currentScroll = scrollContainer.scrollTop;
-          
-          // Update scroll progress
-          const progress = (currentScroll / maxScroll) * 100;
-          setScrollProgress(progress);
-          
-          // Calculate which timeline node is active based on scroll
-          const nodeCount = timelineData.length;
-          const activeIndex = Math.floor((progress / 100) * nodeCount);
-          setActiveNodeIndex(activeIndex);
-
-          // Scroll down slowly
-          if (currentScroll < maxScroll) {
-            scrollContainer.scrollTop += 1; // Slow scroll speed
-          } else {
-            // Reset to top smoothly when reaching bottom
-            setTimeout(() => {
-              scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
-              setScrollProgress(0);
-              setActiveNodeIndex(-1);
-            }, 2000); // Pause at bottom for 2 seconds
-          }
-        }
-      }, 50); // 50ms interval for smooth scrolling
-    };
-
-    autoScroll();
-
-    return () => {
-      if (scrollInterval) clearInterval(scrollInterval);
-    };
-  }, [isAutoScrolling, isHovering]);
-
   return (
-    <section 
-      id="experience" 
-      className="w-full h-full relative flex flex-col"
-    >
-      {/* Fixed Terminal Header */}
-      <motion.div 
-        className="sticky top-0 z-20 bg-gray-900 rounded-t-lg p-5 border border-gray-700 mb-0"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <motion.div 
-                className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:brightness-125"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.8, rotate: 360 }}
-              />
-              <motion.div 
-                className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer hover:brightness-125"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.8 }}
-                onClick={() => setIsAutoScrolling(!isAutoScrolling)}
-              />
-              <motion.div 
-                className="w-3 h-3 rounded-full bg-green-500 cursor-pointer hover:brightness-125"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.8 }}
-                onClick={() => {
-                  const expSection = document.getElementById('experience');
-                  if (expSection) expSection.scrollIntoView({ behavior: 'smooth' });
-                }}
-              />
-              <span className="ml-4 text-gray-400 font-mono text-sm">ranjan@portfolio:~/experience $</span>
-            </div>
-            
-            {/* Auto-scroll Toggle Button */}
-            <motion.button
-              onClick={() => setIsAutoScrolling(!isAutoScrolling)}
-              className={`flex items-center gap-2 px-3 py-1 rounded-lg border transition-all group ${
-                isAutoScrolling 
-                  ? 'bg-cyan-500/10 border-cyan-500/50 shadow-lg shadow-cyan-500/20' 
-                  : 'bg-gray-800/50 border-gray-600 hover:border-cyan-500'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {isAutoScrolling ? (
-                <>
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  >
-                    <Pause className="w-3 h-3 text-cyan-400" />
-                  </motion.div>
-                </>
-              ) : (
-                <Play className="w-3 h-3 text-cyan-400 group-hover:text-cyan-300" />
-              )}
-              <span className={`text-xs font-mono ${
-                isAutoScrolling ? 'text-cyan-300' : 'text-gray-400 group-hover:text-cyan-400'
-              }`}>
-                {isAutoScrolling ? 'Auto' : 'Manual'}
-              </span>
-            </motion.button>
-          </div>
-        </motion.div>
-
-      {/* Scrollable Container with Auto-scroll and CRT Effect */}
-      <div 
-        className={`terminal-crt relative z-10 w-full flex-1 overflow-y-auto transition-all duration-300 border-x border-b border-gray-700 rounded-b-lg bg-black/90 ${
-          isHovering && isAutoScrolling ? 'ring-2 ring-cyan-500/30' : ''
-        }`}
-        ref={scrollRef}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-      >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="p-4"
-        >
-          <div className="text-center mb-8">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              className="inline-block bg-black/50 backdrop-blur-sm border border-cyan-500/20 rounded-lg p-3 mb-4"
-            >
-              <span className="text-cyan-400 font-mono text-sm">cat experience.log</span>
-            </motion.div>
-          </div>
-
-          {/* Clean Container */}
-          <div className="relative" ref={timelineRef}>
-
-          <VerticalTimeline lineColor="rgba(0, 231, 255, 0.2)">
-            {timelineData.map((item, index) => {
-              const isActive = index === activeNodeIndex;
-              return (
-              <VerticalTimelineElement
-                key={index}
-                className="vertical-timeline-element--work"
-                contentStyle={{
-                  background: 'rgba(0, 0, 0, 0.7)',
-                  backdropFilter: 'blur(10px)',
-                  border: isActive 
-                    ? `1px solid ${item.color}60`
-                    : '1px solid rgba(0, 231, 255, 0.1)',
-                  boxShadow: '0 4px 20px rgba(0, 231, 255, 0.1)',
-                  fontFamily: 'monospace',
-                  transition: 'all 0.3s ease',
-                }}
-                contentArrowStyle={{
-                  borderRight: '7px solid rgba(0, 231, 255, 0.1)',
-                }}
-                date={item.date}
-                iconStyle={{
-                  background: 'rgb(0, 0, 0)',
-                  border: `2px solid ${item.color}`,
-                  boxShadow: isActive 
-                    ? `0 0 15px ${item.color}80`
-                    : `0 0 8px ${item.color}40`,
-                  transition: 'all 0.3s ease',
-                }}
-                icon={<item.icon className="w-5 h-5" style={{ color: item.color }} />}
-              >
-                <div className="font-mono">
-                  <h3 className="text-xl font-bold" style={{ color: item.color }}>
-                    {`> ${item.title}`}
-                  </h3>
-                  <h4 className="text-gray-300 mt-2">
-                    {`@ ${item.company}`}
-                  </h4>
-                  <p className="text-gray-400 mt-4 text-sm">
-                    {item.description}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {item.skills.map((skill, skillIndex) => (
-                      <span
-                        key={skillIndex}
-                        className="px-3 py-1 text-sm bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 rounded-md"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </VerticalTimelineElement>
-            );
-            })}
-          </VerticalTimeline>
-          </div>
-        </motion.div>
+    <div className="glass-panel rounded-xl p-6 relative flex-grow">
+      <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none rounded-xl"></div>
+      <div className="mb-5 flex items-center justify-between z-10 relative">
+        <div className="flex items-center gap-2">
+          <span className="cmd-prompt"></span>
+          <span className="text-accent-cyan">experience</span>
+          <span className="text-muted">--log</span>
+        </div>
+        <span className="text-[10px] text-muted font-mono">Updated: Today</span>
       </div>
-
-      {/* Scroll Progress Indicator - Outside scrollable area */}
-      {isAutoScrolling && (
-        <motion.div 
-          className="mt-2 bg-gray-900/50 rounded-full h-1.5 overflow-hidden backdrop-blur-sm"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <motion.div 
-            className="h-full bg-white rounded-full"
-            style={{ width: `${scrollProgress}%` }}
-            transition={{ duration: 0.1 }}
-          />
-        </motion.div>
-      )}
-
-    </section>
+      <div className="relative pl-2 space-y-8 z-10 max-h-[600px] overflow-y-auto pr-2">
+        <div className="absolute left-[11px] top-2 bottom-2 w-px bg-white/10"></div>
+        {timelineData.map((item, index) => (
+          <div key={index} className="relative pl-6 group">
+            <div className={`absolute left-1 top-1.5 w-4 h-4 bg-bg-card border rounded-full flex items-center justify-center z-10 transition-colors ${
+              item.isActive 
+                ? 'border-accent-cyan shadow-[0_0_10px_rgba(6,182,212,0.3)]' 
+                : 'border-white/20 group-hover:border-accent-cyan'
+            }`}>
+              <div className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                item.isActive 
+                  ? 'bg-accent-cyan' 
+                  : 'bg-gray-500 group-hover:bg-accent-cyan'
+              }`}></div>
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <span className={`text-[11px] font-mono tracking-wider uppercase mb-1 ${
+                item.isActive ? 'text-accent-cyan font-semibold' : 'text-muted'
+              }`}>
+                {item.date}
+              </span>
+              <h3 className={`text-base font-display font-semibold mb-1 tracking-tight ${
+                item.isActive ? 'text-white' : 'text-gray-100'
+              }`}>
+                {item.title}
+              </h3>
+              <div className="text-sm text-muted font-medium mb-2 font-display">
+                @ {item.company}{item.location ? `, ${item.location}` : ''}
+              </div>
+              <p className="text-sm text-gray-300 leading-relaxed font-sans">
+                {item.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
+
 export default Timeline;

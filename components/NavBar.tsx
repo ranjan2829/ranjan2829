@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
-import { Moon, Sun } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 
 interface NavLink {
   title: string;
@@ -12,17 +12,13 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   { title: "Home", path: "#home", isExternal: false },
-  { title: "Experience", path: "#experience", isExternal: false },
   { title: "Projects", path: "#projects", isExternal: false },
   { title: "Resume", path: "#resume", isExternal: false },
-  { title: "GitHub", path: "https://github.com/ranjan2829", isExternal: true },
-  { title: "LinkedIn", path: "https://www.linkedin.com/in/ranjan-shitole-8b8484123/", isExternal: true }
 ];
 
 export const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,17 +45,6 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    // Apply theme to document
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      document.documentElement.style.colorScheme = 'dark';
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.style.colorScheme = 'light';
-    }
-  }, [isDarkMode]);
-
   const toggleNav = () => {
     setNav(!nav);
   };
@@ -78,156 +63,86 @@ export const Navbar = () => {
     closeNav();
   };
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   return (
-    <div className={`z-50 fixed top-0 w-full flex justify-center font-mono ${
-      isDarkMode ? 'text-white' : 'text-black'
-    }`}>
+    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
       {/* Desktop Navigation */}
-      <div className={`mt-2 backdrop-blur-md rounded-2xl hidden md:flex items-center justify-center p-2 max-w-[750px] mx-auto shadow-lg ${
-        isDarkMode 
-          ? 'border border-gray-700 bg-black/80' 
-          : 'border border-gray-300 bg-white/90'
-      }`}>
-        <ul className="flex flex-row p-2 space-x-4 items-center">
-          {navLinks.map((link, index) => (
-            <li key={index}>
-              {link.isExternal ? (
-                <a 
-                  href={link.path}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`text-sm transition-colors duration-300 ease-in-out ${
-                    isDarkMode 
-                      ? 'text-white hover:text-gray-300' 
-                      : 'text-black hover:text-gray-700'
-                  }`}
-                >
-                  {link.title}
-                </a>
-              ) : (
+      <div className="glass-panel px-1 p-1.5 rounded-full flex items-center gap-1 shadow-2xl shadow-black/50 hidden md:flex">
+        {navLinks.map((link, index) => (
+          <a
+            key={index}
+            href={link.path}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick(link.path, link.isExternal);
+            }}
+            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-colors touch-manipulation ${
+              activeSection === link.path.replace('#', '')
+                ? 'text-white bg-white/10 font-bold'
+                : 'text-muted hover:text-white hover:bg-white/5'
+            }`}
+          >
+            {link.title}
+          </a>
+        ))}
+        <div className="w-px h-4 bg-white/10 mx-1"></div>
+        <a 
+          href="https://github.com/ranjan2829"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-1.5 rounded-full text-muted hover:text-white hover:bg-white/5 transition-colors touch-manipulation"
+          aria-label="GitHub"
+        >
+          <Github className="w-[18px] h-[18px]" />
+        </a>
+        <a 
+          href="https://www.linkedin.com/in/ranjan-shitole-8b8484123/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-1.5 rounded-full text-muted hover:text-white hover:bg-white/5 transition-colors touch-manipulation"
+          aria-label="LinkedIn"
+        >
+          <Linkedin className="w-[18px] h-[18px]" />
+        </a>
+      </div>
+
+      {/* Mobile Menu Toggle */}
+      <div onClick={toggleNav} className="md:hidden fixed top-3 right-3 glass-panel rounded-full z-50 p-3 touch-manipulation min-w-[48px] min-h-[48px] flex items-center justify-center">
+        {nav ? <AiOutlineClose size={24} className="text-terminal-text" /> : <AiOutlineMenu size={24} className="text-terminal-text" />}
+      </div>
+
+      {/* Mobile Navigation Menu */}
+      {nav && (
+        <div className="md:hidden fixed top-0 left-0 w-full h-full flex items-center justify-center z-40 backdrop-blur-md bg-black/95">
+          <button
+            onClick={closeNav}
+            className="absolute top-3 right-3 p-2 text-muted hover:text-white"
+            aria-label="Close menu"
+          >
+            <AiOutlineClose size={24} />
+          </button>
+          <ul className="flex flex-col items-center space-y-6 px-4">
+            {navLinks.map((link, index) => (
+              <li key={index} className="w-full text-center">
                 <a 
                   href={link.path}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavClick(link.path, link.isExternal);
                   }}
-                  className={`text-sm transition-colors duration-300 ease-in-out ${
+                  className={`block text-xl sm:text-2xl py-3 transition-colors duration-300 touch-manipulation ${
                     activeSection === link.path.replace('#', '')
-                      ? isDarkMode
-                        ? 'text-white font-bold border-b-2 border-white'
-                        : 'text-black font-bold border-b-2 border-black'
-                      : isDarkMode
-                        ? 'text-white hover:text-gray-300'
-                        : 'text-black hover:text-gray-700'
+                      ? 'text-white font-bold'
+                      : 'text-terminal-text hover:text-white'
                   }`}
                 >
                   {link.title}
                 </a>
-              )}
-            </li>
-          ))}
-          
-          {/* Theme Toggle Button */}
-          <li>
-            <button
-              onClick={toggleTheme}
-              className={`p-2 rounded-lg transition-all duration-300 ${
-                isDarkMode
-                  ? 'bg-gray-800 hover:bg-gray-700 text-yellow-400'
-                  : 'bg-gray-200 hover:bg-gray-300 text-gray-800'
-              }`}
-              aria-label="Toggle theme"
-            >
-              {isDarkMode ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
-            </button>
-          </li>
-        </ul>
-      </div>
-
-      {/* Mobile Menu Toggle */}
-      <div onClick={toggleNav} className={`md:hidden absolute top-4 right-4 border rounded-full z-50 p-2 ${
-        isDarkMode
-          ? 'text-white border-gray-700 bg-black/80'
-          : 'text-black border-gray-300 bg-white/90'
-      }`}>
-        {nav ? <AiOutlineClose size={24} /> : <AiOutlineMenu size={24} />}
-      </div>
-
-      {/* Theme Toggle - Mobile */}
-      <div className="md:hidden absolute top-4 left-4 z-50">
-        <button
-          onClick={toggleTheme}
-          className={`p-2 rounded-full transition-all duration-300 border ${
-            isDarkMode
-              ? 'bg-black/80 border-green-400/30 text-yellow-400'
-              : 'bg-white/90 border-gray-300 text-gray-800'
-          }`}
-          aria-label="Toggle theme"
-        >
-          {isDarkMode ? (
-            <Sun className="w-5 h-5" />
-          ) : (
-            <Moon className="w-5 h-5" />
-          )}
-        </button>
-      </div>
-
-      {/* Mobile Navigation Menu */}
-      {nav && (
-        <div className={`md:hidden fixed top-0 left-0 w-full h-full flex items-center justify-center z-40 ${
-          isDarkMode ? 'bg-black/90' : 'bg-white/95'
-        }`}>
-          <ul className="flex flex-col items-center space-y-4">
-            {navLinks.map((link, index) => (
-              <li key={index}>
-                {link.isExternal ? (
-                  <a 
-                    href={link.path}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`text-lg transition-colors duration-300 ${
-                      isDarkMode
-                        ? 'text-white hover:text-gray-300'
-                        : 'text-black hover:text-gray-700'
-                    }`}
-                    onClick={closeNav}
-                  >
-                    {link.title}
-                  </a>
-                ) : (
-                  <a 
-                    href={link.path}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(link.path, link.isExternal);
-                    }}
-                    className={`text-lg transition-colors duration-300 ${
-                      activeSection === link.path.replace('#', '')
-                        ? isDarkMode
-                          ? 'text-white font-bold'
-                          : 'text-black font-bold'
-                        : isDarkMode
-                          ? 'text-white hover:text-gray-300'
-                          : 'text-black hover:text-gray-700'
-                    }`}
-                  >
-                    {link.title}
-                  </a>
-                )}
               </li>
             ))}
           </ul>
         </div>
       )}
-    </div>
+    </nav>
   );
 };
 

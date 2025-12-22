@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Hero from '@/components/Hero';
 import { Navbar } from "@/components/NavBar";
@@ -10,89 +10,102 @@ import dynamic from 'next/dynamic';
 
 const Timeline = dynamic(() => import('../components/Timeline'), { ssr: false })
 export default function Home() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
-  useEffect(() => {
-    // Listen for theme changes
-    const checkTheme = () => {
-      const isDark = document.documentElement.classList.contains('dark');
-      setIsDarkMode(isDark);
-    };
-    
-    checkTheme();
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <>
+    <div className="relative min-h-screen text-terminal-text font-mono selection:bg-accent-cyan selection:text-black overflow-x-hidden">
+      <div className="fixed inset-0 bg-grid pointer-events-none z-0"></div>
     <Navbar />
       
-      {/* Split Screen Layout - Hero & Timeline Side by Side */}
-      <div id="home" className={`min-h-screen relative overflow-hidden pt-16 transition-colors duration-300 ${
-        isDarkMode ? 'bg-black' : 'bg-gray-50'
-      }`}>
-        
-        {/* Split Container - Equal Heights */}
-        <div className="relative z-10 flex flex-col xl:flex-row xl:min-h-[calc(100vh-4rem)]">
-          {/* Left Side - Hero Terminal */}
-          <div className="w-full xl:w-1/2 flex items-start justify-center p-4 xl:p-6 relative xl:h-[calc(100vh-4rem)] xl:overflow-y-auto">
-            <div className="w-full max-w-3xl">
+      <main className="relative z-10 max-w-5xl mx-auto pt-32 pb-20 px-4 md:px-8 space-y-12">
+        {/* Hero Section with Timeline */}
+        <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div className="lg:col-span-7 flex flex-col gap-4">
               <Hero />
             </div>
-            
-            {/* Vertical Divider - Desktop Only */}
-            <div className={`hidden xl:block absolute right-0 top-0 bottom-0 w-px transition-colors duration-300 ${
-              isDarkMode ? 'bg-gray-800' : 'bg-gray-300'
-            }`}></div>
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            <Timeline />
           </div>
-          
-          {/* Horizontal Divider - Mobile Only */}
-          <div className={`xl:hidden w-full h-px transition-colors duration-300 ${
-            isDarkMode ? 'bg-gray-800' : 'bg-gray-300'
-          }`}></div>
-          
-          {/* Right Side - Timeline */}
-          <div className="w-full xl:w-1/2 flex items-start justify-center p-4 xl:p-6 xl:h-[calc(100vh-4rem)] xl:overflow-y-auto">
-            <div className="w-full max-w-3xl h-full">
-              <Timeline />
+        </section>
+
+        {/* Social Stats - Full Width */}
+        <section className="w-full">
+          <SocialStats />
+        </section>
+
+        {/* Tech Stack Section */}
+        <section>
+          <div className="mb-6 flex items-center gap-2">
+            <span className="cmd-prompt"></span>
+            <span className="text-accent-cyan">tech-stack</span>
+            <span className="text-muted">--visual</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="glass-panel rounded-lg p-4 border-l-2 border-l-accent-cyan">
+              <h3 className="text-xs uppercase font-bold text-muted mb-3 tracking-widest">Programming Languages</h3>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Python</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">TypeScript</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">JavaScript</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Go</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Rust</span>
+              </div>
+            </div>
+            <div className="glass-panel rounded-lg p-4 border-l-2 border-l-accent-green">
+              <h3 className="text-xs uppercase font-bold text-muted mb-3 tracking-widest">Web & Backend</h3>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Next.js</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Node.js</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">React.js</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">FastAPI</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">PostgreSQL</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">MongoDB</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Redis</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">SQL</span>
+              </div>
+            </div>
+            <div className="glass-panel rounded-lg p-4 border-l-2 border-l-accent-yellow">
+              <h3 className="text-xs uppercase font-bold text-muted mb-3 tracking-widest">Cloud & DevOps</h3>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Docker</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Kubernetes</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">AWS EC2</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">AWS S3</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">AWS Lambda</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">AWS RDS</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">AWS SageMaker</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">GCP</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Prometheus</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Grafana</span>
+              </div>
+            </div>
+            <div className="glass-panel rounded-lg p-4 border-l-2 border-l-accent-red">
+              <h3 className="text-xs uppercase font-bold text-muted mb-3 tracking-widest">AI/ML & Tools</h3>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">PyTorch</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Deep Learning</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">LLMs</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">LangChain</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">RAG</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Transformers</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Apache Kafka</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Apache Spark</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Git</span>
+                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">GitHub</span>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      
-      <SocialStats />
+        </section>
       
       <Projects />
       
       {/* Resume Section */}
-      <section id="resume" className={`py-4 relative transition-colors duration-300 ${
-        isDarkMode ? 'bg-black' : 'bg-gray-50'
-      }`}>
-        <div className="max-w-6xl mx-auto px-4">
-          {/* Terminal Header */}
-          <div className={`rounded-t-lg p-3 border mb-2 transition-colors duration-300 ${
-            isDarkMode 
-              ? 'bg-gray-900 border-gray-700' 
-              : 'bg-white border-gray-300'
-          }`}>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500" />
-              <div className="w-3 h-3 rounded-full bg-green-500" />
-              <span className={`ml-4 font-mono text-sm transition-colors duration-300 ${
-                isDarkMode ? 'text-gray-400' : 'text-gray-700'
-              }`}>ranjan@portfolio:~/resume $</span>
-            </div>
+        <section id="resume">
+          <div className="mb-6 flex items-center gap-2">
+            <span className="cmd-prompt"></span>
+            <span className="text-accent-cyan">cat</span>
+            <span className="text-muted">resume.pdf</span>
           </div>
-
-          <div className={`font-mono text-sm mb-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>
-            <span className="text-yellow-400">$</span> cat resume.pdf
-          </div>
-
-          <div className="w-full h-[800px] border rounded-lg overflow-hidden bg-white shadow-2xl">
+          <div className="glass-panel rounded-xl overflow-hidden">
+            <div className="w-full h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] overflow-hidden">
             <iframe 
               src="https://docs.google.com/document/d/e/2PACX-1vSvvvECzbOOj3GLUDWjrtAnnVRVJUSwVm1roddgRI3gvOqZUSSMUuyNmpD6nhEPOeVkXfRE7NmD2hUu/pub?embedded=true"
               className="w-full h-full"
@@ -102,6 +115,24 @@ export default function Home() {
         </div>
       </section>
       
-    </>
+        <footer className="border-t border-white/5 pt-8 pb-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-mono text-muted uppercase tracking-widest">
+            <p>© 2026 RANJAN_SHITOLE // ALL SYSTEMS OPERATIONAL</p>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-green"></span>
+                <span>v.2.1.0</span>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 p-3 rounded bg-black border border-white/10 font-mono text-xs flex items-center gap-2 shadow-inner">
+            <span className="text-accent-green">➜</span>
+            <span className="text-accent-cyan">~/portfolio</span>
+            <span className="text-muted">echo "Thanks for visiting."</span>
+            <span className="cursor-blink"></span>
+          </div>
+        </footer>
+      </main>
+    </div>
   );
 }

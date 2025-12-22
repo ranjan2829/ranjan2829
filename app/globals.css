@@ -2,12 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
 :root {
-  --bg-primary: #011627;
-  --bg-secondary: #1d2634;
-  --text-primary: #4FF2F8;
-  --text-secondary: #d6deeb;
-  --accent-neon: #00ffcc;
+  --bg-dark: #050505;
+  --bg-card: #0f0f11;
+  --bg-card-border: #1f1f23;
+  --terminal-text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent-cyan: #06b6d4;
+  --accent-green: #22c55e;
+  --accent-yellow: #eab308;
+  --accent-red: #ef4444;
+  --primary: #3b82f6;
 }
 
 html {
@@ -15,86 +22,132 @@ html {
 }
 
 body {
-  background: var(--bg-primary);
-  color: var(--text-secondary);
-  font-family: 'Fira Code', monospace;
+  background-color: #050505;
+  color: var(--terminal-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Code', monospace;
 }
 
-/* GitHub-style Scrollbar */
+.font-mono {
+  font-family: 'Fira Code', 'Courier New', monospace;
+}
+
+/* Grid Background */
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), 
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+}
+
+/* Glass Panel */
+.glass-panel {
+  background: rgba(15, 15, 17, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Command Prompt */
+.cmd-prompt::before {
+  content: "$ ";
+  color: #eab308;
+  font-weight: bold;
+}
+
+/* Cursor Blink */
+.cursor-blink {
+  display: inline-block;
+  width: 8px;
+  height: 18px;
+  background-color: #3b82f6;
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(26, 26, 26, 0.5);
-  border-radius: 0;
+  background: #050505;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(100, 100, 100, 0.5);
-  border-radius: 5px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
+  background: #1f1f23;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(140, 140, 140, 0.7);
-  background-clip: padding-box;
+  background: #3b82f6;
 }
 
-/* Terminal-like glow effect */
-.glow-text {
-  text-shadow: 0 0 5px var(--text-primary), 0 0 15px var(--accent-neon);
+/* Touch manipulation utility */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Matrix rain animation */
-.matrix-rain {
-  position: absolute;
-  top: -20px;
-  color: var(--accent-neon);
-  font-size: 16px;
-  animation: fall 5s linear infinite;
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  body {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Prevent horizontal scroll */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  /* Better touch targets */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Smaller scrollbar on mobile */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
 }
 
-@keyframes fall {
-  0% { transform: translateY(-100vh); }
-  100% { transform: translateY(100vh); }
+/* Font Families */
+.font-display {
+  font-family: 'Space Grotesk', sans-serif;
 }
 
-/* Card hover effect */
-.card-hover {
-  transition: all 0.3s ease;
+/* Timeline Simple Styles - Remove complex styling */
+.vertical-timeline-element {
+  margin-bottom: 2rem !important;
 }
 
-.card-hover:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px rgba(79, 242, 248, 0.2);
-}
-
-/* Terminal CRT Effect - Disabled */
-.terminal-crt {
+.vertical-timeline-element-content {
   position: relative;
 }
 
-/* Button hover effect */
-.btn-neon {
-  position: relative;
-  overflow: hidden;
+.vertical-timeline-element-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.btn-neon::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: skewX(-20deg);
-  transition: left 0.5s ease;
-}
-
-.btn-neon:hover::after {
-  left: 100%;
+/* Mobile timeline adjustments */
+@media (max-width: 1169px) {
+  .vertical-timeline-element-icon {
+    width: 35px !important;
+    height: 35px !important;
+    left: 10px !important;
+  }
+  
+  .vertical-timeline-element-content {
+    margin-left: 55px !important;
+  }
 }
