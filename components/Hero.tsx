@@ -58,13 +58,13 @@ export const Hero = () => {
             <span className="text-accent-cyan">whoami</span>
           </div>
           <div className="pl-5 border-l-2 border-white/10 py-1">
-            <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-2 tracking-tight">
+            <h1 className="text-3xl md:text-5xl font-display font-bold text-terminal-text mb-2 tracking-tight dark:text-white">
               Ranjan Shitole
             </h1>
             <p className="text-muted text-sm md:text-base font-medium">
               <span className="text-accent-cyan">➜</span> {ROLES[roleIndex]}
-              <span className="mx-2 text-white/20">//</span> AI/ML
-              <span className="mx-2 text-white/20">//</span> Backend Focused
+              <span className="mx-2 text-black/20 dark:text-white/20">{'//'}</span> AI/ML
+              <span className="mx-2 text-black/20 dark:text-white/20">{'//'}</span> Backend Focused
             </p>
           </div>
         </div>
@@ -76,7 +76,7 @@ export const Hero = () => {
             <span className="text-accent-cyan">cat</span>
             <span className="text-muted">bio.txt</span>
           </div>
-          <div className="pl-5 text-sm md:text-base leading-relaxed text-gray-300 max-w-2xl">
+          <div className="pl-5 text-sm md:text-base leading-relaxed text-terminal-text/90 max-w-2xl dark:text-gray-300">
             "AI Engineer specializing in building production-grade AI systems, quantitative trading platforms, and scalable backend infrastructure. Expert in PyTorch, LLMs, RAG, and high-performance systems."
           </div>
         </div>
@@ -89,15 +89,15 @@ export const Hero = () => {
             <span className="text-muted">contact.txt</span>
           </div>
           <div className="pl-5 space-y-2 text-sm md:text-base">
-            <div className="flex items-center gap-2 text-gray-300">
+            <div className="flex items-center gap-2 text-terminal-text dark:text-gray-300">
               <MapPin className="w-4 h-4 text-muted" />
               <span>Pune, India</span>
             </div>
-            <a href="mailto:ranjan.shitole3129@gmail.com" className="flex items-center gap-2 text-gray-300 hover:text-accent-cyan transition-colors">
+            <a href="mailto:ranjan.shitole3129@gmail.com" className="flex items-center gap-2 text-terminal-text dark:text-gray-300 hover:text-accent-cyan transition-colors">
               <Mail className="w-4 h-4 text-muted" />
               <span>ranjan.shitole3129@gmail.com</span>
             </a>
-            <a href="tel:+917387792437" className="flex items-center gap-2 text-gray-300 hover:text-accent-cyan transition-colors">
+            <a href="tel:+917387792437" className="flex items-center gap-2 text-terminal-text dark:text-gray-300 hover:text-accent-cyan transition-colors">
               <Phone className="w-4 h-4 text-muted" />
               <span>+91 7387792437</span>
             </a>

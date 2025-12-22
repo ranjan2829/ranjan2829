@@ -11,8 +11,8 @@ import dynamic from 'next/dynamic';
 const Timeline = dynamic(() => import('../components/Timeline'), { ssr: false })
 export default function Home() {
   return (
-    <div className="relative min-h-screen text-terminal-text font-mono selection:bg-accent-cyan selection:text-black overflow-x-hidden">
-      <div className="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+    <div className="relative min-h-screen text-terminal-text font-mono selection:bg-accent-cyan dark:selection:text-black selection:text-white overflow-x-hidden">
+      <div className="fixed inset-0 bg-grid pointer-events-none z-0 opacity-30"></div>
     <Navbar />
       
       <main className="relative z-10 max-w-5xl mx-auto pt-32 pb-20 px-4 md:px-8 space-y-12">
@@ -90,9 +90,9 @@ export default function Home() {
                 <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Apache Spark</span>
                 <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Git</span>
                 <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">GitHub</span>
-              </div>
-            </div>
           </div>
+        </div>
+      </div>
         </section>
       
       <Projects />

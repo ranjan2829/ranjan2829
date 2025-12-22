@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
-import { Github, Linkedin } from 'lucide-react';
+import { Github, Linkedin, Sun, Moon } from 'lucide-react';
+import { useTheme } from './ThemeProvider';
 
 interface NavLink {
   title: string;
@@ -19,6 +20,7 @@ const navLinks: NavLink[] = [
 export const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,22 +69,22 @@ export const Navbar = () => {
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
       {/* Desktop Navigation */}
       <div className="glass-panel px-1 p-1.5 rounded-full flex items-center gap-1 shadow-2xl shadow-black/50 hidden md:flex">
-        {navLinks.map((link, index) => (
+          {navLinks.map((link, index) => (
           <a
             key={index}
-            href={link.path}
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick(link.path, link.isExternal);
-            }}
+                  href={link.path}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.path, link.isExternal);
+                  }}
             className={`px-4 py-1.5 rounded-full text-xs font-medium transition-colors touch-manipulation ${
-              activeSection === link.path.replace('#', '')
-                ? 'text-white bg-white/10 font-bold'
-                : 'text-muted hover:text-white hover:bg-white/5'
-            }`}
-          >
-            {link.title}
-          </a>
+                    activeSection === link.path.replace('#', '')
+                ? 'text-white dark:text-white text-black dark:bg-white/10 bg-black/10 font-bold'
+                : 'text-muted hover:text-terminal-text dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                  }`}
+                >
+                  {link.title}
+                </a>
         ))}
         <div className="w-px h-4 bg-white/10 mx-1"></div>
         <a 
@@ -103,6 +105,18 @@ export const Navbar = () => {
         >
           <Linkedin className="w-[18px] h-[18px]" />
         </a>
+        <div className="w-px h-4 bg-white/10 mx-1"></div>
+        <button
+          onClick={toggleTheme}
+          className="p-1.5 rounded-full text-muted hover:text-white hover:bg-white/5 transition-colors touch-manipulation"
+          aria-label="Toggle theme"
+        >
+          {theme === 'dark' ? (
+            <Sun className="w-[18px] h-[18px]" />
+          ) : (
+            <Moon className="w-[18px] h-[18px]" />
+          )}
+        </button>
       </div>
 
       {/* Mobile Menu Toggle */}
@@ -123,20 +137,20 @@ export const Navbar = () => {
           <ul className="flex flex-col items-center space-y-6 px-4">
             {navLinks.map((link, index) => (
               <li key={index} className="w-full text-center">
-                <a 
-                  href={link.path}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.path, link.isExternal);
-                  }}
+                  <a 
+                    href={link.path}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.path, link.isExternal);
+                    }}
                   className={`block text-xl sm:text-2xl py-3 transition-colors duration-300 touch-manipulation ${
-                    activeSection === link.path.replace('#', '')
-                      ? 'text-white font-bold'
+                      activeSection === link.path.replace('#', '')
+                          ? 'text-white font-bold'
                       : 'text-terminal-text hover:text-white'
-                  }`}
-                >
-                  {link.title}
-                </a>
+                    }`}
+                  >
+                    {link.title}
+                  </a>
               </li>
             ))}
           </ul>

@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { Github, Terminal } from 'lucide-react';
+import { Terminal } from 'lucide-react';
 import Image from 'next/image';
 
 const projects = [
@@ -84,12 +84,12 @@ export const Projects = () => {
             </div>
             <div className="p-5">
               <div className="flex justify-between items-start mb-3">
-                <h3 className="text-lg font-bold text-white group-hover:text-accent-cyan transition-colors">
+                <h3 className="text-lg font-bold text-terminal-text dark:text-white group-hover:text-accent-cyan transition-colors">
                   {project.title}
                 </h3>
                 <Terminal className="text-muted text-sm group-hover:text-white transition-colors" />
                 </div>
-              <p className="text-sm text-gray-400 mb-4 line-clamp-4">
+              <p className="text-sm text-terminal-text/70 dark:text-gray-400 mb-4 line-clamp-4">
                     {project.description}
                   </p>
               <div className="flex flex-wrap gap-2 pt-2 border-t border-white/5">

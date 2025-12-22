@@ -60,26 +60,22 @@ export const Timeline = () => {
         <span className="text-[10px] text-muted font-mono">Updated: Today</span>
       </div>
       <div className="relative pl-2 space-y-8 z-10 max-h-[600px] overflow-y-auto pr-2">
+        {/* Full vertical line connecting all items */}
+        <div className="absolute left-[11px] top-2 bottom-2 w-px bg-white/10"></div>
+        
         {timelineData.map((item, index) => {
           const isPresent = item.isActive;
-          const shouldShowLine = !isPresent && index < timelineData.length - 1;
-          const nextItemIsPresent = index < timelineData.length - 1 && timelineData[index + 1]?.isActive;
           
           return (
             <div key={index} className="relative pl-6 group">
-              {/* Vertical line - only show if not present item and next item exists and is not present */}
-              {shouldShowLine && !nextItemIsPresent && (
-                <div className="absolute left-[11px] top-[24px] bottom-[-32px] w-px bg-white/10"></div>
-              )}
-              
-              <div className={`absolute left-1 top-1.5 w-5 h-5 bg-bg-card border-2 rounded-full flex items-center justify-center z-10 transition-all duration-300 ${
+              <div className={`absolute left-[7px] top-[6px] w-5 h-5 bg-bg-card border-2 rounded-full flex items-center justify-center z-10 transition-all duration-300 ${
                 isPresent 
-                  ? 'border-accent-cyan shadow-[0_0_15px_rgba(6,182,212,0.5)] scale-110' 
+                  ? 'border-accent-cyan shadow-[0_0_20px_rgba(6,182,212,0.6)] scale-125 ring-2 ring-accent-cyan/30' 
                   : 'border-white/20 group-hover:border-accent-cyan'
               }`}>
-                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                <div className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                   isPresent 
-                    ? 'bg-accent-cyan shadow-[0_0_8px_rgba(6,182,212,0.8)]' 
+                    ? 'bg-accent-cyan shadow-[0_0_10px_rgba(6,182,212,1)] animate-pulse' 
                     : 'bg-gray-500 group-hover:bg-accent-cyan'
                 }`}></div>
               </div>
@@ -89,21 +85,27 @@ export const Timeline = () => {
                 }`}>
                   {item.date}
                 </span>
-                <h3 className={`text-[15px] font-display font-semibold mb-0.5 tracking-tight leading-tight ${
-                  isPresent ? 'text-white text-[16px] font-bold' : 'text-gray-100'
-                }`}>
+              <h3 className={`text-[15px] font-display font-semibold mb-0.5 tracking-tight leading-tight ${
+                isPresent ? 'text-terminal-text dark:text-white text-[17px] font-bold' : 'text-terminal-text/90 dark:text-gray-100'
+              }`}>
                   {item.title}
                 </h3>
                 <div className={`text-[13px] font-medium mb-2.5 font-display tracking-wide ${
-                  isPresent ? 'text-accent-cyan' : 'text-muted'
+                  isPresent ? 'text-accent-cyan font-semibold' : 'text-muted'
                 }`}>
                   @ {item.company}{item.location ? `, ${item.location}` : ''}
                 </div>
                 <p className={`text-[13px] leading-relaxed font-sans ${
-                  isPresent ? 'text-gray-200 font-medium' : 'text-gray-300'
+                  isPresent ? 'text-terminal-text/80 dark:text-gray-200 font-medium' : 'text-terminal-text/70 dark:text-gray-300'
                 }`}>
                   {item.description}
                 </p>
+                {isPresent && (
+                  <div className="mt-2 px-2 py-1 rounded bg-accent-cyan/10 border border-accent-cyan/30 inline-flex items-center gap-1.5 w-fit">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse"></span>
+                    <span className="text-[11px] font-mono text-accent-cyan font-semibold">CURRENT</span>
+                  </div>
+                )}
               </div>
             </div>
           );
