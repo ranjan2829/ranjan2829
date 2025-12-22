@@ -60,40 +60,54 @@ export const Timeline = () => {
         <span className="text-[10px] text-muted font-mono">Updated: Today</span>
       </div>
       <div className="relative pl-2 space-y-8 z-10 max-h-[600px] overflow-y-auto pr-2">
-        <div className="absolute left-[11px] top-2 bottom-2 w-px bg-white/10"></div>
-        {timelineData.map((item, index) => (
-          <div key={index} className="relative pl-6 group">
-            <div className={`absolute left-1 top-1.5 w-4 h-4 bg-bg-card border rounded-full flex items-center justify-center z-10 transition-colors ${
-              item.isActive 
-                ? 'border-accent-cyan shadow-[0_0_10px_rgba(6,182,212,0.3)]' 
-                : 'border-white/20 group-hover:border-accent-cyan'
-            }`}>
-              <div className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                item.isActive 
-                  ? 'bg-accent-cyan' 
-                  : 'bg-gray-500 group-hover:bg-accent-cyan'
-              }`}></div>
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <span className={`text-[11px] font-mono tracking-wider uppercase mb-1 ${
-                item.isActive ? 'text-accent-cyan font-semibold' : 'text-muted'
+        {timelineData.map((item, index) => {
+          const isPresent = item.isActive;
+          const shouldShowLine = !isPresent && index < timelineData.length - 1;
+          const nextItemIsPresent = index < timelineData.length - 1 && timelineData[index + 1]?.isActive;
+          
+          return (
+            <div key={index} className="relative pl-6 group">
+              {/* Vertical line - only show if not present item and next item exists and is not present */}
+              {shouldShowLine && !nextItemIsPresent && (
+                <div className="absolute left-[11px] top-[24px] bottom-[-32px] w-px bg-white/10"></div>
+              )}
+              
+              <div className={`absolute left-1 top-1.5 w-5 h-5 bg-bg-card border-2 rounded-full flex items-center justify-center z-10 transition-all duration-300 ${
+                isPresent 
+                  ? 'border-accent-cyan shadow-[0_0_15px_rgba(6,182,212,0.5)] scale-110' 
+                  : 'border-white/20 group-hover:border-accent-cyan'
               }`}>
-                {item.date}
-              </span>
-              <h3 className={`text-base font-display font-semibold mb-1 tracking-tight ${
-                item.isActive ? 'text-white' : 'text-gray-100'
-              }`}>
-                {item.title}
-              </h3>
-              <div className="text-sm text-muted font-medium mb-2 font-display">
-                @ {item.company}{item.location ? `, ${item.location}` : ''}
+                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  isPresent 
+                    ? 'bg-accent-cyan shadow-[0_0_8px_rgba(6,182,212,0.8)]' 
+                    : 'bg-gray-500 group-hover:bg-accent-cyan'
+                }`}></div>
               </div>
-              <p className="text-sm text-gray-300 leading-relaxed font-sans">
-                {item.description}
-              </p>
+              <div className={`flex flex-col space-y-2 ${isPresent ? 'pl-1' : ''}`}>
+                <span className={`text-[10px] font-mono tracking-[0.15em] uppercase font-medium ${
+                  isPresent ? 'text-accent-cyan font-bold' : 'text-muted/80'
+                }`}>
+                  {item.date}
+                </span>
+                <h3 className={`text-[15px] font-display font-semibold mb-0.5 tracking-tight leading-tight ${
+                  isPresent ? 'text-white text-[16px] font-bold' : 'text-gray-100'
+                }`}>
+                  {item.title}
+                </h3>
+                <div className={`text-[13px] font-medium mb-2.5 font-display tracking-wide ${
+                  isPresent ? 'text-accent-cyan' : 'text-muted'
+                }`}>
+                  @ {item.company}{item.location ? `, ${item.location}` : ''}
+                </div>
+                <p className={`text-[13px] leading-relaxed font-sans ${
+                  isPresent ? 'text-gray-200 font-medium' : 'text-gray-300'
+                }`}>
+                  {item.description}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
