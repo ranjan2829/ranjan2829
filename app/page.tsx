@@ -13,15 +13,15 @@ export default function Home() {
   return (
     <div className="relative min-h-screen text-terminal-text font-mono selection:bg-accent-cyan dark:selection:text-black selection:text-white overflow-x-hidden">
       <div className="fixed inset-0 bg-grid pointer-events-none z-0 opacity-30"></div>
-    <Navbar />
+      <Navbar />
       
       <main className="relative z-10 max-w-5xl mx-auto pt-32 pb-20 px-4 md:px-8 space-y-12">
         {/* Hero Section with Timeline */}
-        <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          <div className="lg:col-span-7 flex flex-col gap-4">
-              <Hero />
-            </div>
-          <div className="lg:col-span-5 flex flex-col gap-4">
+        <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <div className="lg:col-span-7 flex flex-col">
+            <Hero />
+          </div>
+          <div className="lg:col-span-5 flex flex-col">
             <Timeline />
           </div>
         </section>
@@ -90,14 +90,14 @@ export default function Home() {
                 <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Apache Spark</span>
                 <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Git</span>
                 <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">GitHub</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
         </section>
+
+        <Projects />
       
-      <Projects />
-      
-      {/* Resume Section */}
+        {/* Resume Section */}
         <section id="resume">
           <div className="mb-6 flex items-center gap-2">
             <span className="cmd-prompt"></span>
@@ -106,15 +106,15 @@ export default function Home() {
           </div>
           <div className="glass-panel rounded-xl overflow-hidden">
             <div className="w-full h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] overflow-hidden">
-            <iframe 
-              src="https://docs.google.com/document/d/e/2PACX-1vSvvvECzbOOj3GLUDWjrtAnnVRVJUSwVm1roddgRI3gvOqZUSSMUuyNmpD6nhEPOeVkXfRE7NmD2hUu/pub?embedded=true"
-              className="w-full h-full"
-              title="Resume"
-            />
+              <iframe
+                src="https://docs.google.com/document/d/e/2PACX-1vSvvvECzbOOj3GLUDWjrtAnnVRVJUSwVm1roddgRI3gvOqZUSSMUuyNmpD6nhEPOeVkXfRE7NmD2hUu/pub?embedded=true"
+                className="w-full h-full"
+                title="Resume"
+              />
+            </div>
           </div>
-        </div>
-      </section>
-      
+        </section>
+
         <footer className="border-t border-white/5 pt-8 pb-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-mono text-muted uppercase tracking-widest">
             <p>© 2026 RANJAN_SHITOLE // ALL SYSTEMS OPERATIONAL</p>

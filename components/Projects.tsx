@@ -50,21 +50,21 @@ export const Projects = () => {
   return (
     <section id="projects">
       <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <span className="cmd-prompt"></span>
           <span className="text-accent-cyan">ls</span>
           <span className="text-muted">-la ./projects</span>
-          </div>
+        </div>
         <span className="text-xs text-muted font-mono hidden sm:inline-block">Found {projects.length} directories</span>
-          </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, index) => (
+        {projects.map((project, index) => (
           <a
-                key={index}
+            key={index}
             href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="glass-panel rounded-xl overflow-hidden hover:border-accent-cyan/50 transition-colors group"
+            className="glass-panel rounded-xl overflow-hidden hover:border-accent-cyan/50 transition-all duration-300 group"
           >
             <div className={`h-40 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
               <div className="absolute inset-0 bg-grid opacity-30"></div>
@@ -88,11 +88,11 @@ export const Projects = () => {
                   {project.title}
                 </h3>
                 <Terminal className="text-muted text-sm group-hover:text-white transition-colors" />
-                </div>
+              </div>
               <p className="text-sm text-terminal-text/70 dark:text-gray-400 mb-4 line-clamp-4">
-                    {project.description}
-                  </p>
-              <div className="flex flex-wrap gap-2 pt-2 border-t border-white/5">
+                {project.description}
+              </p>
+              <div className="flex flex-wrap gap-2 pt-3 border-t border-white/5">
                 {project.tech.map((tech, techIndex) => (
                   <span
                     key={techIndex}
@@ -101,10 +101,10 @@ export const Projects = () => {
                     {tech}
                   </span>
                 ))}
-                  </div>
-                  </div>
+              </div>
+            </div>
           </a>
-            ))}
+        ))}
       </div>
     </section>
   );

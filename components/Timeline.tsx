@@ -59,51 +59,58 @@ export const Timeline = () => {
         </div>
         <span className="text-[10px] text-muted font-mono">Updated: Today</span>
       </div>
-      <div className="relative pl-2 space-y-8 z-10 max-h-[600px] overflow-y-auto pr-2">
-        {/* Full vertical line connecting all items */}
-        <div className="absolute left-[11px] top-2 bottom-2 w-px bg-white/10"></div>
-        
+      <div className="relative pl-6 space-y-6 z-10 max-h-[600px] overflow-y-auto pr-2">
+        {/* Vertical timeline line */}
+        <div className="absolute left-[11px] top-1 bottom-1 w-[2px] bg-gradient-to-b from-accent-cyan/40 via-white/10 to-white/5"></div>
+
         {timelineData.map((item, index) => {
           const isPresent = item.isActive;
-          
+
           return (
-            <div key={index} className="relative pl-6 group">
-              <div className={`absolute left-[7px] top-[6px] w-5 h-5 bg-bg-card border-2 rounded-full flex items-center justify-center z-10 transition-all duration-300 ${
-                isPresent 
-                  ? 'border-accent-cyan shadow-[0_0_20px_rgba(6,182,212,0.6)] scale-125 ring-2 ring-accent-cyan/30' 
-                  : 'border-white/20 group-hover:border-accent-cyan'
+            <div key={index} className="relative pl-8 group">
+              {/* Timeline dot - consistently positioned */}
+              <div className={`absolute left-0 top-1 flex items-center justify-center z-10 transition-all duration-300 ${
+                isPresent
+                  ? 'w-[22px] h-[22px] -left-[0px]'
+                  : 'w-[22px] h-[22px] -left-[0px]'
               }`}>
-                <div className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                  isPresent 
-                    ? 'bg-accent-cyan shadow-[0_0_10px_rgba(6,182,212,1)] animate-pulse' 
-                    : 'bg-gray-500 group-hover:bg-accent-cyan'
-                }`}></div>
+                <div className={`rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                  isPresent
+                    ? 'w-[18px] h-[18px] border-accent-cyan bg-bg-card shadow-[0_0_20px_rgba(6,182,212,0.6)] ring-2 ring-accent-cyan/30'
+                    : 'w-[14px] h-[14px] border-white/30 bg-bg-card group-hover:border-accent-cyan'
+                }`}>
+                  <div className={`rounded-full transition-all duration-300 ${
+                    isPresent
+                      ? 'w-2 h-2 bg-accent-cyan shadow-[0_0_10px_rgba(6,182,212,1)] animate-pulse'
+                      : 'w-1.5 h-1.5 bg-gray-500 group-hover:bg-accent-cyan'
+                  }`}></div>
+                </div>
               </div>
-              <div className={`flex flex-col space-y-2 ${isPresent ? 'pl-1' : ''}`}>
+              <div className="flex flex-col space-y-1.5">
                 <span className={`text-[10px] font-mono tracking-[0.15em] uppercase font-medium ${
                   isPresent ? 'text-accent-cyan font-bold' : 'text-muted/80'
                 }`}>
                   {item.date}
                 </span>
-              <h3 className={`text-[15px] font-display font-semibold mb-0.5 tracking-tight leading-tight ${
-                isPresent ? 'text-terminal-text dark:text-white text-[17px] font-bold' : 'text-terminal-text/90 dark:text-gray-100'
-              }`}>
+                <h3 className={`font-display font-semibold tracking-tight leading-tight ${
+                  isPresent ? 'text-terminal-text dark:text-white text-[16px] font-bold' : 'text-[15px] text-terminal-text/90 dark:text-gray-100'
+                }`}>
                   {item.title}
                 </h3>
-                <div className={`text-[13px] font-medium mb-2.5 font-display tracking-wide ${
+                <div className={`text-[12px] font-medium font-display tracking-wide ${
                   isPresent ? 'text-accent-cyan font-semibold' : 'text-muted'
                 }`}>
                   @ {item.company}{item.location ? `, ${item.location}` : ''}
                 </div>
-                <p className={`text-[13px] leading-relaxed font-sans ${
+                <p className={`text-[12px] leading-relaxed font-sans mt-1 ${
                   isPresent ? 'text-terminal-text/80 dark:text-gray-200 font-medium' : 'text-terminal-text/70 dark:text-gray-300'
                 }`}>
                   {item.description}
                 </p>
                 {isPresent && (
-                  <div className="mt-2 px-2 py-1 rounded bg-accent-cyan/10 border border-accent-cyan/30 inline-flex items-center gap-1.5 w-fit">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse"></span>
-                    <span className="text-[11px] font-mono text-accent-cyan font-semibold">CURRENT</span>
+                  <div className="mt-2.5 px-2.5 py-1 rounded-md bg-accent-cyan/10 border border-accent-cyan/30 inline-flex items-center gap-2 w-fit">
+                    <span className="w-2 h-2 rounded-full bg-accent-cyan animate-pulse"></span>
+                    <span className="text-[10px] font-mono text-accent-cyan font-bold tracking-wider">CURRENT POSITION</span>
                   </div>
                 )}
               </div>

@@ -77,11 +77,11 @@ export const Navbar = () => {
                     e.preventDefault();
                     handleNavClick(link.path, link.isExternal);
                   }}
-            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-colors touch-manipulation ${
-                    activeSection === link.path.replace('#', '')
-                ? 'text-white dark:text-white text-black dark:bg-white/10 bg-black/10 font-bold'
+            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 touch-manipulation ${
+              activeSection === link.path.replace('#', '')
+                ? 'text-terminal-text dark:text-white bg-black/10 dark:bg-white/10 font-bold'
                 : 'text-muted hover:text-terminal-text dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
-                  }`}
+            }`}
                 >
                   {link.title}
                 </a>
