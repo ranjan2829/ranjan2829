@@ -1,23 +1,49 @@
 "use client";
-import React from "react";
 
+import React from "react";
+import { motion } from "framer-motion";
 import Hero from '@/components/Hero';
 import { Navbar } from "@/components/NavBar";
 import { Projects } from "@/components/Projects";
 import { SocialStats } from "@/components/SocialStats";
 import dynamic from 'next/dynamic';
 
+const Timeline = dynamic(() => import('../components/Timeline'), { ssr: false });
 
-const Timeline = dynamic(() => import('../components/Timeline'), { ssr: false })
+const techStack = [
+  {
+    category: "Languages",
+    items: ["Python", "TypeScript", "JavaScript", "Go", "Rust"],
+  },
+  {
+    category: "Web & Backend",
+    items: ["Next.js", "Node.js", "React", "FastAPI", "PostgreSQL", "MongoDB", "Redis", "SQL"],
+  },
+  {
+    category: "Cloud & DevOps",
+    items: ["Docker", "Kubernetes", "AWS EC2", "AWS S3", "AWS Lambda", "AWS SageMaker", "GCP", "Prometheus", "Grafana"],
+  },
+  {
+    category: "AI/ML & Tools",
+    items: ["PyTorch", "Deep Learning", "LLMs", "LangChain", "RAG", "Transformers", "Kafka", "Spark"],
+  },
+];
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" } as const,
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+};
+
 export default function Home() {
   return (
-    <div className="relative min-h-screen text-terminal-text font-mono selection:bg-accent-cyan dark:selection:text-black selection:text-white overflow-x-hidden">
-      <div className="fixed inset-0 bg-grid pointer-events-none z-0 opacity-30"></div>
+    <div className="relative min-h-screen selection:bg-accent selection:text-white">
       <Navbar />
-      
-      <main className="relative z-10 max-w-5xl mx-auto pt-32 pb-20 px-4 md:px-8 space-y-12">
-        {/* Hero Section with Timeline */}
-        <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+      <main className="relative z-10 max-w-5xl mx-auto pt-28 pb-20 px-5 md:px-8 space-y-20">
+        {/* Hero + Timeline */}
+        <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[520px]">
           <div className="lg:col-span-7 flex flex-col">
             <Hero />
           </div>
@@ -26,110 +52,78 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Social Stats - Full Width */}
-        <section className="w-full">
+        {/* Stats */}
+        <motion.section {...fadeInUp}>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-px w-8 bg-accent rounded-full" />
+            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-muted font-display">
+              Stats
+            </h2>
+          </div>
           <SocialStats />
-        </section>
+        </motion.section>
 
-        {/* Tech Stack Section */}
-        <section>
-          <div className="mb-6 flex items-center gap-2">
-            <span className="cmd-prompt"></span>
-            <span className="text-accent-cyan">tech-stack</span>
-            <span className="text-muted">--visual</span>
+        {/* Tech Stack */}
+        <motion.section {...fadeInUp}>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-px w-8 bg-accent rounded-full" />
+            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-muted font-display">
+              Tech Stack
+            </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="glass-panel rounded-lg p-4 border-l-2 border-l-accent-cyan">
-              <h3 className="text-xs uppercase font-bold text-muted mb-3 tracking-widest">Programming Languages</h3>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Python</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">TypeScript</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">JavaScript</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Go</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Rust</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {techStack.map((group) => (
+              <div key={group.category} className="card p-4">
+                <h3 className="text-[11px] uppercase font-semibold text-muted tracking-[0.12em] mb-3 font-display">
+                  {group.category}
+                </h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {group.items.map((item) => (
+                    <span
+                      key={item}
+                      className="text-xs px-2 py-1 rounded-md bg-foreground/[0.04] border border-card-border text-muted font-mono"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="glass-panel rounded-lg p-4 border-l-2 border-l-accent-green">
-              <h3 className="text-xs uppercase font-bold text-muted mb-3 tracking-widest">Web & Backend</h3>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Next.js</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Node.js</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">React.js</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">FastAPI</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">PostgreSQL</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">MongoDB</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Redis</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">SQL</span>
-              </div>
-            </div>
-            <div className="glass-panel rounded-lg p-4 border-l-2 border-l-accent-yellow">
-              <h3 className="text-xs uppercase font-bold text-muted mb-3 tracking-widest">Cloud & DevOps</h3>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Docker</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Kubernetes</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">AWS EC2</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">AWS S3</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">AWS Lambda</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">AWS RDS</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">AWS SageMaker</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">GCP</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Prometheus</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Grafana</span>
-              </div>
-            </div>
-            <div className="glass-panel rounded-lg p-4 border-l-2 border-l-accent-red">
-              <h3 className="text-xs uppercase font-bold text-muted mb-3 tracking-widest">AI/ML & Tools</h3>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">PyTorch</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Deep Learning</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">LLMs</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">LangChain</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">RAG</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Transformers</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Apache Kafka</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Apache Spark</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">Git</span>
-                <span className="px-2 py-1 rounded bg-white/5 text-xs text-white border border-white/10">GitHub</span>
-              </div>
-            </div>
+            ))}
           </div>
-        </section>
+        </motion.section>
 
-        <Projects />
-      
-        {/* Resume Section */}
-        <section id="resume">
-          <div className="mb-6 flex items-center gap-2">
-            <span className="cmd-prompt"></span>
-            <span className="text-accent-cyan">cat</span>
-            <span className="text-muted">resume.pdf</span>
-          </div>
-          <div className="glass-panel rounded-xl overflow-hidden">
-            <div className="w-full h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] overflow-hidden">
-              <iframe
-                src="https://docs.google.com/document/d/e/2PACX-1vSvvvECzbOOj3GLUDWjrtAnnVRVJUSwVm1roddgRI3gvOqZUSSMUuyNmpD6nhEPOeVkXfRE7NmD2hUu/pub?embedded=true"
-                className="w-full h-full"
-                title="Resume"
-              />
-            </div>
-          </div>
-        </section>
+        {/* Projects */}
+        <motion.div {...fadeInUp}>
+          <Projects />
+        </motion.div>
 
-        <footer className="border-t border-white/5 pt-8 pb-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-mono text-muted uppercase tracking-widest">
-            <p>© 2026 RANJAN_SHITOLE // ALL SYSTEMS OPERATIONAL</p>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-green"></span>
-                <span>v.2.1.0</span>
-              </div>
-            </div>
+        {/* Resume */}
+        <motion.section {...fadeInUp} id="resume">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-px w-8 bg-accent rounded-full" />
+            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-muted font-display">
+              Resume
+            </h2>
           </div>
-          <div className="mt-8 p-3 rounded bg-black border border-white/10 font-mono text-xs flex items-center gap-2 shadow-inner">
-            <span className="text-accent-green">➜</span>
-            <span className="text-accent-cyan">~/portfolio</span>
-            <span className="text-muted">echo "Thanks for visiting."</span>
-            <span className="cursor-blink"></span>
+          <div className="card overflow-hidden p-0">
+            <iframe
+              src="https://docs.google.com/document/d/e/2PACX-1vSvvvECzbOOj3GLUDWjrtAnnVRVJUSwVm1roddgRI3gvOqZUSSMUuyNmpD6nhEPOeVkXfRE7NmD2hUu/pub?embedded=true"
+              className="w-full h-[80vh] min-h-[700px] lg:min-h-[1000px]"
+              title="Resume"
+              style={{ border: 0 }}
+              allowFullScreen
+            />
+          </div>
+        </motion.section>
+
+        {/* Footer */}
+        <footer className="border-t border-card-border pt-8 pb-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-muted">
+            <p>&copy; 2026 Ranjan Shitole</p>
+            <p className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-green" />
+              Built with Next.js
+            </p>
           </div>
         </footer>
       </main>

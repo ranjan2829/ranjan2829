@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import '@fontsource/fira-code';
@@ -17,13 +17,14 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "PortFolio",
-  description: "Ranjan's Portfolio",
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-  },
+  title: "Ranjan Shitole — AI Engineer & Software Developer",
+  description: "Portfolio of Ranjan Shitole — AI Engineer specializing in production-grade AI systems, quantitative trading, and scalable infrastructure.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({
@@ -32,10 +33,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
           {children}
         </ThemeProvider>

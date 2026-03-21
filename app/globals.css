@@ -5,24 +5,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-dark: #ffffff;
-  --bg-card: #f8f9fa;
-  --bg-card-border: #e5e7eb;
-  --terminal-text: #1f2937;
-  --muted: #6b7280;
-  --accent-cyan: #06b6d4;
-  --accent-green: #22c55e;
-  --accent-yellow: #eab308;
-  --accent-red: #ef4444;
-  --primary: #3b82f6;
+  --bg: #ffffff;
+  --fg: #0a0a0b;
+  --card: #f8f9fa;
+  --card-border: #e2e4e9;
+  --muted: #52525b;
 }
 
 .dark {
-  --bg-dark: #050505;
-  --bg-card: #0f0f11;
-  --bg-card-border: #1f1f23;
-  --terminal-text: #e2e8f0;
-  --muted: #94a3b8;
+  --bg: #09090b;
+  --fg: #fafafa;
+  --card: #111113;
+  --card-border: #222225;
+  --muted: #a1a1aa;
 }
 
 html {
@@ -30,157 +25,67 @@ html {
 }
 
 body {
-  background-color: var(--bg-dark);
-  color: var(--terminal-text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Code', monospace;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.font-mono {
-  font-family: 'Fira Code', 'Courier New', monospace;
+::selection {
+  background: #3b82f6;
+  color: white;
 }
 
-/* Grid Background */
-.bg-grid {
-  background-size: 40px 40px;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px), 
-                    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 
-.dark .bg-grid {
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), 
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-}
-
-/* Glass Panel */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.dark .glass-panel {
-  background: rgba(15, 15, 17, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-}
-
-/* Command Prompt */
-.cmd-prompt::before {
-  content: "$ ";
-  color: var(--accent-yellow);
-  font-weight: bold;
-}
-
-/* Cursor Blink */
-.cursor-blink {
-  display: inline-block;
-  width: 8px;
-  height: 18px;
-  background-color: var(--primary);
-  animation: blink 1s step-end infinite;
-  vertical-align: middle;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: var(--card-border);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--muted);
 }
 
-.dark ::-webkit-scrollbar-track {
-  background: #050505;
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  transition: border-color 0.2s ease;
 }
 
-.dark ::-webkit-scrollbar-thumb {
-  background: #1f1f23;
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.04), transparent);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #3b82f6;
+.dark body::before {
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.07), transparent);
 }
 
-/* Touch manipulation utility */
-.touch-manipulation {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Mobile optimizations */
 @media (max-width: 640px) {
   body {
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
   }
-  
-  /* Prevent horizontal scroll */
+
   html, body {
     overflow-x: hidden;
     max-width: 100vw;
-  }
-  
-  /* Better touch targets */
-  button, a {
-    min-height: 44px;
-    min-width: 44px;
-  }
-  
-  /* Smaller scrollbar on mobile */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-}
-
-/* Font Families */
-.font-display {
-  font-family: 'Space Grotesk', sans-serif;
-}
-
-/* Timeline Simple Styles - Remove complex styling */
-.vertical-timeline-element {
-  margin-bottom: 2rem !important;
-}
-
-.vertical-timeline-element-content {
-  position: relative;
-}
-
-.vertical-timeline-element-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Mobile timeline adjustments */
-@media (max-width: 1169px) {
-  .vertical-timeline-element-icon {
-    width: 35px !important;
-    height: 35px !important;
-    left: 10px !important;
-  }
-  
-  .vertical-timeline-element-content {
-    margin-left: 55px !important;
   }
 }
