@@ -41,9 +41,9 @@ export default function Home() {
     <div className="relative min-h-screen selection:bg-accent selection:text-white">
       <Navbar />
 
-      <main className="relative z-10 max-w-5xl mx-auto pt-28 pb-20 px-5 md:px-8 space-y-20">
+      <main className="relative z-10 max-w-5xl mx-auto pt-20 md:pt-28 pb-16 md:pb-20 px-4 sm:px-5 md:px-8 space-y-12 md:space-y-20">
         {/* Hero + Timeline */}
-        <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[520px]">
+        <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-6 items-stretch lg:min-h-[520px]">
           <div className="lg:col-span-7 flex flex-col">
             <Hero />
           </div>

@@ -113,7 +113,7 @@ export const SocialStats = () => {
           </a>
         </div>
 
-        <div className="overflow-x-auto -mx-1 px-1 pb-1">
+        <div className="hidden sm:block overflow-x-auto -mx-1 px-1 pb-1">
           <GitHubCalendar
             username="ranjan2829"
             theme={githubTheme}
@@ -122,12 +122,15 @@ export const SocialStats = () => {
             fontSize={11}
           />
         </div>
+        <div className="sm:hidden text-xs text-muted text-center py-3 rounded-lg bg-foreground/[0.02]">
+          View contribution graph on desktop
+        </div>
 
         {githubLoading ? (
           <Spinner />
         ) : githubStats ? (
           <>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
                 { label: "Repos", value: githubStats.publicRepos },
                 { label: "Stars", value: githubStats.totalStars, icon: <Star className="w-3 h-3 text-accent-yellow" /> },

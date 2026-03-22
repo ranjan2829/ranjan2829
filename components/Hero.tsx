@@ -35,11 +35,11 @@ export const Hero = () => {
         Open to opportunities
       </div>
 
-      <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-display font-bold tracking-tight text-foreground leading-[1.1] mb-4">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-display font-bold tracking-tight text-foreground leading-[1.1] mb-3 md:mb-4">
         Ranjan Shitole
       </h1>
 
-      <div className="h-7 mb-6 overflow-hidden">
+      <div className="h-6 sm:h-7 mb-4 md:mb-6 overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.p
             key={roleIndex}
@@ -54,13 +54,13 @@ export const Hero = () => {
         </AnimatePresence>
       </div>
 
-      <p className="text-sm md:text-[15px] text-muted leading-relaxed max-w-lg mb-8">
+      <p className="text-[13px] sm:text-sm md:text-[15px] text-muted leading-relaxed max-w-lg mb-6 md:mb-8">
         Building production-grade AI systems, quantitative trading platforms, and
         scalable backend infrastructure. Focused on Frontend, Backend, LLMs,
         AWS, and Cloud-native distributed systems.
       </p>
 
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted mb-8">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] sm:text-sm text-muted mb-6 md:mb-8">
         <span className="flex items-center gap-1.5">
           <MapPin className="w-3.5 h-3.5" />
           Dubai, UAE
