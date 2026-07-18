@@ -21,20 +21,24 @@ const SITE = "https://ranjan2829.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: {
-    default: "Ranjan Shitole — AI Engineer & Software Developer",
+    default: "Ranjan Shitole — AI Infrastructure & Full-Stack Engineer",
     template: "%s · Ranjan Shitole",
   },
   description:
-    "Portfolio of Ranjan Shitole — AI Engineer specializing in production-grade AI systems, quantitative trading, and scalable infrastructure.",
+    "Ranjan Shitole — AI Infrastructure Engineer building the systems that let AI agents act autonomously: Model Context Protocol, agent execution safety, and on-chain execution across fintech and crypto.",
   keywords: [
     "Ranjan Shitole",
-    "AI Engineer",
-    "Machine Learning Engineer",
-    "Quantitative Engineer",
-    "Software Developer",
+    "AI Infrastructure Engineer",
+    "Model Context Protocol",
+    "MCP",
+    "AI agents",
+    "LLM orchestration",
+    "Agent execution safety",
+    "Web3",
+    "Full-Stack Engineer",
     "Next.js",
     "FastAPI",
-    "LLM",
+    "NestJS",
   ],
   authors: [{ name: "Ranjan Shitole", url: SITE }],
   creator: "Ranjan Shitole",
@@ -44,15 +48,15 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE,
     siteName: "Ranjan Shitole",
-    title: "Ranjan Shitole — AI Engineer & Software Developer",
+    title: "Ranjan Shitole — AI Infrastructure & Full-Stack Engineer",
     description:
-      "Building production-grade AI systems, quantitative trading platforms, and scalable backend infrastructure.",
+      "Building the infrastructure that lets AI agents act autonomously — tool protocols, execution safety, and the systems underneath.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ranjan Shitole — AI Engineer & Software Developer",
+    title: "Ranjan Shitole — AI Infrastructure & Full-Stack Engineer",
     description:
-      "Building production-grade AI systems, quantitative trading platforms, and scalable backend infrastructure.",
+      "Building the infrastructure that lets AI agents act autonomously — tool protocols, execution safety, and the systems underneath.",
     creator: "@manofsteel3129",
   },
   robots: {
@@ -81,7 +85,7 @@ const personSchema = {
   "@type": "Person",
   name: "Ranjan Shitole",
   url: SITE,
-  jobTitle: "AI Engineer",
+  jobTitle: "AI Infrastructure Engineer",
   email: "mailto:ranjan.shitole3129@gmail.com",
   sameAs: [
     "https://github.com/ranjan2829",

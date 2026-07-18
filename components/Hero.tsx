@@ -2,10 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Github, Linkedin, Mail, MapPin, Phone, Code2 } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Phone, Code2, FileText } from "lucide-react";
 import { site } from "@/lib/site";
 
-const ROLES = ["AI Engineer", "Software Development Engineer", "Quantitative Engineer"];
+const ROLES = [
+  "AI Infrastructure Engineer",
+  "Full-Stack Engineer",
+  "Web3 & Agent Systems",
+];
 
 const socialLinks = [
   { icon: Github, href: site.socials.github, label: "GitHub" },
@@ -36,7 +40,7 @@ export const Hero = () => {
         className="rise inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-green/10 border border-accent-green/25 text-accent-green text-xs font-medium mb-6 w-fit"
       >
         <span className="w-1.5 h-1.5 rounded-full bg-accent-green motion-safe:animate-pulse" />
-        Open to opportunities
+        Open to AI infrastructure roles · Dubai, Remote
       </div>
 
       <h1
@@ -67,9 +71,10 @@ export const Hero = () => {
         {...rise(0.26)}
         className="rise text-[13px] sm:text-sm md:text-[15px] text-muted leading-relaxed max-w-lg mb-6 md:mb-8"
       >
-        Building production-grade AI systems, quantitative trading platforms, and
-        scalable backend infrastructure. Focused on LLMs, distributed systems, and
-        cloud-native architecture on AWS.
+        Building the infrastructure that lets AI agents act autonomously — tool
+        protocols, execution safety, and the systems underneath. Model Context
+        Protocol, LLM agent architecture, and on-chain execution across fintech
+        and crypto.
       </p>
 
       <ul
@@ -99,7 +104,17 @@ export const Hero = () => {
         </li>
       </ul>
 
-      <div {...rise(0.4)} className="rise flex items-center gap-2">
+      <div {...rise(0.4)} className="rise flex flex-wrap items-center gap-2">
+        <a
+          href={site.resume}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-foreground text-background text-[13px] font-medium hover:opacity-90 transition-opacity"
+        >
+          <FileText className="w-4 h-4" aria-hidden />
+          View resume
+        </a>
+
         {socialLinks.map(({ icon: Icon, href, label }) => (
           <a
             key={label}

@@ -7,29 +7,8 @@ import { Navbar } from "@/components/NavBar";
 import { Projects } from "@/components/Projects";
 import { SocialStats } from "@/components/SocialStats";
 import Timeline from "@/components/Timeline";
+import { Skills } from "@/components/Skills";
 import { site } from "@/lib/site";
-
-const RESUME_DOC =
-  "https://docs.google.com/document/d/e/2PACX-1vSvvvECzbOOj3GLUDWjrtAnnVRVJUSwVm1roddgRI3gvOqZUSSMUuyNmpD6nhEPOeVkXfRE7NmD2hUu/pub";
-
-const techStack = [
-  {
-    category: "Languages",
-    items: ["Python", "TypeScript", "JavaScript", "C++", "Go", "Rust"],
-  },
-  {
-    category: "Web & Backend",
-    items: ["Next.js", "React", "Node.js", "FastAPI", "PostgreSQL", "MongoDB", "Redis"],
-  },
-  {
-    category: "Cloud & DevOps",
-    items: ["Docker", "Kubernetes", "AWS", "GCP", "Prometheus", "Grafana"],
-  },
-  {
-    category: "AI/ML & Data",
-    items: ["PyTorch", "LLMs", "LangChain", "RAG", "Transformers", "Kafka", "Spark"],
-  },
-];
 
 const fadeInUp = {
   initial: { opacity: 0, y: 24 },
@@ -75,28 +54,10 @@ export default function Home() {
           <SocialStats />
         </motion.section>
 
-        {/* Tech Stack */}
-        <motion.section {...fadeInUp} id="stack" aria-labelledby="stack-heading">
-          <SectionHeading id="stack-heading">Tech Stack</SectionHeading>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {techStack.map((group) => (
-              <div key={group.category} className="card p-4">
-                <h3 className="text-[11px] uppercase font-semibold text-muted tracking-[0.12em] mb-3 font-display">
-                  {group.category}
-                </h3>
-                <ul className="flex flex-wrap gap-1.5 list-none p-0">
-                  {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="text-xs px-2 py-1 rounded-md bg-foreground/[0.04] border border-card-border text-muted font-mono"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+        {/* Skills */}
+        <motion.section {...fadeInUp} id="skills" aria-labelledby="skills-heading">
+          <SectionHeading id="skills-heading">Skills</SectionHeading>
+          <Skills />
         </motion.section>
 
         {/* Projects */}
@@ -109,7 +70,7 @@ export default function Home() {
           <SectionHeading id="resume-heading">Resume</SectionHeading>
           <div className="card overflow-hidden p-0">
             <iframe
-              src={`${RESUME_DOC}?embedded=true`}
+              src={`${site.resume}?embedded=true`}
               // Lazy so a heavy Docs embed below the fold doesn't compete
               // with the hero for bandwidth on first load.
               loading="lazy"
@@ -122,7 +83,7 @@ export default function Home() {
           <p className="mt-3 text-xs text-muted">
             Trouble viewing it?{" "}
             <a
-              href={RESUME_DOC}
+              href={site.resume}
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent hover:underline underline-offset-4"

@@ -10,6 +10,9 @@ export const site = {
   phone: "+917387792437",
   phoneDisplay: "+91 73877 92437",
   locations: ["Dubai, UAE", "Pune, India"],
+  /** Published Google Doc. `?embedded=true` is appended for the iframe only. */
+  resume:
+    "https://docs.google.com/document/d/e/2PACX-1vSvvvECzbOOj3GLUDWjrtAnnVRVJUSwVm1roddgRI3gvOqZUSSMUuyNmpD6nhEPOeVkXfRE7NmD2hUu/pub",
   socials: {
     github: "https://github.com/ranjan2829",
     linkedin: "https://www.linkedin.com/in/ranjan2829/",

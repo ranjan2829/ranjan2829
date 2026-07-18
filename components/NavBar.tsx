@@ -9,6 +9,7 @@ import { site } from "@/lib/site";
 const navLinks = [
   { title: "Home", id: "home" },
   { title: "Stats", id: "stats" },
+  { title: "Skills", id: "skills" },
   { title: "Projects", id: "projects" },
   { title: "Resume", id: "resume" },
 ];

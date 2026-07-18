@@ -32,7 +32,7 @@ export default function Image() {
           }}
         >
           <div style={{ width: 10, height: 10, borderRadius: 999, background: "#4ade80" }} />
-          Open to opportunities
+          Open to AI infrastructure roles
         </div>
 
         <div
@@ -47,13 +47,13 @@ export default function Image() {
           Ranjan Shitole
         </div>
 
-        <div style={{ fontSize: 40, color: "#a1a1aa", marginTop: 10 }}>
-          AI Engineer · Quantitative Engineer
+        <div style={{ fontSize: 38, color: "#a1a1aa", marginTop: 10 }}>
+          AI Infrastructure · Agent Systems · Web3
         </div>
 
-        <div style={{ fontSize: 27, color: "#71717a", marginTop: 34, maxWidth: 900 }}>
-          Production-grade AI systems, quantitative trading platforms, and scalable
-          backend infrastructure.
+        <div style={{ fontSize: 26, color: "#71717a", marginTop: 34, maxWidth: 920 }}>
+          Building the infrastructure that lets AI agents act autonomously — tool
+          protocols, execution safety, and the systems underneath.
         </div>
 
         <div

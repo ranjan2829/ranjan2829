@@ -9,8 +9,11 @@ interface Project {
   title: string;
   description: string;
   tech: string[];
-  repo: string;
+  /** Omitted when the source is private — the card then links the product. */
+  repo?: string;
   demo?: string;
+  /** Set on professional work, to distinguish it from personal projects. */
+  role?: string;
   /**
    * Self-hosted in /public/projects. Live demos are real screenshots of the
    * running app; code-only projects use GitHub's repo card, which carries
@@ -20,6 +23,17 @@ interface Project {
 }
 
 const projects: Project[] = [
+  {
+    title: "GigaBrain — Autonomous Trading Agents",
+    description:
+      "Multi-agent crypto trading system where LLM agents hold wallet keys and execute live perpetuals trades across Hyperliquid, Lighter (zkSync L2) and Polymarket. Built the 30-tool execution interface, the wallet layer, and the safety guardrails gating every order.",
+    tech: ["Python", "agno", "AWS ECS", "EIP-712", "Privy", "x402"],
+    // Source is private — this points at the live product rather than a
+    // repo link that would 404 for anyone who clicks it.
+    demo: "https://gigabrain.gg",
+    image: "/projects/gigabrain.png",
+    role: "Professional work at Brain Labs",
+  },
   {
     title: "HFT Exchange Engine",
     description:
@@ -105,6 +119,12 @@ export const Projects = () => {
               <Cover src={project.image} title={project.title} />
 
               <div className="p-5 flex flex-col flex-1">
+                {project.role && (
+                  <span className="text-[10px] uppercase tracking-[0.14em] font-semibold text-accent mb-2">
+                    {project.role}
+                  </span>
+                )}
+
                 <h3 className="text-base font-semibold text-foreground font-display mb-2">
                   {project.title}
                 </h3>
@@ -125,16 +145,18 @@ export const Projects = () => {
                 </ul>
 
                 <div className="flex items-center gap-4 mt-auto pt-1">
-                  <a
-                    href={project.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted hover:text-foreground transition-colors"
-                  >
-                    <Github className="w-4 h-4" aria-hidden />
-                    Code
-                    <span className="sr-only"> for {project.title}</span>
-                  </a>
+                  {project.repo && (
+                    <a
+                      href={project.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted hover:text-foreground transition-colors"
+                    >
+                      <Github className="w-4 h-4" aria-hidden />
+                      Code
+                      <span className="sr-only"> for {project.title}</span>
+                    </a>
+                  )}
 
                   {project.demo && (
                     <a
@@ -143,7 +165,7 @@ export const Projects = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-[13px] font-medium text-accent hover:underline underline-offset-4"
                     >
-                      Live demo
+                      {project.role ? "Visit product" : "Live demo"}
                       <span className="sr-only"> of {project.title}</span>
                       <ArrowUpRight className="w-4 h-4" aria-hidden />
                     </a>
