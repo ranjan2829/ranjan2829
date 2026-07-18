@@ -173,6 +173,61 @@ body::before {
   }
 }
 
+/*
+  Print: emit only the resume sheet, forced to black-on-white regardless of
+  the active theme. Without this, Cmd+P produces the entire dark page.
+*/
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  body::before {
+    display: none !important;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #resume-sheet,
+  #resume-sheet * {
+    visibility: visible;
+  }
+
+  #resume-sheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 0 !important;
+    border: 0 !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Flatten themed text/borders to print-safe values. */
+  #resume-sheet * {
+    color: #000 !important;
+    border-color: #bbb !important;
+    background: transparent !important;
+  }
+
+  #resume-sheet a {
+    text-decoration: none;
+  }
+
+  #resume-sheet article,
+  #resume-sheet section {
+    break-inside: avoid;
+  }
+}
+
 /* Respect the OS "reduce motion" setting. */
 @media (prefers-reduced-motion: reduce) {
   html {

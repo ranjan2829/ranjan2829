@@ -8,6 +8,7 @@ import { Projects } from "@/components/Projects";
 import { SocialStats } from "@/components/SocialStats";
 import Timeline from "@/components/Timeline";
 import { Skills } from "@/components/Skills";
+import { Resume } from "@/components/Resume";
 import { site } from "@/lib/site";
 
 const fadeInUp = {
@@ -68,30 +69,7 @@ export default function Home() {
         {/* Resume */}
         <motion.section {...fadeInUp} id="resume" aria-labelledby="resume-heading">
           <SectionHeading id="resume-heading">Resume</SectionHeading>
-          <div className="card overflow-hidden p-0">
-            <iframe
-              src={`${site.resume}?embedded=true`}
-              // Lazy so a heavy Docs embed below the fold doesn't compete
-              // with the hero for bandwidth on first load.
-              loading="lazy"
-              className="w-full h-[70vh] min-h-[560px] lg:min-h-[900px]"
-              title="Resume of Ranjan Shitole"
-              style={{ border: 0 }}
-              allowFullScreen
-            />
-          </div>
-          <p className="mt-3 text-xs text-muted">
-            Trouble viewing it?{" "}
-            <a
-              href={site.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline underline-offset-4"
-            >
-              Open the resume in a new tab
-            </a>
-            .
-          </p>
+          <Resume />
         </motion.section>
 
         {/* Footer */}

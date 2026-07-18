@@ -34,7 +34,9 @@ export const Hero = () => {
   }, [reduceMotion]);
 
   return (
-    <div className="h-full flex flex-col justify-center py-4">
+    // justify-start, not center: the hero shares a stretched grid row with the
+    // timeline, so centering pushed the name down as that column grew.
+    <div className="h-full flex flex-col justify-start py-4">
       <div
         {...rise(0.05)}
         className="rise inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-green/10 border border-accent-green/25 text-accent-green text-xs font-medium mb-6 w-fit"
