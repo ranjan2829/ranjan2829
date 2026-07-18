@@ -1,37 +1,27 @@
-import { NextConfig } from 'next';
+import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
+  reactStrictMode: true,
+  poweredByHeader: false,
+
+  // No remote image hosts left to allowlist — project covers are generated
+  // in CSS rather than hotlinked from third-party domains.
+
+  async headers() {
+    return [
       {
-        protocol: 'https',
-        hostname: 'upload.wikimedia.org',
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+        ],
       },
-      {
-        protocol: 'https',
-        hostname: 'www.elegantthemes.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.builtin.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'dt-cdn.net',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.prod.website-files.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'blockchainaddict.fr',
-      },
-    ],
+    ];
   },
 };
 

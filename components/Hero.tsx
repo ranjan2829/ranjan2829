@@ -1,45 +1,54 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Mail, MapPin, Phone, Code2 } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { Github, Linkedin, Mail, MapPin, Phone, Code2 } from "lucide-react";
+import { site } from "@/lib/site";
 
 const ROLES = ["AI Engineer", "Software Development Engineer", "Quantitative Engineer"];
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com/ranjan2829", label: "GitHub" },
-  { icon: Linkedin, href: "https://www.linkedin.com/in/ranjan2829/", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:ranjan.shitole3129@gmail.com", label: "Email" },
-  { icon: Code2, href: "https://leetcode.com/u/ranjanshitole/", label: "LeetCode" },
+  { icon: Github, href: site.socials.github, label: "GitHub" },
+  { icon: Linkedin, href: site.socials.linkedin, label: "LinkedIn" },
+  { icon: Mail, href: `mailto:${site.email}`, label: "Email" },
+  { icon: Code2, href: site.socials.leetcode, label: "LeetCode" },
 ];
+
+/** Stagger offset for the `.rise` CSS entrance, which falls back to visible. */
+const rise = (delay: number) => ({ style: { animationDelay: `${delay}s` } });
 
 export const Hero = () => {
   const [roleIndex, setRoleIndex] = useState(0);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % ROLES.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+    // A looping animation with no pause control fails WCAG 2.2.2 — hold on
+    // the first role when the OS asks for reduced motion.
+    if (reduceMotion) return;
+    const id = setInterval(() => setRoleIndex((i) => (i + 1) % ROLES.length), 3000);
+    return () => clearInterval(id);
+  }, [reduceMotion]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="h-full flex flex-col justify-center py-4"
-    >
-      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-green/10 border border-accent-green/20 text-accent-green text-xs font-medium mb-6 w-fit">
-        <span className="w-1.5 h-1.5 rounded-full bg-accent-green animate-pulse" />
+    <div className="h-full flex flex-col justify-center py-4">
+      <div
+        {...rise(0.05)}
+        className="rise inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-green/10 border border-accent-green/25 text-accent-green text-xs font-medium mb-6 w-fit"
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-accent-green motion-safe:animate-pulse" />
         Open to opportunities
       </div>
 
-      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-display font-bold tracking-tight text-foreground leading-[1.1] mb-3 md:mb-4">
-        Ranjan Shitole
+      <h1
+        {...rise(0.12)}
+        className="rise text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-display font-bold tracking-tight text-foreground leading-[1.1] mb-3 md:mb-4"
+      >
+        {site.name}
       </h1>
 
-      <div className="h-6 sm:h-7 mb-4 md:mb-6 overflow-hidden">
+      {/* Fixed height reserves the line box so the rotating role can't shift
+          the paragraph below it. Sized to the line-height, not below it. */}
+      <div {...rise(0.19)} className="rise h-7 sm:h-8 mb-4 md:mb-6 overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.p
             key={roleIndex}
@@ -47,64 +56,64 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -14 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="text-lg md:text-xl text-muted font-display"
+            className="text-lg md:text-xl text-muted font-display leading-7 sm:leading-8"
           >
             {ROLES[roleIndex]}
           </motion.p>
         </AnimatePresence>
       </div>
 
-      <p className="text-[13px] sm:text-sm md:text-[15px] text-muted leading-relaxed max-w-lg mb-6 md:mb-8">
+      <p
+        {...rise(0.26)}
+        className="rise text-[13px] sm:text-sm md:text-[15px] text-muted leading-relaxed max-w-lg mb-6 md:mb-8"
+      >
         Building production-grade AI systems, quantitative trading platforms, and
-        scalable backend infrastructure. Focused on Frontend, Backend, LLMs,
-        AWS, and Cloud-native distributed systems.
+        scalable backend infrastructure. Focused on LLMs, distributed systems, and
+        cloud-native architecture on AWS.
       </p>
 
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] sm:text-sm text-muted mb-6 md:mb-8">
-        <span className="flex items-center gap-1.5">
-          <MapPin className="w-3.5 h-3.5" />
-          Dubai, UAE
-        </span>
-        <span className="hidden sm:inline w-1 h-1 rounded-full bg-card-border" />
-        <span className="flex items-center gap-1.5">
-          <MapPin className="w-3.5 h-3.5" />
-          Pune, India
-        </span>
-        <span className="hidden sm:inline w-1 h-1 rounded-full bg-card-border" />
-        <a
-          href="mailto:ranjan.shitole3129@gmail.com"
-          className="flex items-center gap-1.5 hover:text-foreground transition-colors"
-        >
-          <Mail className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">ranjan.shitole3129@gmail.com</span>
-          <span className="sm:hidden">Email</span>
-        </a>
-        <span className="hidden sm:inline w-1 h-1 rounded-full bg-card-border" />
-        <a
-          href="tel:+917387792437"
-          className="flex items-center gap-1.5 hover:text-foreground transition-colors"
-        >
-          <Phone className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">+91 7387792437</span>
-          <span className="sm:hidden">Phone</span>
-        </a>
-      </div>
+      <ul
+        {...rise(0.33)}
+        className="rise flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] sm:text-sm text-muted mb-6 md:mb-8 list-none p-0"
+      >
+        {site.locations.map((location) => (
+          <li key={location} className="flex items-center gap-1.5">
+            <MapPin className="w-3.5 h-3.5 shrink-0" aria-hidden />
+            {location}
+          </li>
+        ))}
+        <li className="flex items-center gap-1.5">
+          <Mail className="w-3.5 h-3.5 shrink-0" aria-hidden />
+          <a
+            href={`mailto:${site.email}`}
+            className="hover:text-foreground transition-colors break-all"
+          >
+            {site.email}
+          </a>
+        </li>
+        <li className="flex items-center gap-1.5">
+          <Phone className="w-3.5 h-3.5 shrink-0" aria-hidden />
+          <a href={`tel:${site.phone}`} className="hover:text-foreground transition-colors">
+            {site.phoneDisplay}
+          </a>
+        </li>
+      </ul>
 
-      <div className="flex items-center gap-2">
+      <div {...rise(0.4)} className="rise flex items-center gap-2">
         {socialLinks.map(({ icon: Icon, href, label }) => (
           <a
             key={label}
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2.5 rounded-lg bg-card border border-card-border hover:border-muted text-muted hover:text-foreground transition-all duration-200"
+            className="p-2.5 rounded-lg bg-card border border-card-border hover:border-card-hover text-muted hover:text-foreground transition-colors duration-200"
             aria-label={label}
           >
-            <Icon className="w-[18px] h-[18px]" />
+            <Icon className="w-[18px] h-[18px]" aria-hidden />
           </a>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 };
 

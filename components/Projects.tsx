@@ -1,46 +1,64 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
-import Image from 'next/image';
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Github } from "lucide-react";
+import Image from "next/image";
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  tech: string[];
+  repo: string;
+  demo?: string;
+  /**
+   * Self-hosted in /public/projects. Live demos are real screenshots of the
+   * running app; code-only projects use GitHub's repo card, which carries
+   * actual star/fork counts. Nothing is hotlinked from a third-party host.
+   */
+  image: string;
+}
+
+const projects: Project[] = [
+  {
+    title: "HFT Exchange Engine",
+    description:
+      "High-frequency trading exchange engine in C++ with ultra-low-latency order matching, lock-free queues, memory pooling, and socket-based networking for real-time order flow.",
+    tech: ["C++", "CMake", "Lock-free", "Sockets"],
+    repo: "https://github.com/ranjan2829/High-Frequency-Trading-Exchange-Engine",
+    image: "/projects/hft.png",
+  },
   {
     title: "AI Calling Agent",
-    description: "Production-grade AI calling agent built with FastAPI, React, Twilio, and AWS. Processes 320+ automated interviews with real-time transcription and scalable async backend.",
-    demo: "http://13.204.76.229:3000/",
+    description:
+      "Production-grade AI calling agent built with FastAPI, React, Twilio, and AWS. Processes 320+ automated interviews at 98% accuracy with an async backend handling 70 concurrent calls.",
     tech: ["FastAPI", "React", "TypeScript", "Twilio", "AWS"],
-    image: "https://cdn.prod.website-files.com/67af3db5bb3b892e61258bd4/688cfdaa7b5a472a34eceb53_151-call-center-ai-agents.png",
+    repo: "https://github.com/ranjan2829/AI-Calling-Agent",
+    image: "/projects/calling-agent.png",
   },
   {
     title: "Hyperliquid RAG Agent",
-    description: "AI-powered market intelligence agent for HyperLiquid using semantic search and real-time sentiment analysis across multi-source data. Built with FastAPI, Next.js, and GPT-4.",
-    demo: "https://hyper-liquid-agent.vercel.app/",
+    description:
+      "AI-powered market intelligence agent for HyperLiquid using semantic search and real-time sentiment analysis across multi-source data. Built with FastAPI, Next.js, and GPT-4.",
     tech: ["FastAPI", "Next.js", "Turbopuffer", "GPT-4"],
-    image: "https://blockchainaddict.fr/wp-content/uploads/2024/10/HyperLiquid-blockchainaddict.fr_.jpg",
+    repo: "https://github.com/ranjan2829/HyperLiquid-Agent",
+    demo: "https://hyper-liquid-agent.vercel.app/",
+    image: "/projects/hyperliquid.png",
   },
   {
     title: "Perception-AI",
-    description: "Transforms handwritten inputs on a dynamic drawing canvas into instant solutions using React, FastAPI, and Google Gemini AI with LaTeX rendering via MathJax.",
+    description:
+      "Transforms handwritten input on a dynamic drawing canvas into instant solutions using React, FastAPI, and Google Gemini, with LaTeX rendering via MathJax.",
+    tech: ["React", "TypeScript", "FastAPI", "Gemini"],
+    repo: "https://github.com/ranjan2829/Perception-AI-App",
     demo: "https://ai-illustration-sigma.vercel.app/",
-    tech: ["React", "TypeScript", "FastAPI", "Gemini AI"],
-    image: "https://www.elegantthemes.com/blog/wp-content/uploads/2023/07/history-of-AI-art.jpg",
-  },
-  {
-    title: "Live HFT Exchange Engine",
-    description: "High-frequency trading exchange engine in C++ with ultra-low latency order matching, lock-free queues, memory pooling, and socket-based networking for real-time order flow.",
-    demo: "https://github.com/ranjan2829/Live-High-Frequency-Trading-Exchange-Engine",
-    tech: ["C++", "CMake", "Multi-threading", "Sockets"],
-    image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=800&q=80",
+    image: "/projects/perception.png",
   },
 ];
 
 const containerVariants = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1 },
-  },
+  visible: { transition: { staggerChildren: 0.08 } },
 };
 
 const itemVariants = {
@@ -52,69 +70,90 @@ const itemVariants = {
   },
 };
 
+const Cover = ({ src, title }: { src: string; title: string }) => (
+  <div className="relative h-44 overflow-hidden rounded-t-[13px] bg-foreground/[0.04]">
+    <Image
+      src={src}
+      alt={`${title} screenshot`}
+      fill
+      sizes="(max-width: 768px) 100vw, 50vw"
+      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+    />
+  </div>
+);
+
 export const Projects = () => {
   return (
-    <section id="projects">
+    <section id="projects" aria-labelledby="projects-heading">
       <div className="flex items-center gap-3 mb-8">
-        <div className="h-px w-8 bg-accent rounded-full" />
-        <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-muted font-display">
+        <div className="h-px w-8 bg-accent rounded-full" aria-hidden />
+        <h2 id="projects-heading" className="eyebrow font-display">
           Projects
         </h2>
       </div>
 
-      <motion.div
+      <motion.ul
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
         variants={containerVariants}
-        className="grid grid-cols-1 md:grid-cols-2 gap-5"
+        className="grid grid-cols-1 md:grid-cols-2 gap-5 list-none p-0"
       >
-        {projects.map((project, index) => (
-          <motion.div key={index} variants={itemVariants}>
-            <a
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="card group block overflow-hidden hover:border-muted transition-all duration-300"
-            >
-              <div className="relative h-44 overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                  unoptimized
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-80" />
-              </div>
+        {projects.map((project) => (
+          <motion.li key={project.title} variants={itemVariants}>
+            <article className="card card-interactive group h-full flex flex-col overflow-hidden">
+              <Cover src={project.image} title={project.title} />
 
-              <div className="p-5">
-                <div className="flex items-start justify-between gap-3 mb-2">
-                  <h3 className="text-base font-semibold text-foreground group-hover:text-accent transition-colors font-display">
-                    {project.title}
-                  </h3>
-                  <ExternalLink className="w-4 h-4 text-muted group-hover:text-foreground transition-colors flex-shrink-0 mt-0.5" />
-                </div>
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="text-base font-semibold text-foreground font-display mb-2">
+                  {project.title}
+                </h3>
 
-                <p className="text-sm text-muted leading-relaxed line-clamp-3 mb-4">
+                <p className="text-sm text-muted leading-relaxed mb-4 flex-1">
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-1.5">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
+                <ul className="flex flex-wrap gap-1.5 mb-4 list-none p-0">
+                  {project.tech.map((tech) => (
+                    <li
+                      key={tech}
                       className="text-[11px] px-2 py-0.5 rounded-md bg-foreground/[0.04] border border-card-border text-muted font-mono"
                     >
                       {tech}
-                    </span>
+                    </li>
                   ))}
+                </ul>
+
+                <div className="flex items-center gap-4 mt-auto pt-1">
+                  <a
+                    href={project.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted hover:text-foreground transition-colors"
+                  >
+                    <Github className="w-4 h-4" aria-hidden />
+                    Code
+                    <span className="sr-only"> for {project.title}</span>
+                  </a>
+
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[13px] font-medium text-accent hover:underline underline-offset-4"
+                    >
+                      Live demo
+                      <span className="sr-only"> of {project.title}</span>
+                      <ArrowUpRight className="w-4 h-4" aria-hidden />
+                    </a>
+                  )}
                 </div>
               </div>
-            </a>
-          </motion.div>
+            </article>
+          </motion.li>
         ))}
-      </motion.div>
+      </motion.ul>
     </section>
   );
 };
