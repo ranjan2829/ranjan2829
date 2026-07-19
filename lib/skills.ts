@@ -1,8 +1,3 @@
-"use client";
-
-import React from "react";
-import { motion } from "framer-motion";
-
 /**
  * Ordered by differentiation, not convention: AI infrastructure and Web3 lead
  * because they're the least common skills here. Languages sit lower — every
@@ -112,39 +107,3 @@ export const skillGroups = [
     ],
   },
 ];
-
-export const Skills = () => {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      {skillGroups.map((group, i) => (
-        <motion.div
-          key={group.category}
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.45, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-          className={`card p-4 ${group.lead ? "sm:col-span-2" : ""}`}
-        >
-          <h3 className="text-[11px] uppercase font-semibold tracking-[0.12em] mb-3 font-display flex items-center gap-2">
-            <span className={group.lead ? "text-accent" : "text-muted"}>
-              {group.category}
-            </span>
-          </h3>
-
-          <ul className="flex flex-wrap gap-1.5 list-none p-0">
-            {group.items.map((item) => (
-              <li
-                key={item}
-                className="text-xs px-2 py-1 rounded-md bg-foreground/[0.04] border border-card-border text-muted font-mono"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-      ))}
-    </div>
-  );
-};
-
-export default Skills;

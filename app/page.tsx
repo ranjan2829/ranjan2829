@@ -7,7 +7,6 @@ import { Navbar } from "@/components/NavBar";
 import { Projects } from "@/components/Projects";
 import { SocialStats } from "@/components/SocialStats";
 import Timeline from "@/components/Timeline";
-import { Skills } from "@/components/Skills";
 import { Resume } from "@/components/Resume";
 import { site } from "@/lib/site";
 
@@ -53,12 +52,6 @@ export default function Home() {
         <motion.section {...fadeInUp} id="stats" aria-labelledby="stats-heading">
           <SectionHeading id="stats-heading">Stats</SectionHeading>
           <SocialStats />
-        </motion.section>
-
-        {/* Skills */}
-        <motion.section {...fadeInUp} id="skills" aria-labelledby="skills-heading">
-          <SectionHeading id="skills-heading">Skills</SectionHeading>
-          <Skills />
         </motion.section>
 
         {/* Projects */}

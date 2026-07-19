@@ -4,11 +4,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Github, Linkedin, Mail, MapPin, Phone, Code2, FileText } from "lucide-react";
 import { site } from "@/lib/site";
-import { skillGroups } from "@/components/Skills";
-
-// ponytail: reuses the Skills source of truth so the strip can't drift from
-// the full section below it. Lead groups only — the rest stays in #skills.
-const coreStack = skillGroups.filter((g) => g.lead);
+import { skillGroups } from "@/lib/skills";
 
 const ROLES = [
   "AI Infrastructure Engineer",
@@ -136,13 +132,22 @@ export const Hero = () => {
         ))}
       </div>
 
-      {/* Fills the dead space this column left below the CTAs on lg. Hidden on
-          small screens, where the hero and timeline stack and there is no gap.
-          No mt-auto — pushing to the bottom just moves the gap above it. */}
-      <div {...rise(0.47)} className="rise hidden lg:flex flex-col gap-4">
-        {coreStack.map((group) => (
+      {/* Skills live here rather than in their own section: this column ran
+          short next to the timeline, and rendering them twice would duplicate
+          the list. Carries the #skills anchor the navbar links to. */}
+      <div {...rise(0.47)} id="skills" className="rise flex flex-col gap-5">
+        <h2 className="eyebrow font-display flex items-center gap-3">
+          <span className="h-px w-8 bg-accent rounded-full" aria-hidden />
+          Skills
+        </h2>
+
+        {skillGroups.map((group) => (
           <div key={group.category}>
-            <h3 className="text-[11px] uppercase font-semibold tracking-[0.12em] mb-2.5 font-display text-accent">
+            <h3
+              className={`text-[11px] uppercase font-semibold tracking-[0.12em] mb-2.5 font-display ${
+                group.lead ? "text-accent" : "text-muted"
+              }`}
+            >
               {group.category}
             </h3>
             <ul className="flex flex-wrap gap-1.5 list-none p-0">
