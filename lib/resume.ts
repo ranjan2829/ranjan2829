@@ -42,10 +42,10 @@ export const roles: Role[] = [
     isActive: true,
   },
   {
-    title: "Software Development Engineer",
-    company: "Brain Labs (GigaBrain)",
+    title: "SDE - I",
+    company: "Baven (GigaBrain)",
     location: "Pune, India",
-    date: "Aug 2025 — Jan 2026",
+    date: "Feb 2025 — Jan 2026",
     description: "Autonomous crypto trading agents with live on-chain execution authority.",
     highlights: [
       "Built AI trading agents executing live on-chain across Hyperliquid perps, Lighter (zkSync L2) and Polymarket — a 30-tool LLM interface with execution-safety guardrails on every order.",
@@ -58,28 +58,25 @@ export const roles: Role[] = [
     ],
   },
   {
-    title: "Associate Software Developer Intern",
-    company: "OneLab Ventures",
+    title: "Freelance AI Reviewer",
+    company: "Soul AI",
+    location: "Remote",
+    date: "Feb — Mar 2025",
+    description: "RLHF review and model output evaluation.",
+    highlights: [
+      "Reviewed and rated model outputs for RLHF training data across reasoning and code tasks.",
+    ],
+  },
+  {
+    title: "Associate Software Engineer",
+    company: "Onelab Ventures",
     location: "Hinjewadi, Pune",
-    date: "Jun — Aug 2025",
+    date: "Jun — Dec 2024",
     description: "AI calling agent on Twilio, FastAPI and AWS.",
     highlights: [
       "Built and deployed an AI calling agent processing 320+ interviews at 98%+ transcription accuracy.",
       "Architected an async backend (15+ REST APIs, WebSockets) handling 70 concurrent calls with horizontal scaling — about 65% lower latency.",
       "Implemented a Transformer-based text generator with sub-second inference using PyTorch.",
-    ],
-  },
-  {
-    title: "Quantitative Engineer Intern",
-    company: "MaticAlgos",
-    location: "Pune",
-    date: "Mar — May 2025",
-    description: "Real-time market data pipelines and options pricing.",
-    highlights: [
-      "Optimized real-time tick-by-tick data pipelines to run 3.2× faster, cutting latency roughly 69%.",
-      "Developed 45+ technical indicators at >95% accuracy and a Black-Scholes options engine with full Greeks.",
-      "Integrated 4 broker APIs (5Paisa, Kotak, Upstox, DHAN) over REST and WebSocket with OAuth2/JWT auth.",
-      "Stood up a Loki–Prometheus–Grafana observability stack for live monitoring.",
     ],
   },
   {
@@ -89,6 +86,19 @@ export const roles: Role[] = [
     date: "Jun — Aug 2024",
     description: "Backend features and API surface in Python.",
     highlights: ["Developed backend features and extended API functionality in Python."],
+  },
+  {
+    title: "Quantitative Developer",
+    company: "MaticAlgos",
+    location: "Pune",
+    date: "Mar — May 2024",
+    description: "Real-time market data pipelines and options pricing.",
+    highlights: [
+      "Optimized real-time tick-by-tick data pipelines to run 3.2× faster, cutting latency roughly 69%.",
+      "Developed 45+ technical indicators at >95% accuracy and a Black-Scholes options engine with full Greeks.",
+      "Integrated 4 broker APIs (5Paisa, Kotak, Upstox, DHAN) over REST and WebSocket with OAuth2/JWT auth.",
+      "Stood up a Loki–Prometheus–Grafana observability stack for live monitoring.",
+    ],
   },
 ];
 

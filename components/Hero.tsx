@@ -4,6 +4,11 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Github, Linkedin, Mail, MapPin, Phone, Code2, FileText } from "lucide-react";
 import { site } from "@/lib/site";
+import { skillGroups } from "@/components/Skills";
+
+// ponytail: reuses the Skills source of truth so the strip can't drift from
+// the full section below it. Lead groups only — the rest stays in #skills.
+const coreStack = skillGroups.filter((g) => g.lead);
 
 const ROLES = [
   "AI Infrastructure Engineer",
@@ -106,7 +111,7 @@ export const Hero = () => {
         </li>
       </ul>
 
-      <div {...rise(0.4)} className="rise flex flex-wrap items-center gap-2">
+      <div {...rise(0.4)} className="rise flex flex-wrap items-center gap-2 mb-8 md:mb-10">
         <a
           href={site.resume}
           target="_blank"
@@ -128,6 +133,28 @@ export const Hero = () => {
           >
             <Icon className="w-[18px] h-[18px]" aria-hidden />
           </a>
+        ))}
+      </div>
+
+      {/* Fills the dead space this column left below the CTAs on lg. Hidden on
+          small screens, where the hero and timeline stack and there is no gap. */}
+      <div {...rise(0.47)} className="rise hidden lg:flex flex-col gap-4 mt-auto pt-2">
+        {coreStack.map((group) => (
+          <div key={group.category}>
+            <h3 className="text-[11px] uppercase font-semibold tracking-[0.12em] mb-2.5 font-display text-accent">
+              {group.category}
+            </h3>
+            <ul className="flex flex-wrap gap-1.5 list-none p-0">
+              {group.items.map((item) => (
+                <li
+                  key={item}
+                  className="text-xs px-2 py-1 rounded-md bg-foreground/[0.04] border border-card-border text-muted font-mono"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
     </div>

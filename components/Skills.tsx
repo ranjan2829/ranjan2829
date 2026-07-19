@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
  * because they're the least common skills here. Languages sit lower — every
  * candidate lists those.
  */
-const skillGroups = [
+export const skillGroups = [
   {
     category: "AI Infrastructure",
     lead: true,
