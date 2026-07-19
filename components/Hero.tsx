@@ -111,7 +111,7 @@ export const Hero = () => {
         </li>
       </ul>
 
-      <div {...rise(0.4)} className="rise flex flex-wrap items-center gap-2 mb-8 md:mb-10">
+      <div {...rise(0.4)} className="rise flex flex-wrap items-center gap-2 mb-6 md:mb-8">
         <a
           href={site.resume}
           target="_blank"
@@ -137,8 +137,9 @@ export const Hero = () => {
       </div>
 
       {/* Fills the dead space this column left below the CTAs on lg. Hidden on
-          small screens, where the hero and timeline stack and there is no gap. */}
-      <div {...rise(0.47)} className="rise hidden lg:flex flex-col gap-4 mt-auto pt-2">
+          small screens, where the hero and timeline stack and there is no gap.
+          No mt-auto — pushing to the bottom just moves the gap above it. */}
+      <div {...rise(0.47)} className="rise hidden lg:flex flex-col gap-4">
         {coreStack.map((group) => (
           <div key={group.category}>
             <h3 className="text-[11px] uppercase font-semibold tracking-[0.12em] mb-2.5 font-display text-accent">
