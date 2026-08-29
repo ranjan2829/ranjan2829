@@ -82,9 +82,8 @@ export const viewport: Viewport = {
   ],
 };
 
-// Runs before first paint so the correct theme class is on <html> already —
-// without this, dark-mode visitors get a white flash on every load.
-const themeScript = `try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}var e=document.documentElement;e.classList.toggle('dark',t==='dark');e.style.colorScheme=t}catch(e){}`;
+// Default is light. Dark only if the visitor chose it.
+const themeScript = `try{var t=localStorage.getItem('theme')==='dark'?'dark':'light';var e=document.documentElement;e.classList.toggle('dark',t==='dark');e.style.colorScheme=t}catch(e){}`;
 
 const personSchema = {
   "@context": "https://schema.org",

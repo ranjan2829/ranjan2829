@@ -170,30 +170,7 @@ body::before {
   color: var(--fg);
 }
 
-/* Hole is black. Light-theme tokens make the copy disappear — lock the dark palette. */
-html:has(.blackhole-page) {
-  --bg: #09090b;
-  --fg: #fafafa;
-  --card: #111113;
-  --card-border: #232326;
-  --card-hover: #3f3f46;
-  --muted: #a1a1aa;
-  --accent: #60a5fa;
-  --accent-cyan: #22d3ee;
-  --accent-green: #4ade80;
-  --accent-yellow: #facc15;
-  --accent-red: #f87171;
-  --glow: rgba(96, 165, 250, 0.08);
-  color-scheme: dark;
-}
-
 @media (min-width: 1024px) {
-  html:has(.blackhole-page),
-  html:has(.blackhole-page) body {
-    background: #000;
-    color: var(--fg);
-  }
-
   html:has(.blackhole-page) body::before {
     display: none;
   }
@@ -202,6 +179,7 @@ html:has(.blackhole-page) {
     background: transparent;
   }
 
+  /* Light: white rail so dark type stays readable over the hole. */
   .blackhole-page::after {
     content: "";
     position: fixed;
@@ -210,15 +188,31 @@ html:has(.blackhole-page) {
     pointer-events: none;
     background: linear-gradient(
       90deg,
-      rgba(9, 9, 11, 0.94) 0%,
-      rgba(9, 9, 11, 0.82) 26%,
-      rgba(9, 9, 11, 0.42) 46%,
-      transparent 64%
+      rgb(255, 255, 255) 0%,
+      rgba(255, 255, 255, 0.94) 28%,
+      rgba(255, 255, 255, 0.42) 50%,
+      transparent 66%
+    );
+  }
+
+  html.dark:has(.blackhole-page),
+  html.dark:has(.blackhole-page) body {
+    background: #000;
+    color: var(--fg);
+  }
+
+  html.dark .blackhole-page::after {
+    background: linear-gradient(
+      90deg,
+      rgb(9, 9, 11) 0%,
+      rgba(9, 9, 11, 0.92) 28%,
+      rgba(9, 9, 11, 0.4) 50%,
+      transparent 66%
     );
   }
 
   .blackhole-page .card {
-    background: color-mix(in srgb, var(--card) 88%, transparent);
+    background: color-mix(in srgb, var(--card) 92%, transparent);
     backdrop-filter: blur(16px);
   }
 }
