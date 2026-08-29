@@ -11,16 +11,28 @@ const wgslRule = {
   loader: wgslLoader,
 };
 
+type WebpackOneOfRule = {
+  oneOf: object[];
+};
+
+function isOneOfRule(
+  rule: object | string | false | null | undefined
+): rule is WebpackOneOfRule {
+  return (
+    typeof rule === "object" &&
+    rule !== null &&
+    "oneOf" in rule &&
+    Array.isArray(rule.oneOf)
+  );
+}
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   transpilePackages: ["vgpu", "@vgpu/core", "@vgpu/wgsl", "@vgpu/wgsl-std"],
   webpack: (config) => {
     const rules = config.module?.rules ?? [];
-    const oneOfRule = rules.find(
-      (rule): rule is { oneOf: object[] } =>
-        typeof rule === "object" && rule !== null && "oneOf" in rule && Array.isArray(rule.oneOf)
-    );
+    const oneOfRule = rules.find(isOneOfRule);
     if (oneOfRule) {
       oneOfRule.oneOf.unshift(wgslRule);
     } else {
