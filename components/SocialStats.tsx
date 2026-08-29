@@ -117,9 +117,9 @@ export const SocialStats = () => {
   const { theme, mounted } = useTheme();
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <div className="grid grid-cols-1 gap-6">
       {/* GitHub */}
-      <div className="card p-5 space-y-4">
+      <div className="card p-6 md:p-8 space-y-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Github className="w-[18px] h-[18px] text-foreground" aria-hidden />
@@ -219,7 +219,7 @@ export const SocialStats = () => {
       </div>
 
       {/* LeetCode */}
-      <div className="card p-5 space-y-4">
+      <div className="card p-6 md:p-8 space-y-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Code2 className="w-[18px] h-[18px] text-foreground" aria-hidden />

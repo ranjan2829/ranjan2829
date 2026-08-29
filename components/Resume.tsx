@@ -40,12 +40,12 @@ const Rule = ({ children }: { children: React.ReactNode }) => (
  */
 export const Resume = () => {
   return (
-    <div className="card p-6 md:p-10" id="resume-sheet">
+    <div className="card p-6 sm:p-8 md:p-12" id="resume-sheet">
       {/* Header */}
       <header className="pb-6 mb-7 border-b border-card-border">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold font-display tracking-tight text-foreground">
+            <h2 className="text-2xl md:text-3xl font-semibold font-name tracking-[-0.03em] text-foreground">
               {site.name}
             </h2>
             <p className="text-sm text-accent font-medium mt-1">

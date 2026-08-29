@@ -23,6 +23,7 @@ export default {
       },
       fontFamily: {
         display: ["var(--font-display)", "ui-sans-serif", "sans-serif"],
+        name: ["var(--font-name)", "ui-sans-serif", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
     },

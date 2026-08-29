@@ -20,30 +20,36 @@ const timelineData = [
 ];
 
 export const Timeline = () => {
-  // All collapsed by default. Auto-expanding the current role made the panel
-  // ~1500px tall and pushed the hero below the fold — the one-line summary
-  // per role is enough to scan, and detail is one click away.
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  // Current role starts open so a recruiter sees Allocations without a click.
+  // Multiple panels can stay open — this is a reading surface, not a menu.
+  const [open, setOpen] = useState<ReadonlySet<number>>(() => new Set([0]));
+
+  const toggle = (index: number) => {
+    setOpen((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
+  };
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-      className="card p-5 md:p-6 h-full flex flex-col"
+      className="card p-6 md:p-8"
     >
-      <h2 className="eyebrow mb-5 font-display">Experience</h2>
-
-      <div className="relative flex-1">
+      <div className="relative">
         <div className="absolute left-[3px] top-2 bottom-2 w-px bg-card-border" aria-hidden />
 
         <ol className="space-y-1 pl-7 relative list-none p-0">
           {timelineData.map((item, index) => {
-            const isOpen = openIndex === index;
+            const isOpen = open.has(index);
             const panelId = `role-panel-${index}`;
 
             return (
-              <li key={`${item.company}-${item.date}`} className="relative group pb-4">
+              <li key={`${item.company}-${item.date}`} className="relative group pb-6 last:pb-0">
                 <div
                   className={`absolute -left-7 top-[10px] w-[9px] h-[9px] rounded-full border-2 transition-colors duration-200 ${
                     item.isActive
@@ -54,15 +60,15 @@ export const Timeline = () => {
                 />
 
                 <button
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  onClick={() => toggle(index)}
                   aria-expanded={isOpen}
                   aria-controls={panelId}
-                  className="w-full text-left rounded-lg -mx-2 px-2 py-1.5 hover:bg-foreground/[0.03] transition-colors"
+                  className="w-full text-left rounded-lg -mx-2 px-2 py-2 hover:bg-foreground/[0.03] transition-colors"
                 >
                   <div className="text-xs text-muted font-mono tracking-wide">{item.date}</div>
 
                   <div className="flex items-start justify-between gap-3 mt-1">
-                    <h3 className="text-[15px] font-semibold text-foreground leading-snug font-display group-hover:text-accent transition-colors">
+                    <h3 className="text-base md:text-[17px] font-semibold text-foreground leading-snug font-display group-hover:text-accent transition-colors">
                       {item.title}
                     </h3>
                     <ChevronDown
@@ -102,11 +108,11 @@ export const Timeline = () => {
                       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
-                      <ul className="mt-2 space-y-2 list-none p-0">
+                      <ul className="mt-3 space-y-2.5 list-none p-0">
                         {item.highlights.map((point) => (
                           <li
                             key={point}
-                            className="flex gap-2.5 text-[13px] text-muted leading-relaxed"
+                            className="flex gap-2.5 text-sm text-muted leading-relaxed"
                           >
                             <span
                               className="mt-[7px] w-1 h-1 rounded-full bg-accent shrink-0"

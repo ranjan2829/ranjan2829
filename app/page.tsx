@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { BlackHoleBackground } from "@/components/BlackHoleBackground";
 import Hero from "@/components/Hero";
 import { Navbar } from "@/components/NavBar";
 import { Projects } from "@/components/Projects";
@@ -11,10 +12,10 @@ import { Resume } from "@/components/Resume";
 import { site } from "@/lib/site";
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 1, y: 12 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" } as const,
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  viewport: { once: true, margin: "-40px" } as const,
+  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
 };
 
 const SectionHeading = ({ id, children }: { id: string; children: React.ReactNode }) => (
@@ -28,55 +29,46 @@ const SectionHeading = ({ id, children }: { id: string; children: React.ReactNod
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen">
+    <div className="blackhole-page relative min-h-screen">
+      <BlackHoleBackground />
       <Navbar />
 
       <main
         id="main"
-        className="relative z-10 max-w-5xl mx-auto pt-20 md:pt-28 pb-16 md:pb-20 px-4 sm:px-5 md:px-8 space-y-12 md:space-y-20"
+        className="relative z-10 pt-20 md:pt-28 pb-16 md:pb-24 px-4 sm:px-5 md:px-8 lg:pl-8 xl:pl-12"
       >
-        {/* Hero + Timeline */}
-        <section
-          id="home"
-          className="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-6 items-stretch"
-        >
-          <div className="lg:col-span-7 flex flex-col">
-            <Hero />
-          </div>
-          <div className="lg:col-span-5 flex flex-col">
-            <Timeline />
-          </div>
+        {/* First screen: readable intro, hole stays the right-side signature. */}
+        <section id="home" className="max-w-2xl lg:max-w-[42rem]">
+          <Hero />
         </section>
 
-        {/* Stats */}
-        <motion.section {...fadeInUp} id="stats" aria-labelledby="stats-heading">
-          <SectionHeading id="stats-heading">Stats</SectionHeading>
-          <SocialStats />
-        </motion.section>
+        {/* Below the fold: wider measure so cards, calendar, and resume can be read. */}
+        <div className="mt-16 md:mt-24 space-y-16 md:space-y-24 max-w-3xl xl:max-w-4xl">
+          <motion.section {...fadeInUp} id="experience" aria-labelledby="experience-heading">
+            <SectionHeading id="experience-heading">Experience</SectionHeading>
+            <Timeline />
+          </motion.section>
 
-        {/* Projects */}
-        <motion.div {...fadeInUp}>
-          <Projects />
-        </motion.div>
+          <motion.section {...fadeInUp} id="stats" aria-labelledby="stats-heading">
+            <SectionHeading id="stats-heading">Stats</SectionHeading>
+            <SocialStats />
+          </motion.section>
 
-        {/* Resume */}
-        <motion.section {...fadeInUp} id="resume" aria-labelledby="resume-heading">
-          <SectionHeading id="resume-heading">Resume</SectionHeading>
-          <Resume />
-        </motion.section>
+          <motion.div {...fadeInUp}>
+            <Projects />
+          </motion.div>
 
-        {/* Footer */}
-        <footer className="border-t border-card-border pt-8 pb-4">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-muted">
-            <p>
+          <motion.section {...fadeInUp} id="resume" aria-labelledby="resume-heading">
+            <SectionHeading id="resume-heading">Resume</SectionHeading>
+            <Resume />
+          </motion.section>
+
+          <footer className="border-t border-card-border pt-8 pb-4">
+            <p className="text-xs text-muted">
               &copy; {new Date().getFullYear()} {site.name}
             </p>
-            <p className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-green" aria-hidden />
-              Built with Next.js
-            </p>
-          </div>
-        </footer>
+          </footer>
+        </div>
       </main>
     </div>
   );

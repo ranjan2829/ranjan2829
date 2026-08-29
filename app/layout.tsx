@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Fira_Code } from "next/font/google";
+import { Space_Grotesk, Fira_Code, Outfit } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -16,18 +16,24 @@ const mono = Fira_Code({
   display: "swap",
 });
 
+const name = Outfit({
+  subsets: ["latin"],
+  variable: "--font-name",
+  display: "swap",
+});
+
 const SITE = "https://ranjan2829.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: {
-    default: "Ranjan Shitole — AI Infrastructure & Full-Stack Engineer",
-    template: "%s · Ranjan Shitole",
+    default: "Ranjan — AI Infrastructure & Full-Stack Engineer",
+    template: "%s · Ranjan",
   },
   description:
-    "Ranjan Shitole — AI Infrastructure Engineer building the systems that let AI agents act autonomously: Model Context Protocol, agent execution safety, and on-chain execution across fintech and crypto.",
+    "Ranjan — AI Infrastructure Engineer building the systems that let AI agents act autonomously: Model Context Protocol, agent execution safety, and on-chain execution across fintech and crypto.",
   keywords: [
-    "Ranjan Shitole",
+    "Ranjan",
     "AI Infrastructure Engineer",
     "Model Context Protocol",
     "MCP",
@@ -40,21 +46,21 @@ export const metadata: Metadata = {
     "FastAPI",
     "NestJS",
   ],
-  authors: [{ name: "Ranjan Shitole", url: SITE }],
-  creator: "Ranjan Shitole",
+  authors: [{ name: "Ranjan", url: SITE }],
+  creator: "Ranjan",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: SITE,
-    siteName: "Ranjan Shitole",
-    title: "Ranjan Shitole — AI Infrastructure & Full-Stack Engineer",
+    siteName: "Ranjan",
+    title: "Ranjan — AI Infrastructure & Full-Stack Engineer",
     description:
       "Building the infrastructure that lets AI agents act autonomously — tool protocols, execution safety, and the systems underneath.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ranjan Shitole — AI Infrastructure & Full-Stack Engineer",
+    title: "Ranjan — AI Infrastructure & Full-Stack Engineer",
     description:
       "Building the infrastructure that lets AI agents act autonomously — tool protocols, execution safety, and the systems underneath.",
     creator: "@manofsteel3129",
@@ -83,7 +89,7 @@ const themeScript = `try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Ranjan Shitole",
+  name: "Ranjan",
   url: SITE,
   jobTitle: "AI Infrastructure Engineer",
   email: "mailto:ranjan.shitole3129@gmail.com",
@@ -108,7 +114,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
       </head>
-      <body className={`${display.variable} ${mono.variable} antialiased`}>
+      <body className={`${display.variable} ${mono.variable} ${name.variable} antialiased`} suppressHydrationWarning>
         <a href="#main" className="skip-link">
           Skip to content
         </a>

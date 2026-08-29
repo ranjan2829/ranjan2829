@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import React from "react";
 import { Github, Linkedin, Mail, MapPin, Phone, Code2, FileText } from "lucide-react";
 import { site } from "@/lib/site";
 import { skillGroups } from "@/lib/skills";
@@ -23,17 +22,6 @@ const socialLinks = [
 const rise = (delay: number) => ({ style: { animationDelay: `${delay}s` } });
 
 export const Hero = () => {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const reduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    // A looping animation with no pause control fails WCAG 2.2.2 — hold on
-    // the first role when the OS asks for reduced motion.
-    if (reduceMotion) return;
-    const id = setInterval(() => setRoleIndex((i) => (i + 1) % ROLES.length), 3000);
-    return () => clearInterval(id);
-  }, [reduceMotion]);
-
   return (
     // justify-start, not center: the hero shares a stretched grid row with the
     // timeline, so centering pushed the name down as that column grew.
@@ -48,27 +36,17 @@ export const Hero = () => {
 
       <h1
         {...rise(0.12)}
-        className="rise text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-display font-bold tracking-tight text-foreground leading-[1.1] mb-3 md:mb-4"
+        className="rise text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-name font-semibold tracking-[-0.04em] text-foreground leading-[1.05] mb-3 md:mb-4"
       >
         {site.name}
       </h1>
 
-      {/* Fixed height reserves the line box so the rotating role can't shift
-          the paragraph below it. Sized to the line-height, not below it. */}
-      <div {...rise(0.19)} className="rise h-7 sm:h-8 mb-4 md:mb-6 overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={roleIndex}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -14 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="text-lg md:text-xl text-muted font-display leading-7 sm:leading-8"
-          >
-            {ROLES[roleIndex]}
-          </motion.p>
-        </AnimatePresence>
-      </div>
+      <p
+        {...rise(0.19)}
+        className="rise text-lg md:text-xl text-muted font-display leading-snug mb-4 md:mb-6"
+      >
+        {ROLES.join(" · ")}
+      </p>
 
       <p
         {...rise(0.26)}
@@ -117,6 +95,13 @@ export const Hero = () => {
           <FileText className="w-4 h-4" aria-hidden />
           View resume
         </a>
+        <a
+          href={`mailto:${site.email}`}
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-card-border bg-card text-foreground text-[13px] font-medium hover:border-card-hover transition-colors"
+        >
+          <Mail className="w-4 h-4" aria-hidden />
+          Email me
+        </a>
 
         {socialLinks.map(({ icon: Icon, href, label }) => (
           <a
@@ -154,7 +139,7 @@ export const Hero = () => {
               {group.items.map((item) => (
                 <li
                   key={item}
-                  className="text-xs px-2 py-1 rounded-md bg-foreground/[0.04] border border-card-border text-muted font-mono"
+                  className="text-[13px] px-2.5 py-1.5 rounded-md bg-foreground/[0.04] border border-card-border text-muted font-mono"
                 >
                   {item}
                 </li>

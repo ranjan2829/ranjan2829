@@ -4,7 +4,7 @@
  * anything user-facing should read from here so they can't drift again.
  */
 export const site = {
-  name: "Ranjan Shitole",
+  name: "Ranjan",
   url: "https://ranjan2829.vercel.app",
   email: "ranjan.shitole3129@gmail.com",
   phone: "+917387792437",

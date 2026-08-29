@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Ranjan Shitole — AI Engineer & Software Developer";
+export const alt = "Ranjan — AI Engineer & Software Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -44,7 +44,7 @@ export default function Image() {
             letterSpacing: -2,
           }}
         >
-          Ranjan Shitole
+          Ranjan
         </div>
 
         <div style={{ fontSize: 38, color: "#a1a1aa", marginTop: 10 }}>

@@ -8,6 +8,7 @@ import { site } from "@/lib/site";
 
 const navLinks = [
   { title: "Home", id: "home" },
+  { title: "Experience", id: "experience" },
   { title: "Stats", id: "stats" },
   { title: "Skills", id: "skills" },
   { title: "Projects", id: "projects" },
@@ -97,8 +98,8 @@ export const Navbar = () => {
 
   return (
     <nav aria-label="Main" className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
-      {/* Desktop — centered pill */}
-      <div className="hidden md:flex justify-center pt-5">
+      {/* Desktop — left-aligned so the black hole stays clear on the right */}
+      <div className="hidden md:flex justify-center pt-5 lg:justify-start lg:pl-8">
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

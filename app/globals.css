@@ -147,6 +147,88 @@ body::before {
   z-index: 0;
 }
 
+/* Official vgpu optimized black hole. */
+.blackhole-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: #000;
+}
+
+.blackhole-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.blackhole-page {
+  isolation: isolate;
+  color: var(--fg);
+}
+
+/* Hole is black. Light-theme tokens make the copy disappear — lock the dark palette. */
+html:has(.blackhole-page) {
+  --bg: #09090b;
+  --fg: #fafafa;
+  --card: #111113;
+  --card-border: #232326;
+  --card-hover: #3f3f46;
+  --muted: #a1a1aa;
+  --accent: #60a5fa;
+  --accent-cyan: #22d3ee;
+  --accent-green: #4ade80;
+  --accent-yellow: #facc15;
+  --accent-red: #f87171;
+  --glow: rgba(96, 165, 250, 0.08);
+  color-scheme: dark;
+}
+
+@media (min-width: 1024px) {
+  html:has(.blackhole-page),
+  html:has(.blackhole-page) body {
+    background: #000;
+    color: var(--fg);
+  }
+
+  html:has(.blackhole-page) body::before {
+    display: none;
+  }
+
+  .blackhole-page {
+    background: transparent;
+  }
+
+  .blackhole-page::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgba(9, 9, 11, 0.94) 0%,
+      rgba(9, 9, 11, 0.82) 26%,
+      rgba(9, 9, 11, 0.42) 46%,
+      transparent 64%
+    );
+  }
+
+  .blackhole-page .card {
+    background: color-mix(in srgb, var(--card) 88%, transparent);
+    backdrop-filter: blur(16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blackhole-bg {
+    display: none;
+  }
+}
+
 /*
   Entrance animation. Deliberately CSS rather than JS-driven: with
   animation-fill-mode:both it resolves to visible even if scripts never run,

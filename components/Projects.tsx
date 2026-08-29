@@ -111,14 +111,14 @@ export const Projects = () => {
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
         variants={containerVariants}
-        className="grid grid-cols-1 md:grid-cols-2 gap-5 list-none p-0"
+        className="grid grid-cols-1 xl:grid-cols-2 gap-6 list-none p-0"
       >
         {projects.map((project) => (
           <motion.li key={project.title} variants={itemVariants}>
             <article className="card card-interactive group h-full flex flex-col overflow-hidden">
               <Cover src={project.image} title={project.title} />
 
-              <div className="p-5 flex flex-col flex-1">
+              <div className="p-6 flex flex-col flex-1">
                 {project.role && (
                   <span className="text-[10px] uppercase tracking-[0.14em] font-semibold text-accent mb-2">
                     {project.role}
