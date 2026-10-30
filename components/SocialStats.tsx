@@ -44,33 +44,34 @@ const githubTheme = {
 type State<T> = { data: T | null; loading: boolean; error: boolean };
 
 /** Shared fetch + state machine — GitHub and LeetCode had duplicate copies. */
+async function fetchStats<T>(endpoint: string, signal?: AbortSignal): Promise<State<T> | null> {
+  try {
+    const res = await fetch(endpoint, { signal });
+    const result = await res.json();
+    if (!res.ok || !result.success) throw new Error(result.error ?? "Request failed");
+    return { data: result.data as T, loading: false, error: false };
+  } catch (error) {
+    if (signal?.aborted) return null;
+    console.error(`Failed to load ${endpoint}:`, error);
+    return { data: null, loading: false, error: true };
+  }
+}
+
 function useStats<T>(endpoint: string) {
   const [state, setState] = useState<State<T>>({ data: null, loading: true, error: false });
 
-  const load = useCallback(
-    async (signal?: AbortSignal) => {
-      setState((s) => ({ ...s, loading: true, error: false }));
-      try {
-        const res = await fetch(endpoint, { signal });
-        const result = await res.json();
-        if (!res.ok || !result.success) throw new Error(result.error ?? "Request failed");
-        setState({ data: result.data as T, loading: false, error: false });
-      } catch (error) {
-        if (signal?.aborted) return;
-        console.error(`Failed to load ${endpoint}:`, error);
-        setState({ data: null, loading: false, error: true });
-      }
-    },
-    [endpoint]
-  );
-
   useEffect(() => {
     const controller = new AbortController();
-    load(controller.signal);
+    fetchStats<T>(endpoint, controller.signal).then((next) => next && setState(next));
     return () => controller.abort();
-  }, [load]);
+  }, [endpoint]);
 
-  return { ...state, retry: () => load() };
+  const retry = useCallback(() => {
+    setState((s) => ({ ...s, loading: true, error: false }));
+    fetchStats<T>(endpoint).then((next) => next && setState(next));
+  }, [endpoint]);
+
+  return { ...state, retry };
 }
 
 const Spinner = ({ label }: { label: string }) => (

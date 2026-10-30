@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
@@ -17,27 +17,46 @@ const ThemeContext = createContext<ThemeContextType>({
   mounted: false,
 });
 
+// The stored theme is an external store: localStorage, plus a same-tab event since
+// the "storage" event only fires in other tabs.
+const THEME_EVENT = "themechange";
+
+function subscribeTheme(onChange: () => void) {
+  window.addEventListener("storage", onChange);
+  window.addEventListener(THEME_EVENT, onChange);
+  return () => {
+    window.removeEventListener("storage", onChange);
+    window.removeEventListener(THEME_EVENT, onChange);
+  };
+}
+
+function readStoredTheme(): Theme {
+  try {
+    return window.localStorage.getItem("theme") === "dark" ? "dark" : "light";
+  } catch {
+    return "light";
+  }
+}
+
+const subscribeNothing = () => () => {};
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
-  const [mounted, setMounted] = useState(false);
+  const theme = useSyncExternalStore(subscribeTheme, readStoredTheme, (): Theme => "light");
+  const mounted = useSyncExternalStore(subscribeNothing, () => true, () => false);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem("theme");
-    const next: Theme = stored === "dark" ? "dark" : "light";
-    setTheme(next);
-    document.documentElement.classList.toggle("dark", next === "dark");
-    document.documentElement.style.colorScheme = next;
-    setMounted(true);
-  }, []);
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.style.colorScheme = theme;
+  }, [theme]);
 
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => {
-      const next: Theme = prev === "light" ? "dark" : "light";
+    const next: Theme = readStoredTheme() === "light" ? "dark" : "light";
+    try {
       localStorage.setItem("theme", next);
-      document.documentElement.classList.toggle("dark", next === "dark");
-      document.documentElement.style.colorScheme = next;
-      return next;
-    });
+    } catch {
+      return; // storage blocked (private mode): nothing to persist, nothing changes
+    }
+    window.dispatchEvent(new Event(THEME_EVENT));
   }, []);
 
   return (
