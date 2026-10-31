@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useSyncExternalStore } from "react";
 import { useInView } from "motion/react";
 import type { COBEOptions } from "cobe";
 import { ArrowUpRight, Check, Copy } from "lucide-react";
 import { Globe } from "@/components/magicui/globe";
 import { NoiseTexture } from "@/components/magicui/noise-texture";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import FolderFloat from "@/components/reactbits/FolderFloat";
+import MetallicPaint from "@/components/reactbits/MetallicPaint";
 import { useTheme } from "@/components/ThemeProvider";
 import { site } from "@/lib/site";
 
@@ -38,6 +40,29 @@ const globeConfig = (dark: boolean): COBEOptions => ({
 const GLOBE_DARK = globeConfig(true);
 const GLOBE_LIGHT = globeConfig(false);
 
+// Every other place to reach Ranjan, as pills that float out of a folder.
+const elsewhere = [
+  { label: "GitHub", value: site.socials.github },
+  { label: "LinkedIn", value: site.socials.linkedin },
+  { label: "LeetCode", value: site.socials.leetcode },
+  { label: "X", value: site.socials.twitter },
+  { label: "Résumé", value: site.resume },
+  { label: site.phoneDisplay, value: `tel:${site.phone}` },
+];
+
+const openLink = (href: string) => {
+  if (href.startsWith("http")) window.open(href, "_blank", "noopener,noreferrer");
+  else window.location.href = href;
+};
+
+// Hover opens the folder where there is a mouse; touch screens tap it instead.
+const HOVER_QUERY = "(hover: hover) and (pointer: fine)";
+const subscribeHover = (onChange: () => void) => {
+  const query = window.matchMedia(HOVER_QUERY);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+};
+
 /** Closing call to action beside a Globe marking Dubai and Pune. */
 export function Contact() {
   const { theme, mounted } = useTheme();
@@ -46,6 +71,10 @@ export function Contact() {
   const globeRef = useRef<HTMLDivElement>(null);
   // WebGL runs only while the globe is near the viewport.
   const globeNear = useInView(globeRef, { margin: "200px" });
+  const canHover = useSyncExternalStore(subscribeHover, () => window.matchMedia(HOVER_QUERY).matches, () => true);
+  const markRef = useRef<HTMLDivElement>(null);
+  // Mounted on sight so the metal pours in while someone is looking.
+  const markInView = useInView(markRef, { once: true, amount: 0.4 });
 
   // Many readers would rather paste the address into their own client than open a mail app.
   const copyEmail = async () => {
@@ -136,7 +165,43 @@ export function Contact() {
               Pune, India
             </li>
           </ul>
+          <div className="relative mt-20 flex justify-center">
+            <FolderFloat
+              items={elsewhere}
+              label="Elsewhere"
+              sublabel={`${elsewhere.length} links`}
+              trigger={canHover ? "hover" : "click"}
+              onSelect={openLink}
+              folderColor="#1d5fd1"
+              frontColor="#2f7cf6"
+              paperColor="#f5f5f7"
+              itemColor={dark ? "#f5f5f7" : "#1d1d1f"}
+              itemTextColor={dark ? "#1d1d1f" : "#f5f5f7"}
+              labelColor="#ffffff"
+              spread={170}
+              lift={22}
+            />
+          </div>
         </div>
+      </div>
+
+      {/* Signature: the name in liquid chrome, tilting with the cursor. */}
+      <div
+        ref={markRef}
+        aria-hidden
+        className="relative mx-auto mt-24 h-[clamp(120px,18vw,240px)] w-full max-w-6xl"
+      >
+        {mounted && markInView && (
+          <MetallicPaint
+            text={site.name}
+            fontFamily="Geist, system-ui, sans-serif"
+            fontWeight={700}
+            lightMode={!dark}
+            scale={0.95}
+            density={2.2}
+            edgeBend={0.7}
+          />
+        )}
       </div>
       <footer className="absolute inset-x-0 bottom-0 border-t border-card-border px-5 py-6 sm:px-8 lg:px-12">
         <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-3 font-mono text-xs text-muted">
