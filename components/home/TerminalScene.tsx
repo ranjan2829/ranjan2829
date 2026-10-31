@@ -3,9 +3,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
 import { BlurFade } from "@/components/magicui/blur-fade";
+import GradientASCII from "@/components/reactbits/GradientASCII";
+import LaserFlow from "@/components/reactbits/LaserFlow";
+import { useTheme } from "@/components/ThemeProvider";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
-import { ASCII_BLACK_HOLE } from "./asciiBlackHole";
 import { Section, SectionHeader } from "./Section";
 
 type Line = { text: string; href?: string };
@@ -110,6 +112,11 @@ export function TerminalScene() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.35 });
   const reduceMotion = useReducedMotion();
+  const { theme, mounted } = useTheme();
+  const dark = !mounted || theme === "dark";
+  const stageRef = useRef<HTMLDivElement>(null);
+  // Both shaders mount as the stage nears the viewport, so their intros play when seen.
+  const stageNear = useInView(stageRef, { once: true, margin: "300px 0px" });
 
   const [current, setCurrent] = useState(0);
   const [run, setRun] = useState(0);
@@ -148,7 +155,7 @@ export function TerminalScene() {
   const done = shown >= total;
 
   return (
-    <Section id="terminal" labelledBy="terminal-title" wide>
+    <Section id="terminal" labelledBy="terminal-title" wide className="overflow-x-clip">
       <SectionHeader
         index="04"
         eyebrow="Under the hood"
@@ -157,10 +164,23 @@ export function TerminalScene() {
         sub="Click a command — every answer is real."
       />
 
+      {/* A beam drops through the gap under the header and lands on the window,
+          above the black hole pane. */}
+      <div ref={stageRef} className="relative pt-24 sm:pt-36">
+        {stageNear && (
+          <LaserFlow
+            surfaceRef={ref}
+            beamPosition={0.76}
+            color="#2f6bff"
+            fog={0.25}
+            theme={dark ? "dark" : "light"}
+            style={{ position: "absolute", top: 0, bottom: 0, left: "50%", width: "100vw", height: "auto", transform: "translateX(-50%)" }}
+          />
+        )}
       <BlurFade inView>
         <div
           ref={ref}
-          className="overflow-hidden rounded-2xl border border-card-border bg-[#0a0a0b] text-white shadow-[0_40px_120px_-50px_rgba(41,151,255,0.35)]"
+          className="relative z-10 overflow-hidden rounded-2xl border border-card-border bg-[#0a0a0b] text-white shadow-[0_40px_120px_-50px_rgba(41,151,255,0.35)]"
         >
           {/* Title bar */}
           <div className="flex h-10 items-center gap-2 border-b border-white/10 px-4">
@@ -231,21 +251,37 @@ export function TerminalScene() {
               </div>
             </div>
 
-            {/* The site's black hole, in ASCII */}
-            <div className="@container relative overflow-hidden border-t border-white/10 px-4 py-5 lg:border-l lg:border-t-0">
-              <pre
-                aria-hidden
-                className="m-0 bg-gradient-to-br from-white via-white/80 to-[#64d2ff] bg-clip-text text-[1.32cqw] leading-none text-transparent"
-              >
-                {ASCII_BLACK_HOLE}
-              </pre>
-              <p className="mt-3 font-mono text-[11px] text-white/35">
-                the black hole above the fold, in {"{.:-=+*#%@}"}
+            {/* The site's black hole again, as a live ASCII eclipse */}
+            <div
+              aria-hidden
+              className="relative h-[300px] overflow-hidden border-t border-white/10 lg:h-auto lg:border-l lg:border-t-0"
+            >
+              {stageNear && (
+                <GradientASCII
+                  shape="eclipse"
+                  colors={["#0a1a4a", "#2997ff", "#64d2ff", "#f5f5f7"]}
+                  characters=" .:-=+*#%@"
+                  cellSize={10}
+                  density={0.9}
+                  glow={1.1}
+                  flicker={0.5}
+                  depthOfField={0.15}
+                  gradientOpacity={0.55}
+                  grain={0.06}
+                  scale={1.15}
+                  scrambleRadius={0.16}
+                  clickEffect="burst"
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+                />
+              )}
+              <p className="pointer-events-none absolute bottom-3 left-4 m-0 font-mono text-[11px] text-white/40">
+                live · hover to scramble, click to burst
               </p>
             </div>
           </div>
         </div>
       </BlurFade>
+      </div>
     </Section>
   );
 }

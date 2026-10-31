@@ -16,6 +16,7 @@ import {
   Twitter,
 } from "lucide-react";
 import { Dock, DockIcon } from "@/components/magicui/dock";
+import GlassSurface from "@/components/reactbits/GlassSurface";
 import { useTheme } from "@/components/ThemeProvider";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -36,7 +37,7 @@ const links = [
 const iconButton =
   "flex size-full items-center justify-center rounded-full text-foreground/80 transition-colors hover:bg-foreground/10 hover:text-foreground";
 
-/** Floating macOS-style dock: the site's only navigation. */
+/** Floating macOS-style dock on liquid glass: the site's only navigation. */
 export function SiteDock() {
   const { theme, toggleTheme, mounted } = useTheme();
   const isDark = !mounted || theme === "dark";
@@ -46,10 +47,22 @@ export function SiteDock() {
       aria-label="Primary"
       className="fixed inset-x-0 bottom-5 z-50 flex justify-center px-3 pointer-events-none"
     >
+      <div className="pointer-events-auto relative rounded-2xl">
+        {/* The glass sits behind the dock and tracks its size as icons magnify.
+            Chromium bends the page through it; Safari and Firefox get frosted glass. */}
+        <GlassSurface
+          width="100%"
+          height="100%"
+          borderRadius={16}
+          backgroundOpacity={isDark ? 0.4 : 0.5}
+          displace={1.2}
+          saturation={1.5}
+          style={{ position: "absolute", inset: 0 }}
+        />
       <Dock
         iconSize={40}
         iconMagnification={58}
-        className="pointer-events-auto mt-0 h-[58px] border-card-border bg-background/70 backdrop-blur-xl"
+        className="relative mt-0 h-[58px] border-transparent bg-transparent backdrop-blur-none"
       >
         {links.map(({ href, label, icon: Icon, external }) => (
           <DockIcon key={label} className={cn(external && "hidden sm:flex")}>
@@ -81,6 +94,7 @@ export function SiteDock() {
           </button>
         </DockIcon>
       </Dock>
+      </div>
     </nav>
   );
 }
