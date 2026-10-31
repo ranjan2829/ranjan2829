@@ -1,10 +1,8 @@
 "use client";
 
-import React, { forwardRef, useEffect, useRef, useState } from "react";
-import { useInView, useReducedMotion } from "motion/react";
+import React, { forwardRef, useRef } from "react";
 import { ArrowUpRight, Github } from "lucide-react";
 import { CardBody, CardContainer, CardItem } from "@/components/aceternity/3d-card";
-import { MacbookScroll } from "@/components/aceternity/macbook-scroll";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { BorderBeam } from "@/components/magicui/border-beam";
@@ -14,7 +12,6 @@ import { Safari } from "@/components/magicui/safari";
 import { AnimatedSpan, Terminal, TypingAnimation } from "@/components/magicui/terminal";
 import { projects, type Project } from "@/lib/projects";
 import { cn } from "@/lib/utils";
-import { ASCII_BLACK_HOLE } from "./asciiBlackHole";
 import { Chip, Section, SectionHeader } from "./Section";
 
 const [gigabrain, hft, ...showcase] = projects;
@@ -59,156 +56,6 @@ function Links({ project }: { project: Project }) {
 }
 
 const venue = "rounded-full border border-card-border bg-background px-2.5 py-1 text-xs whitespace-nowrap";
-
-const prompt = (
-  <>
-    <span className="text-[#30d158]">ranjan@allocations</span> <span className="text-white/45">~ %</span>
-  </>
-);
-
-type ScriptLine = { kind: "cmd" | "out"; text: string };
-
-const script: ScriptLine[] = [
-  { kind: "cmd", text: "whoami" },
-  { kind: "out", text: "lead ai infrastructure & full-stack engineer" },
-  { kind: "cmd", text: "cat now.txt" },
-  { kind: "out", text: "firm    finra-regulated · $5B in client assets" },
-  { kind: "out", text: "mcp     3 servers · 40+ tools · oauth 2.0" },
-  { kind: "out", text: "agents  10 behind one gateway" },
-];
-
-// A command types one character per tick and then pauses; an output line lands in one tick.
-const starts: number[] = [];
-const SCRIPT_TICKS = script.reduce((tick, line) => {
-  starts.push(tick);
-  return tick + (line.kind === "cmd" ? line.text.length + 6 : 3);
-}, 0);
-
-const Caret = () => (
-  <span className="inline-block h-[1em] w-[0.6em] translate-y-[0.15em] bg-white/80 motion-safe:animate-pulse" />
-);
-
-/** Types the session out once the screen is in view; reduced motion shows it finished. */
-function useTyping(active: boolean) {
-  const [tick, setTick] = useState(0);
-  useEffect(() => {
-    if (!active) return;
-    const id = setInterval(() => {
-      setTick((t) => {
-        if (t >= SCRIPT_TICKS) {
-          clearInterval(id);
-          return t;
-        }
-        return t + 1;
-      });
-    }, 55);
-    return () => clearInterval(id);
-  }, [active]);
-  return tick;
-}
-
-/**
- * What the laptop shows: the site's black hole as ASCII art, with a whoami
- * session typing over it. Sized in container units so it fits any screen width.
- */
-function LaptopScreen() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.4 });
-  const reduceMotion = useReducedMotion();
-  const tick = useTyping(inView && !reduceMotion);
-  const shown = reduceMotion ? SCRIPT_TICKS : tick;
-
-  return (
-    <div ref={ref} className="@container relative size-full overflow-hidden bg-black font-mono text-white">
-      <div className="flex h-[4cqw] items-center gap-[0.8cqw] border-b border-white/10 px-[2cqw]">
-        <span className="size-[1.2cqw] rounded-full bg-[#ff5f57]" />
-        <span className="size-[1.2cqw] rounded-full bg-[#febc2e]" />
-        <span className="size-[1.2cqw] rounded-full bg-[#28c840]" />
-        <span className="mx-auto text-[1.4cqw] text-white/45">ranjan@allocations — zsh</span>
-      </div>
-      <pre
-        aria-hidden
-        className="absolute inset-x-[1.5cqw] bottom-[1cqw] m-0 bg-gradient-to-br from-white via-white/85 to-[#64d2ff] bg-clip-text text-[1.33cqw] leading-none text-transparent"
-      >
-        {ASCII_BLACK_HOLE}
-      </pre>
-      <div className="sr-only">
-        {script.map((line) => (line.kind === "cmd" ? `$ ${line.text}` : line.text)).join("\n")}
-      </div>
-      <div
-        aria-hidden
-        className="absolute left-[2.5cqw] top-[6.5cqw] flex flex-col gap-[0.4cqw] rounded-[0.8cqw] bg-black/65 p-[1cqw] text-[max(1.5cqw,8px)] leading-[1.45]"
-      >
-        {script.map((line, i) => {
-          if (shown < starts[i]) return null;
-          if (line.kind === "out") {
-            return (
-              <p key={i} className="m-0 whitespace-pre text-white/75">
-                {line.text}
-              </p>
-            );
-          }
-          const typed = line.text.slice(0, Math.max(0, shown - starts[i]));
-          return (
-            <p key={i} className={cn("m-0", i > 0 && "mt-[0.6cqw]")}>
-              {prompt} {typed}
-              {typed.length < line.text.length && <Caret />}
-            </p>
-          );
-        })}
-        {shown >= SCRIPT_TICKS && (
-          <p className="m-0 mt-[0.6cqw]">
-            {prompt} <Caret />
-          </p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function LaptopTitle() {
-  return (
-    <span className="flex flex-col items-center gap-4 text-center font-sans">
-      <span className="font-mono text-[12px] font-normal uppercase tracking-[0.18em] text-muted">
-        <span className="text-accent">04</span> · Under the hood
-      </span>
-      <span className="bg-gradient-to-b from-foreground to-foreground/55 bg-clip-text text-[clamp(2.5rem,6vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-transparent">
-        Built in the terminal.
-        <br />
-        Trusted with real money.
-      </span>
-    </span>
-  );
-}
-
-/** Scene 3: a MacBook opens on scroll onto the black hole, in ASCII. */
-export function LaptopScene() {
-  return (
-    <section id="terminal" aria-label="Under the hood" className="relative isolate bg-background">
-      {/* Desktop: the MacBook opens as you scroll. Its screen slides down through
-          this stage, so the stage clips it and fades it out before the next section. */}
-      <div className="relative hidden overflow-hidden md:-mt-40 md:block">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-72 bg-gradient-to-t from-background via-background/80 to-transparent"
-        />
-        <div className="mx-auto max-w-7xl">
-          <MacbookScroll screen={<LaptopScreen />} showGradient title={<LaptopTitle />} />
-        </div>
-      </div>
-
-      {/* Phone: the animation needs a wide screen, so the screen alone. */}
-      <div className="flex flex-col items-center gap-10 px-5 pb-24 pt-28 sm:px-8 md:hidden">
-        <h2>
-          <LaptopTitle />
-        </h2>
-        <div className="aspect-[4/3] w-full max-w-xl overflow-hidden rounded-2xl border border-card-border shadow-2xl">
-          <LaptopScreen />
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /** Scene 4: GigaBrain — the live product, and the venues its agents trade on. */
 export function GigaBrainScene() {

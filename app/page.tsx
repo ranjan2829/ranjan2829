@@ -11,12 +11,12 @@ import {
   AllocationsScene,
   EngineeringScene,
   GigaBrainScene,
-  LaptopScene,
   ProjectsScene,
 } from "@/components/home/Scenes";
 import { SiteDock } from "@/components/home/SiteDock";
 import { Stack } from "@/components/home/Stack";
 import { Stats } from "@/components/home/Stats";
+import { TerminalScene } from "@/components/home/TerminalScene";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
 
 /** True once the hero has fully left the viewport (with a margin, so it resumes before it shows). */
@@ -53,7 +53,7 @@ export default function Home() {
         <Experience />
         <Fintech />
         <AllocationsScene />
-        <LaptopScene />
+        <TerminalScene />
         <GigaBrainScene />
         <ProjectsScene />
         <EngineeringScene />
