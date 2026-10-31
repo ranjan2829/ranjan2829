@@ -1,24 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Fira_Code, Outfit } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
-const display = Space_Grotesk({
+// One family for text and display, its mono for figures and labels.
+const display = Geist({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-geist",
   display: "swap",
 });
 
-const mono = Fira_Code({
+const mono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
-const name = Outfit({
-  subsets: ["latin"],
-  variable: "--font-name",
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -77,13 +72,13 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+    { media: "(prefers-color-scheme: light)", color: "#fbfbfd" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
   ],
 };
 
-// Default is light. Dark only if the visitor chose it.
-const themeScript = `try{var t=localStorage.getItem('theme')==='dark'?'dark':'light';var e=document.documentElement;e.classList.toggle('dark',t==='dark');e.style.colorScheme=t}catch(e){}`;
+// Default is dark, so the black hole reads as space. Light only if the visitor chose it.
+const themeScript = `try{var t=localStorage.getItem('theme')==='light'?'light':'dark';var e=document.documentElement;e.classList.toggle('dark',t==='dark');e.style.colorScheme=t}catch(e){}`;
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -105,7 +100,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${display.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
@@ -113,7 +112,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
       </head>
-      <body className={`${display.variable} ${mono.variable} ${name.variable} antialiased`} suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
         <a href="#main" className="skip-link">
           Skip to content
         </a>
