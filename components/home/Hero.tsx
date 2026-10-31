@@ -49,7 +49,7 @@ export function Hero() {
           </BlurFade>
 
           <h1 id="hero-name" className="sr-only">
-            {site.name} — Lead AI Infrastructure &amp; Full-Stack Engineer at Allocations
+            {site.name} — Lead AI Infrastructure &amp; Full-Stack Engineer
           </h1>
           <HyperText
             as="div"
@@ -60,13 +60,10 @@ export function Hero() {
             Ranjan
           </HyperText>
 
-          {/* Who, where, and the stakes — the three things a reader decides on first. */}
+          {/* What I am, and the stakes — the two things a reader decides on first. */}
           <BlurFade delay={0.15}>
             <p className="mt-8 text-balance text-[clamp(1.4rem,2.6vw,2.1rem)] font-semibold leading-[1.15] tracking-[-0.03em]">
-              Lead AI Infrastructure &amp; <span className="whitespace-nowrap">Full-Stack Engineer</span>{" "}
-              <span className="whitespace-nowrap">
-                at <span className="text-accent">Allocations</span>
-              </span>
+              Lead AI Infrastructure &amp; <span className="whitespace-nowrap">Full-Stack Engineer</span>
             </p>
             <p className="mt-2 max-w-2xl text-pretty text-[clamp(1.1rem,1.9vw,1.45rem)] leading-snug tracking-[-0.015em] text-muted">
               Building the AI layer of a FINRA-regulated firm that manages{" "}
