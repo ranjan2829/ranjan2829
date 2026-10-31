@@ -197,7 +197,41 @@ body::before {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background: #000;
+  /* Transparent so the poster below shows until the canvas paints its first
+     frame; the live render is opaque and covers it exactly. */
+  background: transparent;
+}
+
+/* A frame of the live black hole: covers WebGPU start-up on desktop, and stands
+   in where the renderer doesn't run (phones, reduced motion). */
+.blackhole-poster {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: #000 url("/blackhole-poster.jpg") right center / cover no-repeat;
+}
+
+@media (max-width: 1023px) {
+  /* Behind the name only: fade out before the body copy so small text keeps its contrast. */
+  .blackhole-poster {
+    opacity: 0.55;
+    background-position: 70% 15%;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 20%, transparent 46%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 20%, transparent 46%);
+  }
+
+  /* Dark type can't sit on a black photo; light mode on phones keeps its ground. */
+  html:not(.dark) .blackhole-poster {
+    display: none;
+  }
+}
+
+/* Once the hero has scrolled away every section covers the hole, so take it out
+   of layout: the renderer pauses itself when its canvas has no box. */
+.blackhole-page[data-hero-offscreen] .blackhole-bg,
+.blackhole-page[data-hero-offscreen] .blackhole-poster {
+  display: none;
 }
 
 .blackhole-canvas {
@@ -431,7 +465,7 @@ body::before {
 }
 
 .name-fill {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)), url("/blackhole-frame.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)), url("/blackhole-frame.jpg");
   background-size: 100% 100%, 240% auto;
   background-position: 0 0, 0% 50%;
   -webkit-background-clip: text;
@@ -442,7 +476,8 @@ body::before {
 
 /* On black, lift the image's blacks so the letters read against the hole. */
 .dark .name-fill {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.42)), url("/blackhole-frame.jpg");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.58)), url("/blackhole-frame.jpg");
+  filter: drop-shadow(0 0 28px rgba(41, 151, 255, 0.28)) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.6));
 }
 
 @media (prefers-reduced-motion: reduce) {

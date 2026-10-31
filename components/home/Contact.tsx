@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useInView } from "motion/react";
 import type { COBEOptions } from "cobe";
 import { ArrowUpRight, Check, Copy } from "lucide-react";
 import { Globe } from "@/components/magicui/globe";
@@ -42,6 +43,9 @@ export function Contact() {
   const { theme, mounted } = useTheme();
   const dark = !mounted || theme === "dark";
   const [copied, setCopied] = useState(false);
+  const globeRef = useRef<HTMLDivElement>(null);
+  // WebGL runs only while the globe is near the viewport.
+  const globeNear = useInView(globeRef, { margin: "200px" });
 
   // Many readers would rather paste the address into their own client than open a mail app.
   const copyEmail = async () => {
@@ -116,9 +120,9 @@ export function Contact() {
             aria-hidden
             className="absolute inset-[8%] rounded-full [background:radial-gradient(circle,var(--glow)_0%,transparent_70%)] blur-2xl"
           />
-          <div className="relative aspect-square w-full" aria-hidden>
+          <div ref={globeRef} className="relative aspect-square w-full" aria-hidden>
             {/* Mount once the theme is known, so the globe isn't built twice on load. */}
-            {mounted && (
+            {mounted && globeNear && (
               <Globe key={dark ? "dark" : "light"} config={dark ? GLOBE_DARK : GLOBE_LIGHT} className="max-w-none" />
             )}
           </div>

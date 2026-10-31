@@ -1,6 +1,7 @@
 "use client";
 
-import React, { forwardRef, useRef } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
+import { useInView, useReducedMotion } from "motion/react";
 import { ArrowUpRight, Github } from "lucide-react";
 import { CardBody, CardContainer, CardItem } from "@/components/aceternity/3d-card";
 import { MacbookScroll } from "@/components/aceternity/macbook-scroll";
@@ -65,25 +66,60 @@ const prompt = (
   </>
 );
 
-const session = [
-  { cmd: "whoami", out: ["lead ai infrastructure & full-stack engineer"] },
-  {
-    cmd: "cat now.txt",
-    out: [
-      "firm    finra-regulated · $5B in client assets",
-      "mcp     3 servers · 40+ tools · oauth 2.0",
-      "agents  10 behind one gateway",
-    ],
-  },
+type ScriptLine = { kind: "cmd" | "out"; text: string };
+
+const script: ScriptLine[] = [
+  { kind: "cmd", text: "whoami" },
+  { kind: "out", text: "lead ai infrastructure & full-stack engineer" },
+  { kind: "cmd", text: "cat now.txt" },
+  { kind: "out", text: "firm    finra-regulated · $5B in client assets" },
+  { kind: "out", text: "mcp     3 servers · 40+ tools · oauth 2.0" },
+  { kind: "out", text: "agents  10 behind one gateway" },
 ];
+
+// A command types one character per tick and then pauses; an output line lands in one tick.
+const starts: number[] = [];
+const SCRIPT_TICKS = script.reduce((tick, line) => {
+  starts.push(tick);
+  return tick + (line.kind === "cmd" ? line.text.length + 6 : 3);
+}, 0);
+
+const Caret = () => (
+  <span className="inline-block h-[1em] w-[0.6em] translate-y-[0.15em] bg-white/80 motion-safe:animate-pulse" />
+);
+
+/** Types the session out once the screen is in view; reduced motion shows it finished. */
+function useTyping(active: boolean) {
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    if (!active) return;
+    const id = setInterval(() => {
+      setTick((t) => {
+        if (t >= SCRIPT_TICKS) {
+          clearInterval(id);
+          return t;
+        }
+        return t + 1;
+      });
+    }, 55);
+    return () => clearInterval(id);
+  }, [active]);
+  return tick;
+}
 
 /**
  * What the laptop shows: the site's black hole as ASCII art, with a whoami
- * session over it. Sized in container units so it fits any screen width.
+ * session typing over it. Sized in container units so it fits any screen width.
  */
 function LaptopScreen() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const reduceMotion = useReducedMotion();
+  const tick = useTyping(inView && !reduceMotion);
+  const shown = reduceMotion ? SCRIPT_TICKS : tick;
+
   return (
-    <div className="@container relative size-full overflow-hidden bg-black font-mono text-white">
+    <div ref={ref} className="@container relative size-full overflow-hidden bg-black font-mono text-white">
       <div className="flex h-[4cqw] items-center gap-[0.8cqw] border-b border-white/10 px-[2cqw]">
         <span className="size-[1.2cqw] rounded-full bg-[#ff5f57]" />
         <span className="size-[1.2cqw] rounded-full bg-[#febc2e]" />
@@ -96,23 +132,35 @@ function LaptopScreen() {
       >
         {ASCII_BLACK_HOLE}
       </pre>
-      <div className="absolute left-[2.5cqw] top-[6.5cqw] flex flex-col gap-[0.8cqw] rounded-[0.8cqw] bg-black/65 p-[1cqw] text-[max(1.5cqw,8px)] leading-[1.45]">
-        {session.map((step) => (
-          <div key={step.cmd}>
-            <p className="m-0">
-              {prompt} {step.cmd}
-            </p>
-            {step.out.map((line) => (
-              <p key={line} className="m-0 whitespace-pre text-white/75">
-                {line}
+      <div className="sr-only">
+        {script.map((line) => (line.kind === "cmd" ? `$ ${line.text}` : line.text)).join("\n")}
+      </div>
+      <div
+        aria-hidden
+        className="absolute left-[2.5cqw] top-[6.5cqw] flex flex-col gap-[0.4cqw] rounded-[0.8cqw] bg-black/65 p-[1cqw] text-[max(1.5cqw,8px)] leading-[1.45]"
+      >
+        {script.map((line, i) => {
+          if (shown < starts[i]) return null;
+          if (line.kind === "out") {
+            return (
+              <p key={i} className="m-0 whitespace-pre text-white/75">
+                {line.text}
               </p>
-            ))}
-          </div>
-        ))}
-        <p className="m-0">
-          {prompt}{" "}
-          <span className="inline-block h-[1em] w-[0.6em] translate-y-[0.15em] bg-white/80 motion-safe:animate-pulse" />
-        </p>
+            );
+          }
+          const typed = line.text.slice(0, Math.max(0, shown - starts[i]));
+          return (
+            <p key={i} className={cn("m-0", i > 0 && "mt-[0.6cqw]")}>
+              {prompt} {typed}
+              {typed.length < line.text.length && <Caret />}
+            </p>
+          );
+        })}
+        {shown >= SCRIPT_TICKS && (
+          <p className="m-0 mt-[0.6cqw]">
+            {prompt} <Caret />
+          </p>
+        )}
       </div>
     </div>
   );
@@ -122,7 +170,7 @@ function LaptopTitle() {
   return (
     <span className="flex flex-col items-center gap-4 text-center font-sans">
       <span className="font-mono text-[12px] font-normal uppercase tracking-[0.18em] text-muted">
-        <span className="text-accent">03</span> · Under the hood
+        <span className="text-accent">04</span> · Under the hood
       </span>
       <span className="bg-gradient-to-b from-foreground to-foreground/55 bg-clip-text text-[clamp(2.5rem,6vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-transparent">
         Built in the terminal.
@@ -167,7 +215,7 @@ export function GigaBrainScene() {
   return (
     <Section id="gigabrain" labelledBy="gigabrain-title">
       <SectionHeader
-        index="04"
+        index="05"
         eyebrow={gigabrain.role}
         id="gigabrain-title"
         title="Trading agents that hold their own keys."
@@ -249,7 +297,7 @@ export function AllocationsScene() {
   return (
     <Section id="work" labelledBy="alloc-title">
       <SectionHeader
-        index="02"
+        index="03"
         eyebrow="Allocations · Feb 2026 — now · latest"
         id="alloc-title"
         title="AI for a firm trusted with $5B of its clients' money."
@@ -322,7 +370,7 @@ export function ProjectsScene() {
   return (
     <Section id="projects" labelledBy="projects-title" wide>
       <SectionHeader
-        index="05"
+        index="06"
         eyebrow="Projects"
         id="projects-title"
         title="Shipped, live, and open source."
@@ -371,7 +419,7 @@ export function EngineeringScene() {
   return (
     <Section id="engineering" labelledBy="eng-title">
       <SectionHeader
-        index="06"
+        index="07"
         eyebrow="Engineering"
         id="eng-title"
         title="Low latency. High stakes."
