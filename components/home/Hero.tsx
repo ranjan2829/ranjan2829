@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import { useInView } from "motion/react";
 import { ArrowDown, Code2, FileText, Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { BlurFade } from "@/components/magicui/blur-fade";
@@ -21,21 +22,28 @@ const socials = [
 export function Hero() {
   const { theme, mounted } = useTheme();
   const dark = !mounted || theme === "dark";
+  const heroRef = useRef<HTMLElement>(null);
+  const heroNear = useInView(heroRef, { margin: "100px" });
 
   return (
     <section
+      ref={heroRef}
       id="home"
       aria-labelledby="hero-name"
       className="relative flex min-h-svh flex-col justify-center overflow-hidden px-5 pb-28 pt-28 sm:px-8 lg:px-12"
     >
-      <Particles
-        className="pointer-events-none absolute inset-0"
-        quantity={90}
-        staticity={40}
-        size={0.5}
-        color={dark ? "#ffffff" : "#1d1d1f"}
-      />
-      <LightRays count={6} color={dark ? "rgba(41,151,255,0.18)" : "rgba(0,102,204,0.10)"} speed={16} />
+      {heroNear && (
+        <>
+          <Particles
+            className="pointer-events-none absolute inset-0"
+            quantity={90}
+            staticity={40}
+            size={0.5}
+            color={dark ? "#ffffff" : "#1d1d1f"}
+          />
+          <LightRays count={6} color={dark ? "rgba(41,151,255,0.18)" : "rgba(0,102,204,0.10)"} speed={16} />
+        </>
+      )}
 
       <div className="relative mx-auto w-full max-w-7xl">
         <div className="flex max-w-3xl flex-col">

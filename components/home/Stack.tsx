@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import { useInView } from "motion/react";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { GlareHover } from "@/components/magicui/glare-hover";
 import { IconCloud } from "@/components/magicui/icon-cloud";
@@ -26,12 +27,15 @@ export function Stack() {
   const { theme, mounted } = useTheme();
   const dark = !mounted || theme === "dark";
   const color = dark ? "c9c9cf" : "2a2a2e";
+  const cloudRef = useRef<HTMLDivElement>(null);
+  // The cloud animates every frame, so it runs only while near the viewport.
+  const cloudNear = useInView(cloudRef, { margin: "200px" });
   const images = slugs.map((slug) => `https://cdn.simpleicons.org/${slug}/${color}`);
 
   return (
     <Section id="stack" labelledBy="stack-title">
       <SectionHeader
-        index="08"
+        index="09"
         eyebrow="Stack"
         id="stack-title"
         title="Everything it takes to ship."
@@ -49,8 +53,8 @@ export function Stack() {
               aria-hidden
               className="absolute inset-0 [background:radial-gradient(circle_at_50%_45%,var(--glow),transparent_65%)]"
             />
-            <div aria-hidden className="relative">
-              <IconCloud key={color} images={images} />
+            <div ref={cloudRef} aria-hidden className="relative min-h-[400px] min-w-[300px]">
+              {cloudNear && <IconCloud key={color} images={images} />}
             </div>
             <span className="absolute bottom-4 left-5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
               drag to spin

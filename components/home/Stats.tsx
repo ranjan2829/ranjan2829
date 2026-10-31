@@ -233,7 +233,7 @@ export function Stats() {
   return (
     <Section id="stats" labelledBy="stats-title">
       <SectionHeader
-        index="07"
+        index="08"
         eyebrow="By the numbers"
         id="stats-title"
         title="Shipping, every day."

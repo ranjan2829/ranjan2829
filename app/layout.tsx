@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s · Ranjan",
   },
   description:
-    "Ranjan — AI Infrastructure Engineer building the systems that let AI agents act autonomously: Model Context Protocol, agent execution safety, and on-chain execution across fintech and crypto.",
+    "Ranjan — Lead AI Infrastructure & Full-Stack Engineer building the AI layer of a FINRA-regulated firm managing $5B in client assets: Model Context Protocol, agent execution safety, and on-chain execution.",
   keywords: [
     "Ranjan",
     "AI Infrastructure Engineer",
@@ -40,6 +40,9 @@ export const metadata: Metadata = {
     "Next.js",
     "FastAPI",
     "NestJS",
+    "Fintech",
+    "FINRA",
+    "Trading agents",
   ],
   authors: [{ name: "Ranjan", url: SITE }],
   creator: "Ranjan",
@@ -51,13 +54,13 @@ export const metadata: Metadata = {
     siteName: "Ranjan",
     title: "Ranjan — AI Infrastructure & Full-Stack Engineer",
     description:
-      "Building the infrastructure that lets AI agents act autonomously — tool protocols, execution safety, and the systems underneath.",
+      "Building the AI layer of a FINRA-regulated firm managing $5B in client assets — Model Context Protocol, agent execution safety, and on-chain execution.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Ranjan — AI Infrastructure & Full-Stack Engineer",
     description:
-      "Building the infrastructure that lets AI agents act autonomously — tool protocols, execution safety, and the systems underneath.",
+      "Building the AI layer of a FINRA-regulated firm managing $5B in client assets — Model Context Protocol, agent execution safety, and on-chain execution.",
     creator: "@manofsteel3129",
   },
   robots: {
