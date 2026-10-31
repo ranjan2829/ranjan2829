@@ -12,7 +12,7 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: "light",
+  theme: "dark",
   toggleTheme: () => {},
   mounted: false,
 });
@@ -32,16 +32,16 @@ function subscribeTheme(onChange: () => void) {
 
 function readStoredTheme(): Theme {
   try {
-    return window.localStorage.getItem("theme") === "dark" ? "dark" : "light";
+    return window.localStorage.getItem("theme") === "light" ? "light" : "dark";
   } catch {
-    return "light";
+    return "dark";
   }
 }
 
 const subscribeNothing = () => () => {};
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const theme = useSyncExternalStore(subscribeTheme, readStoredTheme, (): Theme => "light");
+  const theme = useSyncExternalStore(subscribeTheme, readStoredTheme, (): Theme => "dark");
   const mounted = useSyncExternalStore(subscribeNothing, () => true, () => false);
 
   useEffect(() => {

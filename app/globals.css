@@ -1,41 +1,84 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --color-card-hover: var(--card-hover);
+  --color-muted: var(--muted);
+  /* shadcn-style names the Magic UI components use */
+  --color-border: var(--card-border);
+  --color-input: var(--card-border);
+  --color-muted-foreground: var(--muted);
+  --color-primary-foreground: var(--bg);
+  --color-accent-foreground: var(--fg);
+  --color-accent: var(--accent);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-green: var(--accent-green);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-red: var(--accent-red);
+
+  --font-display: var(--font-geist), ui-sans-serif, sans-serif;
+  --font-name: var(--font-geist), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+/* Keynote palette: Apple's light gray / pure black grounds, hairline borders,
+   Apple link blue. Every text color clears WCAG AA on its ground. */
 :root {
-  --bg: #ffffff;
-  --fg: #0a0a0b;
-  --card: #fafafa;
-  --card-border: #e4e4e7;
-  --card-hover: #d4d4d8;
-  --muted: #52525b;
+  --bg: #fbfbfd;
+  --fg: #1d1d1f;
+  --card: #ffffff;
+  --card-border: #e5e5ea;
+  --card-hover: #d2d2d7;
+  --muted: #6e6e73;
 
-  /* Accents are theme-scoped: the saturated values below are only legible
-     on dark. Light mode uses darkened variants to clear WCAG AA (4.5:1). */
-  --accent: #2563eb;
+  --accent: #0066cc;
   --accent-cyan: #0e7490;
   --accent-green: #15803d;
   --accent-yellow: #a16207;
-  --accent-red: #dc2626;
+  --accent-red: #b91c1c;
 
-  --glow: rgba(37, 99, 235, 0.05);
+  --glow: rgba(0, 102, 204, 0.06);
+
 }
 
 .dark {
-  --bg: #09090b;
-  --fg: #fafafa;
-  --card: #111113;
-  --card-border: #232326;
-  --card-hover: #3f3f46;
-  --muted: #a1a1aa;
+  --bg: #000000;
+  --fg: #f5f5f7;
+  --card: #0d0d0f;
+  --card-border: #1d1d20;
+  --card-hover: #2c2c30;
+  --muted: #86868b;
 
-  --accent: #60a5fa;
-  --accent-cyan: #22d3ee;
-  --accent-green: #4ade80;
-  --accent-yellow: #facc15;
-  --accent-red: #f87171;
+  --accent: #2997ff;
+  --accent-cyan: #67c6d9;
+  --accent-green: #5bc489;
+  --accent-yellow: #d9b45a;
+  --accent-red: #e07a7a;
 
-  --glow: rgba(96, 165, 250, 0.08);
+  --glow: rgba(41, 151, 255, 0.10);
 }
 
 html {
@@ -188,9 +231,9 @@ body::before {
     pointer-events: none;
     background: linear-gradient(
       90deg,
-      rgb(255, 255, 255) 0%,
-      rgba(255, 255, 255, 0.94) 28%,
-      rgba(255, 255, 255, 0.42) 50%,
+      rgb(251, 251, 253) 0%,
+      rgba(251, 251, 253, 0.94) 28%,
+      rgba(251, 251, 253, 0.42) 50%,
       transparent 66%
     );
   }
@@ -204,9 +247,9 @@ body::before {
   html.dark .blackhole-page::after {
     background: linear-gradient(
       90deg,
-      rgb(9, 9, 11) 0%,
-      rgba(9, 9, 11, 0.92) 28%,
-      rgba(9, 9, 11, 0.4) 50%,
+      rgb(0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.92) 28%,
+      rgba(0, 0, 0, 0.4) 50%,
       transparent 66%
     );
   }
@@ -320,5 +363,90 @@ body::before {
     animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Magic UI animations (from each component's registry entry) */
+@theme inline {
+  --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-shiny-text: shiny-text 8s infinite;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+
+  @keyframes shiny-text {
+    0%, 90%, 100% {
+      background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+    30%, 60% {
+      background-position: calc(100% + var(--shiny-width)) 0;
+    }
+  }
+  @keyframes orbit {
+    0% {
+      transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+    }
+    100% {
+      transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+    }
+  }
+  @keyframes shimmer-slide {
+    to {
+      transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+  @keyframes spin-around {
+    0% {
+      transform: translateZ(0) rotate(0);
+    }
+    15%, 35% {
+      transform: translateZ(0) rotate(90deg);
+    }
+    65%, 85% {
+      transform: translateZ(0) rotate(270deg);
+    }
+    100% {
+      transform: translateZ(0) rotate(360deg);
+    }
+  }
+}
+
+/* Showcase components (from each registry entry) */
+@theme inline {
+  --animate-background-position-spin: background-position-spin 3000ms infinite alternate;
+
+  @keyframes background-position-spin {
+    0% {
+      background-position: top center;
+    }
+    100% {
+      background-position: bottom center;
+    }
+  }
+}
+
+/* Hero name: letters filled with a frame of the live black hole, drifting. */
+@keyframes name-pan {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+.name-fill {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)), url("/blackhole-frame.jpg");
+  background-size: 100% 100%, 240% auto;
+  background-position: 0 0, 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: name-pan 18s ease-in-out infinite alternate;
+}
+
+/* On black, lift the image's blacks so the letters read against the hole. */
+.dark .name-fill {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.42)), url("/blackhole-frame.jpg");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .name-fill {
+    animation: none;
   }
 }
